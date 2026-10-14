@@ -187,20 +187,15 @@ const backdropPanel = (id: string, file: string): MediaAsset => ({
  *
  * Each entry mirrors the aspect ratios of the asset it replaced, so the
  * alternating card composition, image dimensions and stage proportions in the
- * section are unchanged. Sources are the live humanmadelogic.fun uploads,
- * allow-listed in `next.config.js`.
+ * section are unchanged.
  */
 /*
- * Selected Work sources.
- *
- * Currently the live WordPress uploads, allow-listed in `next.config.js`.
- * To serve them from this repository instead — which removes the runtime
- * dependency on that origin — run `./scripts/fetch-selected-work-images.sh`
- * and change this one line to:
- *
- *   const WORK_UPLOADS = '/images/hml/selected-work';
+ * Selected Work sources. Served from this repository so the homepage does
+ * not depend on the WordPress origin. The four files are the service
+ * photographs: studio SUV (photography), post-production suite (video),
+ * Noir Aviary shopfront (design and branding), product packaging (eCommerce).
  */
-const WORK_UPLOADS = 'https://humanmadelogic.fun/wp-content/uploads/2025/03';
+const WORK_UPLOADS = '/images/hml/selected-work';
 
 const serviceWork = (
   id: string,
@@ -227,7 +222,7 @@ export const media = {
     'A silver-blue performance SUV lit in a photographic studio, ringed by softboxes and warm strip lighting',
     {
       desktop: { aspect: '16 / 9', position: '50% 58%' },
-      mobile: { aspect: '4 / 3', position: '52% 58%' },
+      mobile: { aspect: '12 / 5', position: '50% 50%' },
     },
     {
       mode: 'refract',
@@ -245,8 +240,8 @@ export const media = {
     'Post-Production-Studio-Monochrome-Photograph',
     'Three editors silhouetted at monitors in a darkened post-production suite',
     {
-      desktop: { aspect: '4 / 5', position: '50% 52%' },
-      mobile: { aspect: '4 / 5', position: '50% 52%' },
+      desktop: { aspect: '2 / 1', position: '50% 50%' },
+      mobile: { aspect: '2 / 1', position: '50% 50%' },
     },
     {
       mode: 'refract',
@@ -265,7 +260,7 @@ export const media = {
     'The Noir Aviary shopfront: a black facade with yellow window panels and bird motifs',
     {
       desktop: { aspect: '5 / 4', position: '50% 62%' },
-      mobile: { aspect: '4 / 3', position: '50% 62%' },
+      mobile: { aspect: '3 / 2', position: '50% 50%' },
     },
     {
       mode: 'optical',
@@ -284,7 +279,7 @@ export const media = {
     'A flat-lay of kraft and white product packaging, folded garments and ceramics on a blue ground',
     {
       desktop: { aspect: '16 / 9', position: '50% 52%' },
-      mobile: { aspect: '4 / 3', position: '50% 52%' },
+      mobile: { aspect: '4 / 3', position: '50% 50%' },
     },
     {
       mode: 'material',
