@@ -22,7 +22,8 @@ const LAYOUTS = {
     body: 'lg:col-span-4 lg:col-start-1 lg:row-start-1 lg:pb-6',
     sizes: '(max-width: 1024px) 100vw, 62vw',
     stageAspect: 'aspect-[4/3] sm:aspect-[16/10]',
-    window: 'left-[6%] top-[8%] w-[80%]',
+    window:
+      'left-1/2 top-1/2 w-[88%] -translate-x-1/2 -translate-y-1/2 lg:left-[6%] lg:top-[8%] lg:w-[80%] lg:translate-x-0 lg:translate-y-0',
   },
   'offset-right': {
     root: 'lg:grid lg:grid-cols-12 lg:items-center lg:gap-x-8',
@@ -30,7 +31,8 @@ const LAYOUTS = {
     body: 'lg:col-span-5 lg:col-start-1 lg:row-start-1',
     sizes: '(max-width: 1024px) 100vw, 42vw',
     stageAspect: 'aspect-[4/3] sm:aspect-[5/4]',
-    window: 'right-[6%] top-[10%] w-[80%]',
+    window:
+      'left-1/2 top-1/2 w-[88%] -translate-x-1/2 -translate-y-1/2 lg:left-auto lg:right-[6%] lg:top-[10%] lg:w-[80%] lg:translate-x-0 lg:translate-y-0',
   },
   'offset-left': {
     root: 'lg:grid lg:grid-cols-12 lg:items-center lg:gap-x-8',
@@ -38,15 +40,17 @@ const LAYOUTS = {
     body: 'lg:col-span-4 lg:col-start-9',
     sizes: '(max-width: 1024px) 100vw, 58vw',
     stageAspect: 'aspect-[4/3] sm:aspect-[5/4]',
-    window: 'bottom-[9%] left-[6%] w-[80%]',
+    window:
+      'left-1/2 top-1/2 w-[88%] -translate-x-1/2 -translate-y-1/2 lg:bottom-[9%] lg:left-[6%] lg:top-auto lg:w-[80%] lg:translate-x-0 lg:translate-y-0',
   },
   panorama: {
     root: '',
     frame: 'lg:-mx-[7vw]',
     body: 'lg:grid lg:grid-cols-12 lg:items-end lg:gap-x-8',
     sizes: '100vw',
-    stageAspect: 'aspect-[16/10] sm:aspect-[21/9]',
-    window: 'left-[4%] top-[9%] w-[72%] md:w-[64%]',
+    stageAspect: 'aspect-[4/3] sm:aspect-[16/10] lg:aspect-[21/9]',
+    window:
+      'left-1/2 top-1/2 w-[88%] -translate-x-1/2 -translate-y-1/2 lg:left-[4%] lg:top-[9%] lg:w-[64%] lg:translate-x-0 lg:translate-y-0',
   },
 } as const;
 
