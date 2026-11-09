@@ -1,54 +1,58 @@
 'use client';
 
+import Image from 'next/image';
+import { useState } from 'react';
 import { homeV2Config } from '@/config/home-v2';
 import { hasText, isProblemPopulated } from '@/lib/hml/homeV2';
 import { ScrollHighlightWords } from './ScrollHighlightWords';
-import { useScrollReveal } from './useScrollReveal';
+
+function PainImage({ src }: { src: string }) {
+  const [missing, setMissing] = useState(false);
+  if (missing) {
+    return <div className="aspect-[4/3] w-full rounded-sm bg-[var(--h2v-tint)]" aria-hidden />;
+  }
+  return (
+    <div className="relative aspect-[4/3] w-full overflow-hidden">
+      <Image
+        src={src}
+        alt=""
+        fill
+        className="object-cover"
+        sizes="(min-width: 768px) 30vw, 90vw"
+        onError={() => setMissing(true)}
+      />
+    </div>
+  );
+}
 
 export function HomeProblemSection() {
   const { problem } = homeV2Config.content;
-  const reveal = useScrollReveal<HTMLElement>();
+  const { problemPainImages } = homeV2Config.assets;
 
   if (!isProblemPopulated(homeV2Config.content)) return null;
 
   const lines = problem.lines?.filter((line) => hasText(line)) ?? [];
 
   return (
-    <section
-      ref={reveal.ref}
-      className={`bg-paper py-16 sm:py-24 lg:py-28 ${reveal.className}`}
-      aria-labelledby={hasText(problem.heading) ? 'home-problem-heading' : undefined}
-    >
-      <div className="mx-auto max-w-editorial px-5 sm:px-8 lg:px-12">
+    <section className="bg-paper px-5 py-16 sm:px-8 sm:py-24 lg:px-12 lg:py-28">
+      <div className="mx-auto max-w-editorial">
         {hasText(problem.statement) ? (
           <ScrollHighlightWords
             text={problem.statement}
-            className="max-w-[18ch] text-[clamp(1.75rem,5.5vw,3.25rem)] font-medium leading-[1.08] tracking-[-0.04em]"
+            className="home-v2-display max-w-[14ch] text-[clamp(2.25rem,10.5vw,9.375rem)] leading-[0.9] text-obsidian"
           />
         ) : null}
-        {hasText(problem.statementSupport) ? (
-          <p className="mt-8 max-w-[48ch] text-[18px] leading-[1.55] text-slate sm:text-[20px]">
-            {problem.statementSupport}
-          </p>
-        ) : null}
-        {hasText(problem.heading) ? (
-          <h2
-            id="home-problem-heading"
-            className="mt-10 text-[13px] font-medium uppercase tracking-[0.16em] text-slate"
-          >
-            {problem.heading}
-          </h2>
-        ) : null}
         {lines.length > 0 ? (
-          <ul
-            className={`grid gap-6 ${hasText(problem.heading) || hasText(problem.statement) ? 'mt-10' : ''} sm:grid-cols-3 sm:gap-8`}
-          >
-            {lines.map((line) => (
-              <li
-                key={line}
-                className="rounded-[14px] border border-obsidian/10 bg-paper p-5 text-[16px] leading-[1.6] text-obsidian"
-              >
-                {line}
+          <ul className="mt-14 grid gap-8 border-t-2 border-obsidian pt-8 sm:grid-cols-3 sm:gap-7">
+            {lines.map((line, index) => (
+              <li key={line} className="min-w-0">
+                {problemPainImages[index] ? <PainImage src={problemPainImages[index]} /> : null}
+                <span className="home-v2-display mt-4 block text-[clamp(1.75rem,4vw,2.75rem)] text-slate">
+                  {String(index + 1).padStart(2, '0')}
+                </span>
+                <p className="mt-3 max-w-[400px] text-[18px] font-medium leading-snug tracking-[-0.01em] text-obsidian sm:text-[21px]">
+                  {line}
+                </p>
               </li>
             ))}
           </ul>

@@ -162,11 +162,16 @@ export const homeV2Config = {
     heroHeight: 1200,
     whoWidth: 1200,
     whoHeight: 900,
-    processStepIcons: [
-      '/images/hml/services/svc-branding-step-1.svg',
-      '/images/hml/services/svc-branding-step-2.svg',
-      '/images/hml/services/svc-branding-step-3.svg',
-      '/images/hml/services/svc-branding-step-4.svg',
+    processPlates: [
+      '/images/hml/process-monument.webp',
+      '/images/hml/process-aperture.webp',
+      '/images/hml/process-pillar.webp',
+      '/images/hml/terrain.webp',
+    ] as const,
+    problemPainImages: [
+      '/images/hml/services/svc-branding-pain-1.webp',
+      '/images/hml/services/svc-seo-aeo-geo-pain-2.webp',
+      '/images/hml/services/svc-performance-marketing-pain-2.webp',
     ] as const,
   },
   content: {

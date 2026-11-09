@@ -2,42 +2,44 @@
 
 import Link from 'next/link';
 import { serviceSlugs, services } from '@/config/services';
+import { HomeV2HMark } from './homeV2Typography';
 
 export function HomeServicesTicker() {
   const items = serviceSlugs.map((slug) => ({
-    name: services[slug].title,
+    name: services[slug].title.toUpperCase(),
     href: `/services/${slug}`,
   }));
 
-  const track = (
-    <div className="flex shrink-0 items-center gap-10">
-      {items.map((item) => (
-        <Link
-          key={item.href}
-          href={item.href}
-          className="inline-flex min-h-11 items-center whitespace-nowrap text-[15px] font-medium tracking-[-0.02em] text-obsidian/80 transition-colors hover:text-obsidian"
-        >
-          {item.name}
-        </Link>
+  const row = (
+    <>
+      {items.map((item, index) => (
+        <span key={item.href} className="inline-flex shrink-0 items-center gap-8 sm:gap-[34px]">
+          <Link
+            href={item.href}
+            className="home-v2-display inline-flex min-h-11 items-center text-[clamp(1.75rem,5vw,3.625rem)] text-white transition-opacity hover:opacity-90"
+          >
+            {item.name}
+          </Link>
+          {index < items.length - 1 ? (
+            <HomeV2HMark className="hidden shrink-0 text-signalYellow sm:block" />
+          ) : null}
+        </span>
       ))}
-    </div>
+    </>
   );
 
   return (
-    <section
-      aria-label="Services"
-      className="home-v2-ticker border-y border-obsidian/10 bg-paper py-3"
-    >
-      <div className="relative overflow-hidden">
-        <div className="home-v2-ticker-track flex w-max gap-10 px-5 sm:px-8 lg:px-12">
-          {track}
-          <div aria-hidden="true" className="flex shrink-0 items-center gap-10">
-            {items.map((item) => (
-              <span
-                key={`dup-${item.href}`}
-                className="whitespace-nowrap text-[15px] font-medium tracking-[-0.02em] text-obsidian/80"
-              >
-                {item.name}
+    <section aria-label="Services" className="home-v2-ink-band home-v2-ticker overflow-hidden py-5 sm:py-6">
+      <div className="relative">
+        <div className="home-v2-ticker-track flex w-max items-center gap-8 px-5 sm:gap-[34px] sm:px-8 lg:px-12">
+          {row}
+          <div aria-hidden="true" className="flex shrink-0 items-center gap-8 sm:gap-[34px]">
+            {items.map((item, index) => (
+              <span key={`dup-${item.href}`} className="inline-flex shrink-0 items-center gap-8 sm:gap-[34px]">
+                <span className="home-v2-display text-[clamp(1.75rem,5vw,3.625rem)] text-white">{item.name}</span>
+                {index < items.length - 1 ? (
+                  <HomeV2HMark className="hidden shrink-0 text-signalYellow sm:block" />
+                ) : null}
               </span>
             ))}
           </div>

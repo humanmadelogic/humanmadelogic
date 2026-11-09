@@ -15,6 +15,7 @@ import { HomeServicesCardsSection } from './home-v2/HomeServicesCardsSection';
 import { HomeServicesTicker } from './home-v2/HomeServicesTicker';
 import { HomeWhoSection } from './home-v2/HomeWhoSection';
 import { HomeWorkSection } from './home-v2/HomeWorkSection';
+import './home-v2/home-v2.css';
 
 export function HomePageV2() {
   useEffect(() => {
@@ -26,18 +27,20 @@ export function HomePageV2() {
 
   return (
     <HmlPageShell>
-      <HomeHeroSection />
-      {homeV2Config.enabled ? <HomeServicesTicker /> : null}
-      <HomeProblemSection />
-      <HomeBeliefSection />
-      <HomeServicesCardsSection />
-      <HomeHowWeWorkSection />
-      <HomeKitsSection />
-      <HomeWhoSection />
-      <HomePromisesSection />
-      <HomeWorkSection />
-      <HomeFaqSection />
-      <HomeFinalCtaSection />
+      <div className="home-v2">
+        <HomeHeroSection />
+        {homeV2Config.enabled ? <HomeServicesTicker /> : null}
+        <HomeProblemSection />
+        <HomeBeliefSection />
+        <HomeServicesCardsSection />
+        <HomeHowWeWorkSection />
+        <HomeKitsSection />
+        <HomeWhoSection />
+        <HomePromisesSection />
+        <HomeWorkSection />
+        <HomeFaqSection />
+        <HomeFinalCtaSection />
+      </div>
     </HmlPageShell>
   );
 }

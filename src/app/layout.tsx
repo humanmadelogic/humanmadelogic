@@ -25,6 +25,7 @@ const archivo = Archivo({
   subsets: ['latin'],
   display: 'swap',
   variable: '--font-grotesk',
+  weight: ['800'],
 });
 
 export const metadata: Metadata = {
