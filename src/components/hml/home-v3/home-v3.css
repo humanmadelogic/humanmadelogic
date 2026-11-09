@@ -21,7 +21,20 @@
   letter-spacing: -0.01em;
   line-height: 0.92;
   hyphens: none;
-  text-wrap: balance;
+  overflow-wrap: normal;
+  word-break: keep-all;
+}
+
+.home-v3 .h3-how aside h2,
+.home-v3 .h3-how aside .h3-word {
+  max-width: 100%;
+  overflow-wrap: normal;
+  word-break: keep-all;
+  white-space: nowrap;
+}
+
+.home-v3 .h3-how ol {
+  isolation: isolate;
 }
 
 .home-v3 .h3-word {

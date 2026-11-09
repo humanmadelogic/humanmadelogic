@@ -2,17 +2,17 @@
 
 import Image from 'next/image';
 import Link from 'next/link';
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
 import { homeV2Config } from '@/config/home-v2';
 import { serviceSlugs, services } from '@/config/services';
+import type { ServiceSlug } from '@/config/services';
 import { serviceHeroImage } from '@/lib/hml/serviceAssets';
 import { hasText, isServiceCardsPopulated } from '@/lib/hml/homeV2';
 import { useMediaQuery } from '@/lib/hml/useMediaQuery';
 import { H3Words } from './h3Typography';
 import { useH3Reveal } from './useH3Reveal';
 
-const PAIN = homeV2Config.assets.problemPainImages;
-const INDEX: Record<(typeof serviceSlugs)[number], string> = {
+const INDEX: Record<ServiceSlug, string> = {
   branding: '01',
   'seo-aeo-geo': '02',
   'performance-marketing': '03',
@@ -24,15 +24,20 @@ export function HomeV3Services() {
   const reveal = useH3Reveal<HTMLElement>();
   const desktop = useMediaQuery('(min-width: 1024px)');
   const [active, setActive] = useState(0);
-  const [openMobile, setOpenMobile] = useState(0);
+  const [openMobile, setOpenMobile] = useState<number | null>(null);
+
+  const pick = useCallback((index: number) => setActive(index), []);
 
   if (!isServiceCardsPopulated(homeV2Config.content)) return null;
 
   const blurb = serviceCards.blurb;
   const aiIdx = blurb.indexOf('People make the calls.');
+  const activeSlug = serviceSlugs[active] ?? serviceSlugs[0];
+  const activeService = services[activeSlug];
+  const activeCopy = serviceCards.items[activeSlug];
 
   return (
-    <section ref={reveal.ref} className={`px-5 py-20 sm:px-8 lg:px-12 ${reveal.className}`}>
+    <section ref={reveal.ref} className={`h3-services px-5 py-20 sm:px-8 lg:px-12 ${reveal.className}`}>
       <div className="mx-auto max-w-editorial min-w-0">
         <div className="grid gap-6 lg:grid-cols-2 lg:items-end">
           {hasText(serviceCards.heading) ? (
@@ -44,98 +49,143 @@ export function HomeV3Services() {
         </div>
 
         {desktop ? (
-          <div
-            className="mt-12 flex min-h-[420px] gap-2 overflow-hidden rounded-2xl border border-obsidian/15"
-            onMouseLeave={() => setActive(0)}
-          >
-            {serviceSlugs.map((slug, index) => {
-              const svc = services[slug];
-              const copy = serviceCards.items[slug];
-              const expanded = active === index;
-              return (
-                <article
-                  key={slug}
-                  tabIndex={0}
-                  className="relative flex min-w-0 flex-col border-r border-obsidian/10 bg-paper transition-[flex] duration-500 ease-out last:border-r-0 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2"
-                  style={{ flex: expanded ? '3.2 1 0%' : '1 1 0%' }}
-                  onMouseEnter={() => setActive(index)}
-                  onFocus={() => setActive(index)}
-                >
-                  <div className="flex min-h-[44px] items-end p-4">
-                    <span className="h3-display text-2xl text-slate">{INDEX[slug]}</span>
-                    <h3
-                      className={`h3-display ml-3 text-obsidian transition-all duration-500 ${
-                        expanded ? 'text-[clamp(1.5rem,2vw,2.5rem)]' : 'text-[clamp(0.85rem,1.2vw,1.1rem)] [writing-mode:vertical-rl] rotate-180'
+          <div className="mt-12 grid min-h-[min(520px,70vh)] grid-cols-[minmax(0,11fr)_minmax(0,13fr)] gap-10 lg:gap-14">
+            <ul
+              className="flex min-w-0 flex-col"
+              role="tablist"
+              aria-label={hasText(serviceCards.heading) ? serviceCards.heading : 'Services'}
+            >
+              {serviceSlugs.map((slug, index) => {
+                const svc = services[slug];
+                const selected = active === index;
+                return (
+                  <li key={slug} className="border-b border-obsidian/12 first:border-t">
+                    <button
+                      type="button"
+                      role="tab"
+                      id={`h3-svc-tab-${slug}`}
+                      aria-selected={selected}
+                      aria-controls="h3-svc-preview"
+                      tabIndex={selected ? 0 : -1}
+                      className={`group flex min-h-[44px] w-full flex-col gap-1 py-5 text-left transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 ${
+                        selected ? 'text-obsidian' : 'text-slate hover:text-obsidian'
                       }`}
+                      onMouseEnter={() => pick(index)}
+                      onFocus={() => pick(index)}
+                      onClick={() => pick(index)}
+                      onKeyDown={(event) => {
+                        if (event.key === 'ArrowDown') {
+                          event.preventDefault();
+                          pick((index + 1) % serviceSlugs.length);
+                        }
+                        if (event.key === 'ArrowUp') {
+                          event.preventDefault();
+                          pick((index - 1 + serviceSlugs.length) % serviceSlugs.length);
+                        }
+                      }}
                     >
-                      <H3Words text={svc.title} />
-                    </h3>
-                  </div>
-                  {expanded ? (
-                    <div className="flex flex-1 flex-col px-4 pb-6">
-                      <div className="relative mb-4 aspect-video w-full overflow-hidden rounded-lg">
-                        <Image
-                          src={serviceHeroImage(slug)}
-                          alt={svc.title}
-                          fill
-                          className="object-cover"
-                          sizes="40vw"
-                          loading="lazy"
-                        />
-                      </div>
-                      {PAIN[index] ? (
-                        <div className="relative mb-3 aspect-[3/2] w-full max-w-[200px] overflow-hidden rounded-md">
-                          <Image src={PAIN[index]} alt="" fill className="object-cover" sizes="200px" loading="lazy" />
-                        </div>
-                      ) : null}
-                      {hasText(copy.oneLiner) ? <p className="h3-body text-sm">{copy.oneLiner}</p> : null}
-                      <Link
-                        href={`/services/${slug}`}
-                        className="mt-auto inline-flex min-h-[44px] items-center border-b-2 border-signalYellow pt-4 text-[15px] font-semibold"
+                      <span
+                        className={`h3-display text-[clamp(2.5rem,4vw,4rem)] leading-none transition-colors ${
+                          selected ? 'text-signalYellow' : 'text-slate group-hover:text-obsidian'
+                        }`}
                       >
-                        View service →
-                      </Link>
-                    </div>
-                  ) : null}
-                </article>
-              );
-            })}
+                        {INDEX[slug]}
+                      </span>
+                      <span
+                        className={`h3-display text-[clamp(1.35rem,2.2vw,2.5rem)] leading-[0.95] transition-transform duration-300 ${
+                          selected ? 'translate-x-1' : ''
+                        }`}
+                      >
+                        <H3Words text={svc.title} />
+                      </span>
+                    </button>
+                  </li>
+                );
+              })}
+            </ul>
+
+            <div
+              id="h3-svc-preview"
+              role="tabpanel"
+              aria-labelledby={`h3-svc-tab-${activeSlug}`}
+              className="relative min-w-0 self-stretch"
+            >
+              <div className="sticky top-32 flex min-h-[420px] flex-col">
+                <div className="relative aspect-[4/3] w-full overflow-hidden rounded-2xl border border-obsidian/10 bg-[var(--h3-tint)]">
+                  <Image
+                    key={activeSlug}
+                    src={serviceHeroImage(activeSlug)}
+                    alt={activeService.title}
+                    fill
+                    className="object-cover transition-opacity duration-500"
+                    sizes="(min-width:1024px) 42vw, 90vw"
+                    priority={active === 0}
+                    loading={active === 0 ? undefined : 'lazy'}
+                  />
+                </div>
+                {hasText(activeCopy.oneLiner) ? (
+                  <p className="h3-body mt-6 max-w-[48ch] font-medium text-obsidian">{activeCopy.oneLiner}</p>
+                ) : null}
+                {activeCopy.tags?.length ? (
+                  <ul className="mt-4 flex flex-wrap gap-2">
+                    {activeCopy.tags.filter((t) => hasText(t)).map((tag) => (
+                      <li
+                        key={tag}
+                        className="rounded-full border border-obsidian/20 px-3 py-1.5 text-[13px] text-obsidian"
+                      >
+                        {tag}
+                      </li>
+                    ))}
+                  </ul>
+                ) : null}
+                <Link
+                  href={`/services/${activeSlug}`}
+                  className="mt-6 inline-flex min-h-[44px] w-fit items-center border-b-2 border-signalYellow pb-0.5 text-[15px] font-semibold text-obsidian"
+                >
+                  View service →
+                </Link>
+              </div>
+            </div>
           </div>
         ) : (
-          <div className="mt-10 space-y-2">
+          <div className="mt-10 space-y-3">
             {serviceSlugs.map((slug, index) => {
               const svc = services[slug];
               const copy = serviceCards.items[slug];
               const isOpen = openMobile === index;
               return (
-                <div key={slug} className="rounded-xl border border-obsidian/15">
+                <div key={slug} className="overflow-hidden rounded-2xl border border-obsidian/15">
                   <button
                     type="button"
-                    className="flex min-h-[44px] w-full items-center justify-between gap-4 px-4 py-3 text-left"
+                    className="flex min-h-[44px] w-full items-center justify-between gap-4 px-4 py-4 text-left"
                     aria-expanded={isOpen}
-                    onClick={() => setOpenMobile(isOpen ? -1 : index)}
+                    onClick={() => setOpenMobile(isOpen ? null : index)}
                   >
                     <span className="h3-display text-xl text-obsidian">
-                      {INDEX[slug]} {svc.title}
+                      <span className="mr-2 text-signalYellow">{INDEX[slug]}</span>
+                      {svc.title}
                     </span>
                     <span aria-hidden className="text-2xl text-slate">
                       {isOpen ? '×' : '+'}
                     </span>
                   </button>
                   {isOpen ? (
-                    <div className="border-t border-obsidian/10 px-4 pb-4 pt-3">
-                      <div className="relative mb-3 aspect-video w-full overflow-hidden rounded-lg">
+                    <div className="border-t border-obsidian/10 px-4 pb-5 pt-3">
+                      <div className="relative mb-4 aspect-video w-full overflow-hidden rounded-xl bg-[var(--h3-tint)]">
                         <Image
                           src={serviceHeroImage(slug)}
                           alt={svc.title}
                           fill
                           className="object-cover"
-                          sizes="90vw"
+                          sizes="92vw"
                           loading="lazy"
                         />
                       </div>
                       {hasText(copy.oneLiner) ? <p className="h3-body">{copy.oneLiner}</p> : null}
-                      <Link href={`/services/${slug}`} className="mt-4 inline-flex min-h-[44px] items-center font-semibold underline">
+                      <Link
+                        href={`/services/${slug}`}
+                        className="mt-4 inline-flex min-h-[44px] items-center font-semibold underline decoration-signalYellow"
+                      >
                         View service
                       </Link>
                     </div>
