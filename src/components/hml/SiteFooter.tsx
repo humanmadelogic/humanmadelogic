@@ -1,6 +1,12 @@
 import Image from 'next/image';
 import { agency } from '@/config/agency';
 
+const FOOTER_LINK =
+  'inline-flex min-h-[44px] items-center text-[16px] text-paper/85 transition-colors hover:text-paper';
+
+const FOOTER_LINK_SM =
+  'inline-flex min-h-[44px] items-center text-[14px] text-paper/70 transition-colors hover:text-paper';
+
 const SOCIAL_ICON: Record<string, string> = {
   LinkedIn: '/images/hml/social/linkedin.svg',
   Instagram: '/images/hml/social/instagram.svg',
@@ -29,7 +35,7 @@ export function SiteFooter() {
             <ul className="mt-5 space-y-3">
               {agency.nav.map((item) => (
                 <li key={item.label}>
-                  <a href={item.href} className="text-[16px] text-paper/85 transition-colors hover:text-paper">
+                  <a href={item.href} className={FOOTER_LINK}>
                     {item.label}
                   </a>
                 </li>
@@ -38,30 +44,27 @@ export function SiteFooter() {
             <h2 className="mt-8 text-[11px] uppercase tracking-[0.2em] text-paper/45">Services</h2>
             <ul className="mt-5 space-y-3">
               <li>
-                <a href="/services" className="text-[16px] text-paper/85 transition-colors hover:text-paper">
+                <a href="/services" className={FOOTER_LINK}>
                   All services
                 </a>
               </li>
               <li>
-                <a href="/services/branding" className="text-[16px] text-paper/85 transition-colors hover:text-paper">
+                <a href="/services/branding" className={FOOTER_LINK}>
                   Branding
                 </a>
               </li>
               <li>
-                <a href="/services/seo-aeo-geo" className="text-[16px] text-paper/85 transition-colors hover:text-paper">
+                <a href="/services/seo-aeo-geo" className={FOOTER_LINK}>
                   SEO/AEO/GEO
                 </a>
               </li>
               <li>
-                <a
-                  href="/services/performance-marketing"
-                  className="text-[16px] text-paper/85 transition-colors hover:text-paper"
-                >
+                <a href="/services/performance-marketing" className={FOOTER_LINK}>
                   Performance marketing
                 </a>
               </li>
               <li>
-                <a href="/services/social-media" className="text-[16px] text-paper/85 transition-colors hover:text-paper">
+                <a href="/services/social-media" className={FOOTER_LINK}>
                   Social media
                 </a>
               </li>
@@ -77,7 +80,7 @@ export function SiteFooter() {
                   <li key={item.label}>
                     <a
                       href={item.href}
-                      className="inline-flex items-center gap-2.5 text-[16px] text-paper/85 transition-colors hover:text-paper"
+                      className={`${FOOTER_LINK} gap-2.5`}
                       target="_blank"
                       rel="noopener noreferrer"
                     >
@@ -99,7 +102,7 @@ export function SiteFooter() {
               <li>
                 <a
                   href={`mailto:${agency.email}`}
-                  className="text-[16px] text-paper/85 underline decoration-paper/25 underline-offset-4 transition-colors hover:text-paper"
+                  className={`${FOOTER_LINK} underline decoration-paper/25 underline-offset-4`}
                 >
                   {agency.email}
                 </a>
@@ -113,7 +116,7 @@ export function SiteFooter() {
           <ul className="mt-4 flex flex-wrap gap-x-6 gap-y-2">
             {agency.legalNav.map((item) => (
               <li key={item.href}>
-                <a href={item.href} className="text-[14px] text-paper/70 transition-colors hover:text-paper">
+                <a href={item.href} className={FOOTER_LINK_SM}>
                   {item.label}
                 </a>
               </li>

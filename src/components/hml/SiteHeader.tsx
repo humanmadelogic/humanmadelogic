@@ -29,7 +29,8 @@ export function SiteHeader() {
   const home = pathname === '/';
   const [condensed, setCondensed] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
-  const menuButton = useRef<HTMLButtonElement>(null);
+  const menuTriggerRef = useRef<HTMLButtonElement | null>(null);
+  const wasMenuOpenRef = useRef(false);
   const menuPanel = useRef<HTMLDivElement>(null);
   const wordmarkHref = home ? '#top' : '/';
 
@@ -51,12 +52,21 @@ export function SiteHeader() {
   }, []);
 
   useEffect(() => {
+    if (wasMenuOpenRef.current && !menuOpen) {
+      requestAnimationFrame(() => menuTriggerRef.current?.focus());
+    }
+    wasMenuOpenRef.current = menuOpen;
+  }, [menuOpen]);
+
+  const openMenu = useCallback((event: React.MouseEvent<HTMLButtonElement>) => {
+    menuTriggerRef.current = event.currentTarget;
+    setMenuOpen(true);
+  }, []);
+
+  useEffect(() => {
     if (!menuOpen) return;
     const onKey = (event: KeyboardEvent) => {
-      if (event.key === 'Escape') {
-        setMenuOpen(false);
-        menuButton.current?.focus();
-      }
+      if (event.key === 'Escape') setMenuOpen(false);
     };
     document.addEventListener('keydown', onKey);
     document.body.style.overflow = 'hidden';
@@ -78,13 +88,13 @@ export function SiteHeader() {
     <header className="pointer-events-none fixed inset-x-0 top-0 z-50">
       {/* Full navigation — visible at the top of the page. */}
       <div
-        className={`pointer-events-auto mx-auto flex max-w-editorial items-center justify-between gap-6 px-5 py-5 transition-[opacity,transform] duration-500 ease-out sm:px-8 lg:px-12 ${
-          condensed
-            ? 'pointer-events-none -translate-y-2 opacity-0'
-            : 'translate-y-0 opacity-100'
+        className={`mx-auto flex max-w-editorial items-center justify-between gap-6 px-5 py-5 transition-[opacity,transform,visibility] duration-500 ease-out sm:px-8 lg:px-12 ${
+          condensed || menuOpen
+            ? 'pointer-events-none invisible -translate-y-2 opacity-0'
+            : 'pointer-events-auto visible translate-y-0 opacity-100'
         }`}
       >
-        <a href={wordmarkHref} className="rounded-sm">
+        <a href={wordmarkHref} className="inline-flex min-h-[44px] items-center rounded-sm">
           <Wordmark />
         </a>
 
@@ -110,9 +120,8 @@ export function SiteHeader() {
         </div>
 
         <button
-          ref={menuButton}
           type="button"
-          onClick={() => setMenuOpen(true)}
+          onClick={openMenu}
           aria-expanded={menuOpen}
           aria-controls="hml-menu"
           className={`inline-flex min-h-[44px] min-w-[44px] items-center justify-center gap-2 rounded-full border border-obsidian/20 px-4 text-[14px] lg:hidden ${
@@ -125,12 +134,20 @@ export function SiteHeader() {
 
       {/* Condensed pill — takes over once the page scrolls. */}
       <div
-        aria-hidden={!condensed}
-        className={`pointer-events-auto absolute right-5 top-4 flex items-center gap-1 rounded-full border border-obsidian/10 bg-paper/85 p-1.5 shadow-[0_10px_40px_-18px_rgba(21,21,21,0.5)] backdrop-blur-md transition-[opacity,transform] duration-500 ease-out sm:right-8 lg:right-12 ${
-          condensed ? 'translate-y-0 opacity-100' : 'pointer-events-none -translate-y-3 opacity-0'
+        aria-hidden={!condensed || menuOpen}
+        {...(!condensed || menuOpen ? { inert: true } : {})}
+        className={`absolute right-5 top-4 flex items-center gap-1 rounded-full border border-obsidian/10 bg-paper/85 p-1.5 shadow-[0_10px_40px_-18px_rgba(21,21,21,0.5)] backdrop-blur-md transition-[opacity,transform,visibility] duration-500 ease-out sm:right-8 lg:right-12 ${
+          condensed && !menuOpen
+            ? 'pointer-events-auto visible translate-y-0 opacity-100'
+            : 'pointer-events-none invisible -translate-y-3 opacity-0'
         }`}
       >
-        <a href={wordmarkHref} className="rounded-full px-3 py-2" aria-label="Back to top">
+        <a
+          href={wordmarkHref}
+          tabIndex={condensed && !menuOpen ? 0 : -1}
+          className="rounded-full px-3 py-2"
+          aria-label="Back to top"
+        >
           <Wordmark compact />
         </a>
 
@@ -155,11 +172,11 @@ export function SiteHeader() {
 
         <button
           type="button"
-          onClick={() => setMenuOpen(true)}
+          onClick={openMenu}
           aria-expanded={menuOpen}
           aria-controls="hml-menu"
           aria-hidden={!condensed}
-          tabIndex={condensed ? 0 : -1}
+          tabIndex={condensed && !menuOpen ? 0 : -1}
           className={`min-h-[44px] min-w-[44px] items-center justify-center rounded-full border border-obsidian/15 px-4 text-[13px] lg:hidden ${
             condensed ? 'inline-flex' : 'hidden'
           }`}
