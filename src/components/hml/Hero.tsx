@@ -41,7 +41,7 @@ function HeroFrame({ frame, index, priority, register, onFocusChange }: FramePro
         onFrame={onFrame}
         priority={priority}
         sizes="(max-width: 640px) 40vw, 228px"
-        className="w-[19vw] max-w-[228px] bg-obsidian/5 shadow-[0_18px_50px_-30px_rgba(21,21,21,0.6)] sm:w-[17vw]"
+        className="w-[19vw] max-w-[228px] bg-white shadow-[0_18px_50px_-30px_rgba(21,21,21,0.6)] sm:w-[17vw]"
         style={{
           // Resting fan position. The magnetic loop overwrites this on
           // pointer-capable devices; everywhere else it is the final layout.
@@ -154,6 +154,10 @@ export function Hero() {
           lines={hero.headline}
           className="mt-6 text-[12vw] leading-[0.92] tracking-[-0.055em] sm:text-[9vw] lg:text-[7.6vw] xl:text-[112px]"
         />
+
+        <p className="mt-5 max-w-[40ch] text-[18px] font-medium tracking-[-0.02em] text-obsidian sm:text-[20px]">
+          {hero.subhead}
+        </p>
 
         <div className="mt-8 flex flex-col gap-8 lg:mt-10 lg:flex-row lg:items-end lg:justify-between">
           <p className="max-w-[46ch] text-[16px] leading-[1.55] text-slate sm:text-[17px]">

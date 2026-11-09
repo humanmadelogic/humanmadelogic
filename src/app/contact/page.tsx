@@ -1,13 +1,15 @@
 import type { Metadata } from 'next';
 import { ContactView } from '@/components/hml/ContactView';
 import { HmlPageShell } from '@/components/hml/HmlPageShell';
-import { agency, contact } from '@/config/agency';
+import { contact, homePage } from '@/config/agency';
+import { buildMetadata } from '@/lib/seo';
 
-export const metadata: Metadata = {
-  title: { absolute: `Contact — ${agency.name}` },
+export const metadata: Metadata = buildMetadata({
+  title: 'Contact',
   description: contact.body,
-  alternates: { canonical: '/contact' },
-};
+  path: '/contact',
+  ogImage: homePage.meta.ogImage,
+});
 
 export default function ContactPage() {
   return (

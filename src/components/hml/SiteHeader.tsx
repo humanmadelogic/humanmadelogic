@@ -93,13 +93,6 @@ export function SiteHeader() {
         </nav>
 
         <div className="hidden items-center gap-5 lg:flex">
-          <span className="flex items-center gap-2 text-[13px] text-slate">
-            <span
-              aria-hidden="true"
-              className="h-[6px] w-[6px] rounded-full bg-signalYellow"
-            />
-            {agency.availability}
-          </span>
           <a
             href={agency.cta.href}
             className="inline-flex h-11 items-center rounded-full bg-obsidian px-5 text-[14px] font-medium text-paper transition-colors hover:bg-obsidian/85"
@@ -126,7 +119,7 @@ export function SiteHeader() {
           condensed ? 'translate-y-0 opacity-100' : 'pointer-events-none -translate-y-3 opacity-0'
         }`}
       >
-        <a href={wordmarkHref} className="rounded-full px-3 py-2" aria-label={`${agency.name} — back to top`}>
+        <a href={wordmarkHref} className="rounded-full px-3 py-2" aria-label="Back to top">
           <Wordmark compact />
         </a>
 
@@ -212,7 +205,9 @@ export function SiteHeader() {
         </nav>
 
         <p className="px-5 pb-8 text-[13px] text-slate sm:px-8">
-          {agency.availability} · {agency.email}
+          <a href={`mailto:${agency.email}`} className="underline decoration-obsidian/20 underline-offset-4">
+            {agency.email}
+          </a>
         </p>
       </div>
     </header>

@@ -13,9 +13,9 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        canvas: '#f6f4ef',
+        canvas: '#ffffff',
         surface: '#ffffff',
-        raised: '#fbfaf6',
+        raised: '#ffffff',
         ink: '#141412',
         muted: '#5b594f',
         subtle: '#8a877c',
@@ -28,7 +28,7 @@ const config: Config = {
         amber: '#9a6a24',
         footer: '#131210',
         /* Human Made Logic — homepage palette */
-        paper: '#F2F0EB',
+        paper: '#ffffff',
         obsidian: '#151515',
         slate: '#6B6A66',
         signalYellow: '#F4BD49',

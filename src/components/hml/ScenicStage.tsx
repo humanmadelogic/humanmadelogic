@@ -52,7 +52,7 @@ export function ScenicStage({
 }: ScenicStageProps) {
   return (
     <div
-      className={`relative w-full overflow-hidden rounded-[18px] bg-obsidian/[0.04] ${className}`}
+      className={`relative w-full overflow-hidden rounded-[18px] bg-white ${className}`}
     >
       {/* Shader field, filling the background. */}
       <div aria-hidden="true" className="absolute inset-0 z-0 grid grid-cols-2 md:grid-cols-4">
