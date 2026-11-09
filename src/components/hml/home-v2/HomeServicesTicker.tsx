@@ -16,7 +16,7 @@ export function HomeServicesTicker() {
         <span key={item.href} className="inline-flex shrink-0 items-center gap-8 sm:gap-[34px]">
           <Link
             href={item.href}
-            className="home-v2-display inline-flex min-h-11 items-center text-[clamp(1.75rem,5vw,3.625rem)] text-white transition-opacity hover:opacity-90"
+            className="home-v2-display inline-flex min-h-[44px] items-center px-1 text-[clamp(1.75rem,5vw,3.625rem)] text-white transition-opacity hover:opacity-90"
           >
             {item.name}
           </Link>

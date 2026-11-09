@@ -15,7 +15,7 @@ export function HomeHeroSection() {
   const showHeroImage = !isPendingHomeImageAlt(hero.imageAlt);
 
   return (
-    <section className="border-b border-obsidian/10 bg-paper">
+    <section className="overflow-x-clip border-b border-obsidian/10 bg-paper">
       <div
         className={`mx-auto grid max-w-editorial gap-8 px-5 py-12 sm:px-8 sm:py-16 lg:items-center lg:gap-10 lg:px-12 lg:py-20 ${
           showHeroImage ? 'lg:grid-cols-[minmax(0,1fr)_minmax(0,0.95fr)]' : 'lg:grid-cols-1'
@@ -28,7 +28,7 @@ export function HomeHeroSection() {
               {hero.eyebrow}
             </p>
           ) : null}
-          <h1 className="home-v2-display home-v2-hero-h1 mt-6 max-w-[14ch] text-[clamp(3.5rem,8.9vw,8rem)] leading-[0.86] text-obsidian">
+          <h1 className="home-v2-display home-v2-hero-h1 mt-6 max-w-[14ch] break-words text-[clamp(3.5rem,8.9vw,8rem)] leading-[0.86] text-obsidian">
             {splitDisplayLines(hero.h1, 3).map((line) => (
               <span key={line} className="home-v2-hero-line block overflow-hidden pb-[0.06em]">
                 {line.split(/\s+/).map((word, wi) => {

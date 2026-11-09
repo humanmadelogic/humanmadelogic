@@ -198,7 +198,7 @@ export function SiteHeader() {
                 <a
                   href={item.href}
                   onClick={close}
-                  className="block py-5 text-[13vw] leading-[1.02] tracking-[-0.05em] sm:text-[64px]"
+                  className="flex min-h-[44px] items-center py-5 text-[13vw] leading-[1.02] tracking-[-0.05em] sm:text-[64px]"
                   style={{
                     transitionDelay: `${60 + index * 45}ms`,
                     opacity: menuOpen ? 1 : 0,

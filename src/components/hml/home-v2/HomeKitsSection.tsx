@@ -77,7 +77,7 @@ export function HomeKitsSection() {
                   {hasText(kit.cta?.label) ? (
                     <Link
                       href={kit.cta?.href ?? '/contact'}
-                      className="inline-flex min-h-11 items-center border-b-2 border-signalYellow pb-0.5 text-[15px] font-semibold text-obsidian"
+                      className="inline-flex min-h-[44px] items-center border-b-2 border-signalYellow pb-0.5 text-[15px] font-semibold text-obsidian"
                     >
                       {kit.cta?.label}
                       <span aria-hidden="true" className="ml-2">

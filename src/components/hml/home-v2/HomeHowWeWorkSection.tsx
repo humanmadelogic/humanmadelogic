@@ -101,7 +101,7 @@ export function HomeHowWeWorkSection() {
               {steps.map((step, index) => (
                 <li key={`m-${step.title || index}`}>
                   <span
-                    className={`flex h-11 min-w-11 items-center justify-center rounded-full border text-[13px] font-semibold tabular-nums ${
+                    className={`flex min-h-[44px] min-w-[44px] items-center justify-center rounded-full border text-[13px] font-semibold tabular-nums ${
                       index === activeStep
                         ? 'border-signalYellow bg-signalYellow/15 text-paper'
                         : 'border-paper/25 text-paper/60'

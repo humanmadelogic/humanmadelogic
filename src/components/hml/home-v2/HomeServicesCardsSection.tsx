@@ -112,7 +112,7 @@ export function HomeServicesCardsSection() {
                       ))}
                     </ul>
                   ) : null}
-                  <span className="mt-6 inline-flex min-h-11 items-center border-b-2 border-signalYellow pb-0.5 text-[15px] font-semibold text-obsidian">
+                  <span className="mt-6 inline-flex min-h-[44px] items-center border-b-2 border-signalYellow pb-0.5 text-[15px] font-semibold text-obsidian">
                     View service
                     <span aria-hidden="true" className="ml-2">
                       →

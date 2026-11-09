@@ -29,7 +29,7 @@ export function HomeFaqSection() {
         <div className="min-w-0 divide-y divide-obsidian/15 border-y border-obsidian/15">
           {items.map((item, index) => (
             <details key={item.question} className="group py-4" open={index === 0}>
-              <summary className="flex min-h-11 cursor-pointer list-none items-center justify-between gap-4 text-[clamp(17px,2.2vw,20px)] font-semibold tracking-[-0.02em] text-obsidian marker:content-none [&::-webkit-details-marker]:hidden">
+              <summary className="flex min-h-[44px] cursor-pointer list-none items-center justify-between gap-4 py-2 text-[clamp(17px,2.2vw,20px)] font-semibold tracking-[-0.02em] text-obsidian marker:content-none [&::-webkit-details-marker]:hidden">
                 {item.question}
                 <span
                   aria-hidden="true"
