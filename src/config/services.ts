@@ -1,5 +1,5 @@
 /**
- * Service detail pages. Approved service names; body copy is placeholder unless noted.
+ * Service detail pages.
  */
 
 import type { CapabilityVisualKind } from './agency';
@@ -17,12 +17,9 @@ export type ServiceDefinition = {
   shortTitle: string;
   /** Homepage card summary */
   summary: string;
-  /** Longer page intro — mostly placeholder */
   intro: string;
   visual: CapabilityVisualKind;
-  /** Placeholder bullets for the content team */
   deliverables: string[];
-  /** Placeholder FAQ-style points */
   outcomes: string[];
   metaDescription: string;
 };
@@ -43,19 +40,16 @@ export const services: Record<ServiceSlug, ServiceDefinition> = {
     summary:
       'Identity, positioning, and visual systems built to be remembered on shelf, on screen, and in search.',
     intro:
-      // PLACEHOLDER COPY: pending content team
-      'Brand strategy, naming, identity design, and guidelines shaped around how real customers choose in your category.',
+      "Most small brands don't have a visibility problem. They have a memory problem: people see them, then forget them, because they look like everyone else in the category. We build brands around distinctive codes people recognise at a glance, so every post and every ad starts adding up.",
     visual: 'letterforms',
     deliverables: [
-      // PLACEHOLDER COPY: pending content team
-      'Positioning and messaging architecture',
-      'Visual identity and asset libraries',
-      'Brand guidelines your team can use every day',
+      'Brand strategy and positioning: what you stand for, who it\'s for and why you\'re different.',
+      'A brand identity system: logo, colour, type and the rules that hold it together.',
+      'A brand codes guide: the shapes, words and habits customers should remember you by.',
     ],
     outcomes: [
-      // PLACEHOLDER COPY: pending content team
-      'A distinctive look and voice that scales across channels',
-      'Creative decisions that stay aligned as you grow',
+      'Clarity on what your brand stands for, so every decision, from your homepage to your next ad, pulls the same way.',
+      'A recognisable system your team can use consistently, so you stop reinventing your look every time you launch something.',
     ],
     metaDescription:
       'Branding for SMB founders and marketing leads: strategy, identity systems, and guidelines from Human Made Logic.',
@@ -68,19 +62,16 @@ export const services: Record<ServiceSlug, ServiceDefinition> = {
     summary:
       'Search, answer engines, and generative discovery tuned so your brand shows up where buyers look and ask.',
     intro:
-      // PLACEHOLDER COPY: pending content team
-      'Technical SEO, content architecture, and structured data so classic search, AI answers, and generative experiences can surface what you sell.',
+      "Page two isn't the only place brands disappear. Customers now ask AI tools for recommendations too, and if your name isn't in the answer, you're not in the running. We make your brand easy to find and easy to name, across search engines and AI answers.",
     visual: 'signal',
     deliverables: [
-      // PLACEHOLDER COPY: pending content team
-      'Search and entity audits',
-      'On-page optimisation and schema',
-      'Content briefs aligned to intent',
+      "A search and AI visibility audit: where you're found, where you're missed and why.",
+      'Site structure and on-page SEO that help search engines understand what you do and where.',
+      'Answer-ready content for AEO and GEO, written to help AI tools understand and mention your brand.',
     ],
     outcomes: [
-      // PLACEHOLDER COPY: pending content team
-      'Clear paths from discovery to product pages',
-      'Measurement that ties rankings to commercial goals',
+      "A clear view of how people find you today, plus a plan for the searches and questions your brand should own.",
+      'Pages and content built to be found and named, in search results and in the AI answers your customers read.',
     ],
     metaDescription:
       'SEO, AEO, and GEO for growing brands: discoverability across search and AI answers from Human Made Logic.',
@@ -93,19 +84,16 @@ export const services: Record<ServiceSlug, ServiceDefinition> = {
     summary:
       'Paid media and experimentation that connects creative ideas to dashboards your leadership trusts.',
     intro:
-      // PLACEHOLDER COPY: pending content team
-      'Channel strategy, campaign build, and iterative testing with creative that matches your brand, not a generic template.',
+      "Plenty of ad budgets buy attention nobody keeps. The ads look like the category, the landing page is fuzzy, and the spend resets every month. We run campaigns that turn attention into measurable growth, with creative people remember and a next step that doesn't leak.",
     visual: 'contact-sheet',
     deliverables: [
-      // PLACEHOLDER COPY: pending content team
-      'Media planning and budget modelling',
-      'Ad creative and landing experiences',
-      'Reporting tied to revenue or qualified pipeline',
+      'Campaign strategy across the paid channels that suit your audience, budget and goals.',
+      "Ad creative built on your brand codes, so it doesn't look like everyone else's.",
+      'Landing pages and conversion fixes that give every click a clear next step.',
     ],
     outcomes: [
-      // PLACEHOLDER COPY: pending content team
-      'Campaigns you can explain to the board in one slide',
-      'Learning loops between brand and performance teams',
+      "Campaigns you can measure properly, with clear reporting on what's working, what isn't and what we'll test next.",
+      'Ads that build recognition as well as clicks, so each campaign gives the next one a head start.',
     ],
     metaDescription:
       'Performance marketing for SMB teams: paid media, testing, and measurement from Human Made Logic.',
@@ -118,19 +106,16 @@ export const services: Record<ServiceSlug, ServiceDefinition> = {
     summary:
       'Editorial rhythm, platform-native creative, and community care that keeps your brand in the conversation.',
     intro:
-      // PLACEHOLDER COPY: pending content team
-      'Content calendars, production support, and channel playbooks so social feels intentional, not improvised.',
+      "Posting more isn't the same as being remembered. Bursts of content followed by silence teach your audience nothing. We build social presences that are fewer, better and easy to recognise: a clear voice, ideas worth repeating and a rhythm your team can actually keep up with.",
     visual: 'modules',
     deliverables: [
-      // PLACEHOLDER COPY: pending content team
-      'Platform strategy and content pillars',
-      'Asset templates and caption frameworks',
-      'Publishing workflows your team can run',
+      'A social strategy: the few ideas, formats and channels actually worth your time.',
+      'A recognisable content system: templates, voice rules and visual codes every post is built on.',
+      'A steady posting calendar with written posts and creative, planned around a rhythm you can sustain.',
     ],
     outcomes: [
-      // PLACEHOLDER COPY: pending content team
-      'A consistent presence without burning out the founder',
-      'Creative that still feels human when AI assists the drafts',
+      'A social presence people recognise before they read your name, built on ideas worth repeating rather than trends.',
+      'A rhythm you can keep up with, so social stops feeling like a hamster wheel and starts compounding.',
     ],
     metaDescription:
       'Social media strategy and content systems for growing brands from Human Made Logic.',
