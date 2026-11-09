@@ -30,7 +30,7 @@ const config: Config = {
         /* Human Made Logic — homepage palette */
         paper: '#ffffff',
         obsidian: '#151515',
-        slate: '#6B6A66',
+        slate: '#595855',
         signalYellow: '#F4BD49',
       },
       fontFamily: {

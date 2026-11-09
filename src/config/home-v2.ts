@@ -174,7 +174,7 @@ export const homeV2Config = {
       title: 'Impossible to ignore. Built to be chosen. | Human Made Logic',
       description:
         'Branding, SEO/AEO/GEO, performance marketing and social media for SMBs in the UK, Australia, Canada and Singapore. Be remembered, found and chosen.',
-      ogImage: '/og/home/og-home.png',
+      ogImage: '/og/og-default.png',
     },
     hero: {
       eyebrow: 'We make brands impossible to ignore.',

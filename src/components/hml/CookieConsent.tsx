@@ -67,11 +67,17 @@ export function CookieConsent() {
               <p className="mt-2 text-[15px] leading-[1.6] text-slate">
                 We use essential cookies to run the site. Analytics and marketing tools load only if you allow them. See
                 our{' '}
-                <Link href="/cookies" className="underline underline-offset-4">
+                <Link
+                  href="/cookies"
+                  className="inline-flex min-h-[44px] items-center underline underline-offset-4"
+                >
                   Cookie policy
                 </Link>{' '}
                 and{' '}
-                <Link href="/privacy" className="underline underline-offset-4">
+                <Link
+                  href="/privacy"
+                  className="inline-flex min-h-[44px] items-center underline underline-offset-4"
+                >
                   Privacy policy
                 </Link>
                 .
@@ -109,7 +115,7 @@ export function CookieConsent() {
         <button
           type="button"
           onClick={() => setManageOpen(true)}
-          className="pointer-events-auto fixed bottom-4 left-4 z-[60] rounded-full border border-obsidian/15 bg-paper/90 px-4 py-2 text-[13px] text-slate shadow-md backdrop-blur hover:text-obsidian"
+          className="pointer-events-auto fixed bottom-4 left-4 z-[60] inline-flex min-h-[44px] items-center rounded-full border border-obsidian/15 bg-paper/90 px-4 py-2 text-[13px] text-slate shadow-md backdrop-blur hover:text-obsidian"
         >
           Cookie settings
         </button>
@@ -177,7 +183,7 @@ export function CookieConsent() {
             <button
               type="button"
               onClick={closeManage}
-              className="inline-flex h-10 items-center rounded-full border border-obsidian/20 px-4 text-[14px]"
+              className="inline-flex min-h-[44px] items-center rounded-full border border-obsidian/20 px-4 text-[14px]"
             >
               Cancel
             </button>
@@ -187,7 +193,7 @@ export function CookieConsent() {
                 setConsent(rejectNonEssential());
                 closeManage();
               }}
-              className="inline-flex h-10 items-center rounded-full border border-obsidian/20 px-4 text-[14px]"
+              className="inline-flex min-h-[44px] items-center rounded-full border border-obsidian/20 px-4 text-[14px]"
             >
               Reject non-essential
             </button>
@@ -197,7 +203,7 @@ export function CookieConsent() {
                 setConsent(savePreferences(analytics, marketing));
                 closeManage();
               }}
-              className="inline-flex h-10 items-center rounded-full bg-obsidian px-4 text-[14px] font-medium text-paper"
+              className="inline-flex min-h-[44px] items-center rounded-full bg-obsidian px-4 text-[14px] font-medium text-paper"
             >
               Save preferences
             </button>

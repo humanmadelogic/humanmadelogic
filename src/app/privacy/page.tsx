@@ -15,7 +15,7 @@ export const metadata: Metadata = buildMetadata({
 export default function Privacy() {
   return (
     <HmlPageShell>
-      <HmlLegalPage page={privacyPage} />
+      <HmlLegalPage page={privacyPage} path="/privacy" />
     </HmlPageShell>
   );
 }

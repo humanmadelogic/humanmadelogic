@@ -4,9 +4,10 @@ import Image from 'next/image';
 import { useState } from 'react';
 import { homeV2Config } from '@/config/home-v2';
 import { hasText, isProblemPopulated } from '@/lib/hml/homeV2';
+import { altForHomeAsset } from '@/lib/hml/imageAlts';
 import { ScrollHighlightWords } from './ScrollHighlightWords';
 
-function PainImage({ src }: { src: string }) {
+function PainImage({ src, alt }: { src: string; alt: string }) {
   const [missing, setMissing] = useState(false);
   if (missing) {
     return <div className="aspect-[4/3] w-full rounded-sm bg-[var(--h2v-tint)]" aria-hidden />;
@@ -15,7 +16,7 @@ function PainImage({ src }: { src: string }) {
     <div className="relative aspect-[4/3] w-full overflow-hidden">
       <Image
         src={src}
-        alt=""
+        alt={alt}
         fill
         className="object-cover"
         sizes="(min-width: 768px) 30vw, 90vw"
@@ -46,7 +47,12 @@ export function HomeProblemSection() {
           <ul className="mt-14 grid gap-8 border-t-2 border-obsidian pt-8 sm:grid-cols-3 sm:gap-7">
             {lines.map((line, index) => (
               <li key={line} className="min-w-0">
-                {problemPainImages[index] ? <PainImage src={problemPainImages[index]} /> : null}
+                {problemPainImages[index] ? (
+                  <PainImage
+                    src={problemPainImages[index]}
+                    alt={altForHomeAsset(problemPainImages[index])}
+                  />
+                ) : null}
                 <span className="home-v2-display mt-4 block text-[clamp(1.75rem,4vw,2.75rem)] text-slate">
                   {String(index + 1).padStart(2, '0')}
                 </span>

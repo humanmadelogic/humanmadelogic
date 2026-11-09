@@ -2,7 +2,7 @@
 
 import Image from 'next/image';
 import Link from 'next/link';
-import { useCallback, useState } from 'react';
+import { useCallback, useRef, useState } from 'react';
 import { homeV2Config } from '@/config/home-v2';
 import { serviceSlugs, services } from '@/config/services';
 import type { ServiceSlug } from '@/config/services';
@@ -25,8 +25,15 @@ export function HomeV3Services() {
   const desktop = useMediaQuery('(min-width: 1024px)');
   const [active, setActive] = useState(0);
   const [openMobile, setOpenMobile] = useState<number | null>(null);
+  const tabRefs = useRef<(HTMLButtonElement | null)[]>([]);
 
   const pick = useCallback((index: number) => setActive(index), []);
+
+  const focusTab = useCallback((index: number) => {
+    const i = ((index % serviceSlugs.length) + serviceSlugs.length) % serviceSlugs.length;
+    pick(i);
+    requestAnimationFrame(() => tabRefs.current[i]?.focus());
+  }, [pick]);
 
   if (!isServiceCardsPopulated(homeV2Config.content)) return null;
 
@@ -61,6 +68,9 @@ export function HomeV3Services() {
                 return (
                   <li key={slug} className="border-b border-obsidian/12 first:border-t">
                     <button
+                      ref={(el) => {
+                        tabRefs.current[index] = el;
+                      }}
                       type="button"
                       role="tab"
                       id={`h3-svc-tab-${slug}`}
@@ -76,11 +86,16 @@ export function HomeV3Services() {
                       onKeyDown={(event) => {
                         if (event.key === 'ArrowDown') {
                           event.preventDefault();
-                          pick((index + 1) % serviceSlugs.length);
-                        }
-                        if (event.key === 'ArrowUp') {
+                          focusTab(index + 1);
+                        } else if (event.key === 'ArrowUp') {
                           event.preventDefault();
-                          pick((index - 1 + serviceSlugs.length) % serviceSlugs.length);
+                          focusTab(index - 1);
+                        } else if (event.key === 'Home') {
+                          event.preventDefault();
+                          focusTab(0);
+                        } else if (event.key === 'End') {
+                          event.preventDefault();
+                          focusTab(serviceSlugs.length - 1);
                         }
                       }}
                     >

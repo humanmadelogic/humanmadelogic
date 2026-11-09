@@ -15,7 +15,7 @@ export const metadata: Metadata = buildMetadata({
 export default function Terms() {
   return (
     <HmlPageShell>
-      <HmlLegalPage page={termsPage} />
+      <HmlLegalPage page={termsPage} path="/terms" />
     </HmlPageShell>
   );
 }

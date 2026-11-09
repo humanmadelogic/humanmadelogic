@@ -15,7 +15,7 @@ export const metadata: Metadata = buildMetadata({
 export default function Cookies() {
   return (
     <HmlPageShell>
-      <HmlLegalPage page={cookiePage} />
+      <HmlLegalPage page={cookiePage} path="/cookies" />
     </HmlPageShell>
   );
 }

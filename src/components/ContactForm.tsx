@@ -140,6 +140,7 @@ export function ContactForm() {
             id="name"
             name="name"
             type="text"
+            required
             autoComplete="name"
             value={values.name}
             onChange={(event) => update('name', event.target.value)}
@@ -160,6 +161,7 @@ export function ContactForm() {
             id="email"
             name="email"
             type="email"
+            required
             autoComplete="email"
             value={values.email}
             onChange={(event) => update('email', event.target.value)}
@@ -216,6 +218,7 @@ export function ContactForm() {
           id="message"
           name="message"
           rows={5}
+          required
           value={values.message}
           onChange={(event) => update('message', event.target.value)}
           onBlur={() => blur('message')}

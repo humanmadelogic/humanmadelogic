@@ -5,6 +5,7 @@ import { useEffect, useRef, useState } from 'react';
 import { homeV2Config } from '@/config/home-v2';
 import { hasText, isHowWeWorkPopulated } from '@/lib/hml/homeV2';
 import { useReducedMotion } from '@/lib/hml/useReducedMotion';
+import { altForHomeAsset } from '@/lib/hml/imageAlts';
 import { H3Words } from './h3Typography';
 import { useH3Reveal } from './useH3Reveal';
 
@@ -104,7 +105,7 @@ export function HomeV3How() {
                   <div className="relative mb-8 aspect-[3/2] w-full max-w-[34rem] overflow-hidden rounded-xl">
                     <Image
                       src={plate}
-                      alt=""
+                      alt={altForHomeAsset(plate)}
                       fill
                       className="object-cover"
                       sizes="(min-width:1024px) 42vw, 90vw"
@@ -122,7 +123,7 @@ export function HomeV3How() {
                     </h3>
                   ) : null}
                   {hasText(item.body) ? (
-                    <p className="mt-4 max-w-[58ch] text-[16px] leading-relaxed text-white/75">{item.body}</p>
+                    <p className="mt-4 max-w-[58ch] text-[16px] leading-relaxed text-white/85">{item.body}</p>
                   ) : null}
                 </div>
               </li>

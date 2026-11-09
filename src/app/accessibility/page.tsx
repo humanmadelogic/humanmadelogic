@@ -15,7 +15,7 @@ export const metadata: Metadata = buildMetadata({
 export default function Accessibility() {
   return (
     <HmlPageShell>
-      <HmlLegalPage page={accessibilityPage} />
+      <HmlLegalPage page={accessibilityPage} path="/accessibility" />
     </HmlPageShell>
   );
 }

@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "tsx scripts/validate-home-v2-copy.ts && next build",
+    "build": "tsx scripts/validate-home-v2-copy.ts && node scripts/validate-og-images.mjs && next build",
     "start": "next start",
     "lint": "next lint",
     "check:headings": "node scripts/check-heading-word-break.mjs",
@@ -27,6 +27,10 @@
     "three": "^0.169.0",
     "zod": "^4.6.1"
   },
+  "browserslist": [
+    "defaults and supports es6-module",
+    "not IE 11"
+  ],
   "devDependencies": {
     "@types/node": "^22.10.2",
     "@types/nodemailer": "^8.0.2",

@@ -27,7 +27,7 @@ export function SiteFooter() {
             <p className="font-grotesk text-[9vw] leading-[0.94] tracking-[-0.05em] sm:text-[6vw] lg:text-[4vw] xl:text-[58px]">
               {agency.name}
             </p>
-            <p className="mt-6 max-w-[34ch] text-[15px] leading-[1.6] text-paper/60">{agency.principle}</p>
+            <p className="mt-6 max-w-[34ch] text-[15px] leading-[1.6] text-paper/75">{agency.principle}</p>
           </div>
 
           <nav aria-label="Footer" className="lg:col-span-3">

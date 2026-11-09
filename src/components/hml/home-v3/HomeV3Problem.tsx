@@ -5,9 +5,10 @@ import { useEffect, useRef, useState } from 'react';
 import { homeV2Config } from '@/config/home-v2';
 import { hasText, isProblemPopulated } from '@/lib/hml/homeV2';
 import { useReducedMotion } from '@/lib/hml/useReducedMotion';
+import { altForHomeAsset } from '@/lib/hml/imageAlts';
 import { useH3Reveal } from './useH3Reveal';
 
-function PainImage({ src }: { src: string }) {
+function PainImage({ src, alt }: { src: string; alt: string }) {
   const [missing, setMissing] = useState(false);
   if (missing) {
     return <div className="aspect-[4/3] w-full rounded-lg bg-[var(--h3-tint)]" aria-hidden />;
@@ -16,7 +17,7 @@ function PainImage({ src }: { src: string }) {
     <div className="relative aspect-[4/3] w-full overflow-hidden rounded-lg">
       <Image
         src={src}
-        alt=""
+        alt={alt}
         fill
         className="object-cover"
         sizes="(min-width: 768px) 28vw, 88vw"
@@ -104,7 +105,12 @@ export function HomeV3Problem() {
           <ul className="mt-16 grid gap-10 border-t border-obsidian pt-10 md:grid-cols-3">
             {lines.map((line, index) => (
               <li key={line} className="min-w-0">
-                {problemPainImages[index] ? <PainImage src={problemPainImages[index]} /> : null}
+                {problemPainImages[index] ? (
+                  <PainImage
+                    src={problemPainImages[index]}
+                    alt={altForHomeAsset(problemPainImages[index])}
+                  />
+                ) : null}
                 <span className="h3-display mt-4 block text-3xl text-slate">{String(index + 1).padStart(2, '0')}</span>
                 <p className="h3-body mt-3 font-medium text-obsidian">{line}</p>
               </li>

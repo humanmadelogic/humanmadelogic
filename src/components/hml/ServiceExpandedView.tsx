@@ -121,7 +121,9 @@ export function ServiceExpandedView({ service }: Props) {
       <section className="border-t border-obsidian/10 py-20 sm:py-28">
         <div className="mx-auto max-w-editorial px-5 sm:px-8 lg:px-12">
           {e.whoItsFor.intro.trim() ? (
-            <p className="max-w-[62ch] text-[17px] leading-[1.65] text-slate">{e.whoItsFor.intro}</p>
+            <h2 className="max-w-[62ch] text-[17px] font-normal leading-[1.65] tracking-normal text-slate">
+              {e.whoItsFor.intro}
+            </h2>
           ) : null}
           <ul className="mt-12 grid gap-6 md:grid-cols-3">
             {([1, 2, 3] as const).map((n, idx) => {

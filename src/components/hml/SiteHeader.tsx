@@ -103,7 +103,7 @@ export function SiteHeader() {
             <a
               key={item.label}
               href={item.href}
-              className="text-[14px] text-slate transition-colors hover:text-obsidian"
+              className="inline-flex min-h-[44px] items-center rounded-sm px-1 text-[14px] text-slate transition-colors hover:text-obsidian"
             >
               {item.label}
             </a>
@@ -156,7 +156,7 @@ export function SiteHeader() {
             <a
               key={item.label}
               href={item.href}
-              className="rounded-full px-3 py-2 text-[13px] text-slate transition-colors hover:bg-obsidian/[0.06] hover:text-obsidian"
+              className="inline-flex min-h-[44px] items-center rounded-full px-3 py-2 text-[13px] text-slate transition-colors hover:bg-obsidian/[0.06] hover:text-obsidian"
             >
               {item.label}
             </a>
@@ -165,7 +165,7 @@ export function SiteHeader() {
 
         <a
           href={agency.cta.href}
-          className="hidden h-10 items-center rounded-full bg-obsidian px-4 text-[13px] font-medium text-paper transition-colors hover:bg-obsidian/85 lg:inline-flex"
+            className="hidden min-h-[44px] items-center rounded-full bg-obsidian px-4 text-[13px] font-medium text-paper transition-colors hover:bg-obsidian/85 lg:inline-flex"
         >
           {agency.cta.label}
         </a>

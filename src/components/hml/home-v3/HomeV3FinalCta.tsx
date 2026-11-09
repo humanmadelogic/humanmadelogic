@@ -82,7 +82,7 @@ export function HomeV3FinalCta() {
             )}
           </h2>
         ) : null}
-        {hasText(finalCta.body) ? <p className="mt-8 max-w-[46ch] text-white/70">{finalCta.body}</p> : null}
+        {hasText(finalCta.body) ? <p className="mt-8 max-w-[46ch] text-white/85">{finalCta.body}</p> : null}
         {hasText(finalCta.button.label) ? (
           <Link
             ref={btn}

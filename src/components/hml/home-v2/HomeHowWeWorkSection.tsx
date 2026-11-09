@@ -5,6 +5,7 @@ import { useEffect, useRef, useState } from 'react';
 import { homeV2Config } from '@/config/home-v2';
 import { hasText, isHowWeWorkPopulated } from '@/lib/hml/homeV2';
 import { useReducedMotion } from '@/lib/hml/useReducedMotion';
+import { altForHomeAsset } from '@/lib/hml/imageAlts';
 import { HomeV2Words, displayHeadingLines } from './homeV2Typography';
 
 const AI_PHRASE = 'People make the calls.';
@@ -18,7 +19,7 @@ function ProcessPlate({ src }: { src: string }) {
     <div className="home-v2-plate-reveal relative aspect-[3/2] w-full overflow-hidden bg-paper/5">
       <Image
         src={src}
-        alt=""
+        alt={altForHomeAsset(src)}
         fill
         className="object-cover"
         sizes="(min-width: 1024px) 38vw, 90vw"
