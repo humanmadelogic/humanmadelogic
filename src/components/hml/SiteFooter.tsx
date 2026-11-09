@@ -27,6 +27,37 @@ export function SiteFooter() {
                 </li>
               ))}
             </ul>
+            <h2 className="mt-8 text-[11px] uppercase tracking-[0.2em] text-paper/45">Services</h2>
+            <ul className="mt-5 space-y-3">
+              <li>
+                <a href="/services" className="text-[16px] text-paper/85 transition-colors hover:text-paper">
+                  All services
+                </a>
+              </li>
+              <li>
+                <a href="/services/branding" className="text-[16px] text-paper/85 transition-colors hover:text-paper">
+                  Branding
+                </a>
+              </li>
+              <li>
+                <a href="/services/seo-aeo-geo" className="text-[16px] text-paper/85 transition-colors hover:text-paper">
+                  SEO/AEO/GEO
+                </a>
+              </li>
+              <li>
+                <a
+                  href="/services/performance-marketing"
+                  className="text-[16px] text-paper/85 transition-colors hover:text-paper"
+                >
+                  Performance marketing
+                </a>
+              </li>
+              <li>
+                <a href="/services/social-media" className="text-[16px] text-paper/85 transition-colors hover:text-paper">
+                  Social media
+                </a>
+              </li>
+            </ul>
           </nav>
 
           <div className="lg:col-span-3">
@@ -51,8 +82,21 @@ export function SiteFooter() {
           </div>
         </div>
 
-        <div className="mt-16 flex flex-col gap-3 border-t border-paper/12 pt-6 text-[13px] text-paper/50 sm:flex-row sm:items-center sm:justify-between">
-          <p>{agency.location}</p>
+        <nav aria-label="Legal" className="mt-12 border-t border-paper/12 pt-8">
+          <h2 className="text-[11px] uppercase tracking-[0.2em] text-paper/45">Legal</h2>
+          <ul className="mt-4 flex flex-wrap gap-x-6 gap-y-2">
+            {agency.legalNav.map((item) => (
+              <li key={item.href}>
+                <a href={item.href} className="text-[14px] text-paper/70 transition-colors hover:text-paper">
+                  {item.label}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </nav>
+
+        <div className="mt-10 flex flex-col gap-3 border-t border-paper/12 pt-6 text-[13px] text-paper/50 sm:flex-row sm:items-center sm:justify-between">
+          <p className="max-w-md text-balance">{agency.location}</p>
           <p>
             © {year} {agency.name}
           </p>

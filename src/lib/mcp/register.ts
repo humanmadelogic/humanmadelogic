@@ -1,6 +1,6 @@
 import { z } from 'zod';
 import type { McpServer } from '@modelcontextprotocol/server';
-import { agency, capabilities, contact, work } from '@/config/agency';
+import { agency, capabilities, contact, workPlaceholder } from '@/config/agency';
 import { validateContact } from '@/lib/contact';
 import { listInquiries, saveInquiry } from '@/lib/inquiries';
 import { sendInquiryEmail } from '@/lib/mailer';
@@ -62,18 +62,14 @@ export function registerComlabsMcp(server: McpServer) {
     'list_work',
     {
       title: 'List selected work',
-      description: 'List selected Human Made Logic projects, services and results.',
+      description: 'Reserved for approved case studies. Returns placeholder status until content is published.',
     },
     async () =>
-      text(
-        work.items.map((item) => ({
-          client: item.client,
-          summary: item.summary,
-          services: item.services,
-          result: item.result,
-          year: item.year,
-        })),
-      ),
+      text({
+        status: 'placeholder',
+        heading: workPlaceholder.heading,
+        note: workPlaceholder.note,
+      }),
   );
 
   server.registerTool(
@@ -216,7 +212,13 @@ export function registerComlabsMcp(server: McpServer) {
     'comlabs://work',
     { title: 'Selected work', mimeType: 'application/json' },
     async (uri) => ({
-      contents: [{ uri: uri.href, mimeType: 'application/json', text: JSON.stringify(work.items, null, 2) }],
+      contents: [
+        {
+          uri: uri.href,
+          mimeType: 'application/json',
+          text: JSON.stringify({ status: 'placeholder', note: workPlaceholder.note }, null, 2),
+        },
+      ],
     }),
   );
 

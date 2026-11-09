@@ -4,6 +4,8 @@ import { useEffect } from 'react';
 import { useFinePointer } from '@/lib/hml/useMediaQuery';
 import { usePointerVelocity } from '@/lib/hml/usePointerVelocity';
 import { useReducedMotion } from '@/lib/hml/useReducedMotion';
+import { ConsentAwareAnalytics, ConsentAwareMarketingScripts } from './ConsentAwareAnalytics';
+import { CookieConsent } from './CookieConsent';
 import { SiteFooter } from './SiteFooter';
 import { SiteHeader } from './SiteHeader';
 import { SmoothScrollProvider } from './SmoothScrollProvider';
@@ -35,6 +37,9 @@ export function HmlPageShell({ children }: { children: React.ReactNode }) {
       <div className="relative z-10">
         <SiteFooter />
       </div>
+      <CookieConsent />
+      <ConsentAwareAnalytics />
+      <ConsentAwareMarketingScripts />
     </SmoothScrollProvider>
   );
 }

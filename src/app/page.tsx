@@ -1,23 +1,24 @@
 import type { Metadata } from 'next';
 import { HomePage } from '@/components/hml/HomePage';
 import { StructuredData } from '@/components/hml/StructuredData';
-import { agency, hero } from '@/config/agency';
+import { siteConfig } from '@/config/site';
+import { homeTitle } from '@/lib/seo';
 
 export const metadata: Metadata = {
-  title: `${agency.name} — Marketing and design agency`,
-  description: hero.body,
+  title: { absolute: homeTitle() },
+  description: siteConfig.servicesBlurb,
   alternates: { canonical: '/' },
   openGraph: {
     type: 'website',
-    title: `${agency.name} — ${agency.principle}`,
-    description: hero.body,
-    siteName: agency.name,
-    locale: 'en_US',
+    title: homeTitle(),
+    description: siteConfig.servicesBlurb,
+    siteName: siteConfig.name,
+    locale: 'en_GB',
   },
   twitter: {
     card: 'summary_large_image',
-    title: `${agency.name} — ${agency.principle}`,
-    description: hero.body,
+    title: homeTitle(),
+    description: siteConfig.servicesBlurb,
   },
 };
 

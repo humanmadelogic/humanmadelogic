@@ -3,8 +3,8 @@ import { Archivo, Inter, Instrument_Serif } from 'next/font/google';
 import './globals.css';
 import { AppShell } from '@/components/AppShell';
 import { siteConfig } from '@/config/site';
+import { homeTitle } from '@/lib/seo';
 
-/* Self-hosted at build time — no third-party font request at runtime. */
 const inter = Inter({
   subsets: ['latin'],
   display: 'swap',
@@ -18,7 +18,6 @@ const instrumentSerif = Instrument_Serif({
   variable: '--font-serif',
 });
 
-/* Grotesk used by the Human Made Logic homepage. */
 const archivo = Archivo({
   subsets: ['latin'],
   display: 'swap',
@@ -28,20 +27,20 @@ const archivo = Archivo({
 export const metadata: Metadata = {
   metadataBase: new URL(siteConfig.url),
   title: {
-    default: `${siteConfig.name} — ${siteConfig.tagline}`,
-    template: `%s — ${siteConfig.titleSuffix}`,
+    default: homeTitle(),
+    template: `%s | ${siteConfig.name}`,
   },
   description: siteConfig.description,
   applicationName: siteConfig.name,
   keywords: [
-    'marketing agency',
-    'design agency',
-    'brand identity',
-    'product photography',
-    'video production',
-    'creative direction',
-    'ecommerce design',
-    'branding studio',
+    'branding agency',
+    'performance marketing agency',
+    'SEO agency',
+    'AEO',
+    'GEO',
+    'social media agency',
+    'SMB marketing UK',
+    'beauty branding',
   ],
   authors: [{ name: siteConfig.legalName }],
   creator: siteConfig.legalName,
@@ -51,13 +50,13 @@ export const metadata: Metadata = {
     type: 'website',
     url: siteConfig.url,
     siteName: siteConfig.name,
-    title: `${siteConfig.name} — ${siteConfig.tagline}`,
+    title: homeTitle(),
     description: siteConfig.description,
-    locale: 'en_US',
+    locale: 'en_GB',
   },
   twitter: {
     card: 'summary_large_image',
-    title: `${siteConfig.name} — ${siteConfig.tagline}`,
+    title: homeTitle(),
     description: siteConfig.description,
   },
   robots: {
@@ -71,7 +70,7 @@ export const metadata: Metadata = {
       'max-video-preview': -1,
     },
   },
-  category: 'Marketing and design agency',
+  category: 'Branding and marketing agency',
   formatDetection: { email: false, address: false, telephone: false },
 };
 
@@ -83,7 +82,7 @@ export const viewport: Viewport = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html
-      lang={siteConfig.locale}
+      lang="en-GB"
       className={`${inter.variable} ${instrumentSerif.variable} ${archivo.variable}`}
     >
       <body className="antialiased min-h-screen flex flex-col">

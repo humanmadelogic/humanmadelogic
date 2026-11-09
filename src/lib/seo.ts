@@ -1,9 +1,19 @@
 import type { Metadata } from 'next';
 import { siteConfig } from '@/config/site';
 
+/** `{page} | Human Made Logic` */
+export function siteTitle(page: string): string {
+  return `${page} | ${siteConfig.name}`;
+}
+
+/** Home document title and default social title. */
+export function homeTitle(): string {
+  return `${siteConfig.name} | ${siteConfig.coverLine}`;
+}
+
 /**
- * One place to build page metadata. Every route calls this so titles,
- * descriptions, canonicals and Open Graph tags stay consistent.
+ * Page metadata: pass a short page title only (no brand). The root layout
+ * template appends ` | Human Made Logic` for the document title.
  */
 export function buildMetadata({
   title,
@@ -18,11 +28,10 @@ export function buildMetadata({
   path?: string;
   type?: 'website' | 'article';
   publishedTime?: string;
-  /** Keeps a page out of the index — used by the leftover template routes. */
   noindex?: boolean;
 }): Metadata {
   const url = new URL(path, siteConfig.url).toString();
-  const fullTitle = `${title} — ${siteConfig.titleSuffix}`;
+  const fullTitle = siteTitle(title);
 
   return {
     title,
@@ -34,7 +43,7 @@ export function buildMetadata({
       description,
       url,
       siteName: siteConfig.name,
-      locale: 'en_US',
+      locale: 'en_GB',
       type,
       ...(publishedTime ? { publishedTime } : {}),
     },
