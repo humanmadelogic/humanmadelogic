@@ -1,11 +1,8 @@
-import { agency } from '@/config/agency';
-import { capabilities, work } from '@/config/agency';
+import { agency, capabilities } from '@/config/agency';
 import { siteConfig } from '@/config/site';
 
 /**
- * JSON-LD for the homepage: who the studio is, what it offers, and the
- * search action for the site itself. Rendered as a script tag rather than
- * through `metadata`, which has no structured-data slot.
+ * JSON-LD for the homepage: Organization, WebSite, WebPage, and Service offers.
  */
 export function StructuredData() {
   const url = siteConfig.url;
@@ -20,25 +17,27 @@ export function StructuredData() {
         alternateName: agency.shortName,
         url,
         email: agency.email,
-        slogan: agency.principle,
+        slogan: agency.tagline,
         description: siteConfig.description,
         logo: { '@type': 'ImageObject', url: `${url}/icon.svg` },
-        image: `${url}/opengraph-image`,
-        areaServed: 'Worldwide',
+        image: `${url}/og/og-default.png`,
+        areaServed: siteConfig.markets,
         knowsAbout: capabilities.items.map((item) => item.title),
-        makesOffer: work.items.map((item) => ({
+        makesOffer: capabilities.items.map((item) => ({
           '@type': 'Offer',
           itemOffered: {
             '@type': 'Service',
-            name: item.client,
-            description: item.summary,
+            name: item.title,
+            description: item.body,
+            url: new URL(item.href, url).toString(),
           },
         })),
         contactPoint: {
           '@type': 'ContactPoint',
-          contactType: 'Sales',
+          contactType: 'sales',
           email: agency.email,
           availableLanguage: 'English',
+          areaServed: siteConfig.markets,
         },
       },
       {
@@ -48,16 +47,16 @@ export function StructuredData() {
         name: agency.name,
         description: siteConfig.description,
         publisher: { '@id': `${url}/#organization` },
-        inLanguage: 'en',
+        inLanguage: siteConfig.locale,
       },
       {
         '@type': 'WebPage',
         '@id': `${url}/#webpage`,
         url,
-        name: `${agency.name} — ${agency.principle}`,
+        name: `${siteConfig.coverLine} | ${agency.name}`,
         isPartOf: { '@id': `${url}/#website` },
         about: { '@id': `${url}/#organization` },
-        inLanguage: 'en',
+        inLanguage: siteConfig.locale,
       },
     ],
   };
@@ -65,7 +64,6 @@ export function StructuredData() {
   return (
     <script
       type="application/ld+json"
-      // Serialised from our own config — no user input reaches this.
       dangerouslySetInnerHTML={{ __html: JSON.stringify(graph) }}
     />
   );

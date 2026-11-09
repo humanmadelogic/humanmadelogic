@@ -74,13 +74,8 @@ export const images: ImageManifest = {
     alt: '',
     position: 'center',
   },
-  /**
-   * Open Graph fallback. Generated at build time by
-   * `src/app/opengraph-image.tsx`; point this at a static file instead if
-   * you would rather ship your own artwork.
-   */
   ogFallback: {
-    src: '/opengraph-image',
-    alt: 'Relay — a focused workspace for teams in motion',
+    src: '/og/og-default.png',
+    alt: 'Human Made Logic, branding and performance marketing agency',
   },
 };

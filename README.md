@@ -54,7 +54,7 @@ See `env.example`. Copy it to `.env.local`.
 
 Required for a live contact inbox:
 
-- `CONTACT_TO` — defaults to `info@humanmadelogic.fun`
+- `CONTACT_TO` — defaults to `info@humanmadelogic.com` (optional `CONTACT_CC` for a copy recipient; unset = no CC)
 - `SMTP_HOST`, `SMTP_PORT`, `SMTP_USER`, `SMTP_PASS` — nodemailer SMTP
 - `ADMIN_PASSWORD` — required to open `/admin`
 
@@ -166,9 +166,7 @@ add the host to `next.config.js` under `images.remotePatterns`.
 ### Favicon and Open Graph
 
 - **Favicon** — `src/app/icon.svg`. Replace the file; Next.js emits the tags.
-- **Open Graph** — `src/app/opengraph-image.tsx` renders a 1200×630 PNG at
-  build time. Edit the JSX, or delete the file and drop a static
-  `opengraph-image.png` into `src/app/` instead.
+- **Open Graph** — static PNGs under `public/og/` (default `og-default.png`, per-route overrides in page metadata).
 
 ## Design tokens
 
@@ -216,7 +214,7 @@ src/
 │   ├── page.tsx                # Homepage composition
 │   ├── globals.css             # Base styles and tokens
 │   ├── icon.svg                # Favicon
-│   ├── opengraph-image.tsx     # OG fallback, generated at build
+│   ├── favicon.ico / apple-icon.png / icon.svg
 │   ├── robots.ts / sitemap.ts  # Generated from siteConfig
 │   ├── not-found.tsx
 │   ├── pricing/  contact/  privacy/  terms/

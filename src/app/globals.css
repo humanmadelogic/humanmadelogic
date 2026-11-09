@@ -15,7 +15,7 @@
 }
 
 :root {
-  --canvas: #f6f4ef;
+  --canvas: #ffffff;
   --surface: #ffffff;
   --ink: #141412;
   --muted: #5b594f;
@@ -84,6 +84,14 @@ button {
 
 .skip-link:focus {
   top: 16px;
+}
+
+dialog::backdrop {
+  background: rgba(21, 21, 21, 0.45);
+}
+
+dialog:focus {
+  outline: none;
 }
 
 /* Barely-visible vertical rail system. Hero only. */
