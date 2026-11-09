@@ -38,12 +38,13 @@ export function RevealText({
 
     const context = gsap.context(() => {
       const words = element.querySelectorAll('.hml-word');
-      gsap.set(words, { yPercent: 110, opacity: 0 });
+      // Clip in the parent `.block.overflow-hidden`; move only — never fade opacity
+      // (semi-transparent type fails colour-contrast during the reveal).
+      gsap.set(words, { yPercent: 110 });
 
       const animate = () =>
         gsap.to(words, {
           yPercent: 0,
-          opacity: 1,
           duration: 0.9,
           ease: 'power3.out',
           stagger: 0.035,

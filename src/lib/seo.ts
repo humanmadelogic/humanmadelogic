@@ -1,9 +1,24 @@
 import type { Metadata } from 'next';
 import { siteConfig } from '@/config/site';
 
+/** `{page} | Human Made Logic` */
+export function siteTitle(page: string): string {
+  return `${page} | ${siteConfig.name}`;
+}
+
+/** Home document title and default social title. */
+export function homeTitle(): string {
+  return `${siteConfig.coverLine} | ${siteConfig.name}`;
+}
+
+function ogImages(relativePath: string, alt: string) {
+  const url = new URL(relativePath, siteConfig.url).toString();
+  return [{ url, width: 1200, height: 630, alt }];
+}
+
 /**
- * One place to build page metadata. Every route calls this so titles,
- * descriptions, canonicals and Open Graph tags stay consistent.
+ * Page metadata: pass a short page title only (no brand). The root layout
+ * template appends ` | Human Made Logic` for the document title.
  */
 export function buildMetadata({
   title,
@@ -12,17 +27,19 @@ export function buildMetadata({
   type = 'website',
   publishedTime,
   noindex = false,
+  ogImage,
 }: {
   title: string;
   description: string;
   path?: string;
   type?: 'website' | 'article';
   publishedTime?: string;
-  /** Keeps a page out of the index — used by the leftover template routes. */
   noindex?: boolean;
+  ogImage?: string;
 }): Metadata {
   const url = new URL(path, siteConfig.url).toString();
-  const fullTitle = `${title} — ${siteConfig.titleSuffix}`;
+  const fullTitle = siteTitle(title);
+  const images = ogImage ? ogImages(ogImage, fullTitle) : undefined;
 
   return {
     title,
@@ -34,14 +51,16 @@ export function buildMetadata({
       description,
       url,
       siteName: siteConfig.name,
-      locale: 'en_US',
+      locale: 'en_GB',
       type,
       ...(publishedTime ? { publishedTime } : {}),
+      ...(images ? { images } : {}),
     },
     twitter: {
       card: 'summary_large_image',
       title: fullTitle,
       description,
+      ...(images ? { images: images.map((image) => image.url) } : {}),
     },
   };
 }

@@ -15,7 +15,7 @@
 }
 
 :root {
-  --canvas: #f6f4ef;
+  --canvas: #ffffff;
   --surface: #ffffff;
   --ink: #141412;
   --muted: #5b594f;
@@ -36,6 +36,7 @@ html {
   letter-spacing: -0.014em;
   scroll-behavior: smooth;
   -webkit-text-size-adjust: 100%;
+  overflow-x: clip;
 }
 
 body {
@@ -43,6 +44,8 @@ body {
   color: var(--ink);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  overflow-x: clip;
+  -webkit-tap-highlight-color: rgba(20, 20, 18, 0.12);
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -86,6 +89,14 @@ button {
   top: 16px;
 }
 
+dialog::backdrop {
+  background: rgba(21, 21, 21, 0.45);
+}
+
+dialog:focus {
+  outline: none;
+}
+
 /* Barely-visible vertical rail system. Hero only. */
 .hero-rails {
   background-image: repeating-linear-gradient(
@@ -120,6 +131,14 @@ button {
   pointer-events: none;
 }
 
+@media (max-width: 639px) {
+  .hml input:not([type='checkbox']),
+  .hml textarea,
+  .hml select {
+    font-size: 16px;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
     animation-duration: 0.01ms !important;
@@ -148,6 +167,41 @@ button {
 .hml h4 {
   font-family: var(--font-grotesk), 'Helvetica Neue', Arial, sans-serif;
   font-weight: 500;
+}
+
+.hml :where(h1, h2, h3) {
+  hyphens: none;
+  overflow-wrap: normal;
+  word-break: normal;
+}
+
+.hml-accent-num {
+  color: #151515;
+  text-decoration: underline;
+  text-decoration-color: #f4bd49;
+  text-decoration-thickness: 0.14em;
+  text-underline-offset: 0.12em;
+}
+
+.hml-accent-tick {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+  background: #f4bd49;
+  color: #151515;
+}
+
+.hml .hml-word,
+.hml .h3-word,
+.hml .home-v2-word {
+  display: inline-block;
+  white-space: nowrap;
+  overflow-wrap: normal;
+  word-break: normal;
+  hyphens: none;
 }
 
 /* Art-directed crops. Both are carried as custom properties on the frame and
@@ -211,7 +265,8 @@ button {
    hidden sentence carries the real text for assistive technology. */
 .hml-word {
   display: inline-block;
-  will-change: transform, opacity;
+  opacity: 1;
+  will-change: transform;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -233,3 +288,4 @@ button {
 @media (prefers-reduced-motion: reduce) {
   .hml-marquee { animation: none; }
 }
+

@@ -38,22 +38,16 @@ export async function POST(request: Request) {
   }
 
   let emailed = false;
-  let mailError: string | null = null;
 
   try {
     emailed = await sendInquiryEmail({ ...fields, source: 'contact' });
     noteMailSuccess();
   } catch (error) {
-    mailError = describeMailError(error);
+    const mailError = describeMailError(error);
     noteMailFailure(mailError);
-    // Logged so the reason shows up in the platform's function logs; the
-    // visitor is never shown SMTP internals.
     console.error('[contact] enquiry email failed:', mailError);
   }
 
-  // Persistence is a convenience for /admin, not the delivery path. A
-  // read-only or full filesystem must never turn a successful send into a
-  // 500 for the visitor.
   let id: string | null = null;
   try {
     id = (await saveInquiry(fields, { emailed, source: 'contact' })).id;
@@ -61,13 +55,21 @@ export async function POST(request: Request) {
     console.error('[contact] enquiry could not be stored:', (error as Error).message);
   }
 
-  // Nothing got through: tell the visitor rather than showing a false success.
-  if (!emailed && !id) {
-    return NextResponse.json(
-      { ok: false, error: 'We could not send your message. Please email us directly.' },
-      { status: 502 },
-    );
+  if (emailed) {
+    return NextResponse.json({ ok: true, id, emailed: true });
   }
 
-  return NextResponse.json({ ok: true, id, emailed });
+  if (id) {
+    return NextResponse.json({
+      ok: true,
+      id,
+      emailed: false,
+      warning: 'Message saved but email could not be sent. We will follow up manually.',
+    });
+  }
+
+  return NextResponse.json(
+    { ok: false, error: 'We could not send your message. Please email us directly.' },
+    { status: 502 },
+  );
 }
