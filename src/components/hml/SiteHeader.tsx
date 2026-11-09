@@ -84,17 +84,21 @@ export function SiteHeader() {
 
   const close = useCallback(() => setMenuOpen(false), []);
 
+  const showFull = !condensed && !menuOpen;
+  const showCondensed = condensed && !menuOpen;
+
   return (
-    <header className="pointer-events-none fixed inset-x-0 top-0 z-50 text-obsidian">
+    <header className="pointer-events-none fixed inset-x-0 top-0 z-50 isolate text-obsidian mix-blend-normal">
       {/* Full navigation — visible at the top of the page. */}
       <div
-        className={`mx-auto flex max-w-editorial items-center justify-between gap-6 px-5 py-5 transition-[opacity,transform,visibility] duration-500 ease-out sm:px-8 lg:px-12 ${
-          condensed || menuOpen
-            ? 'pointer-events-none invisible -translate-y-2 opacity-0'
-            : 'pointer-events-auto visible translate-y-0 opacity-100'
+        aria-hidden={!showFull}
+        {...(!showFull ? { inert: true } : {})}
+        hidden={!showFull}
+        className={`mx-auto flex max-w-editorial items-center justify-between gap-6 bg-paper px-5 py-5 sm:px-8 lg:px-12 ${
+          showFull ? 'pointer-events-auto' : 'hidden'
         }`}
       >
-        <a href={wordmarkHref} className="inline-flex min-h-[44px] items-center rounded-sm">
+        <a href={wordmarkHref} className="inline-flex min-h-[44px] items-center rounded-sm text-obsidian">
           <Wordmark />
         </a>
 
@@ -134,18 +138,16 @@ export function SiteHeader() {
 
       {/* Condensed pill — takes over once the page scrolls. */}
       <div
-        aria-hidden={!condensed || menuOpen}
-        {...(!condensed || menuOpen ? { inert: true } : {})}
-        className={`absolute right-5 top-4 flex items-center gap-1 rounded-full border border-obsidian/10 bg-paper/85 p-1.5 shadow-[0_10px_40px_-18px_rgba(21,21,21,0.5)] backdrop-blur-md transition-[opacity,transform,visibility] duration-500 ease-out sm:right-8 lg:right-12 ${
-          condensed && !menuOpen
-            ? 'pointer-events-auto visible translate-y-0 opacity-100'
-            : 'pointer-events-none invisible -translate-y-3 opacity-0'
+        aria-hidden={!showCondensed}
+        {...(!showCondensed ? { inert: true } : {})}
+        hidden={!showCondensed}
+        className={`absolute right-5 top-4 flex items-center gap-1 rounded-full border border-obsidian/10 bg-paper p-1.5 text-obsidian shadow-[0_10px_40px_-18px_rgba(21,21,21,0.5)] sm:right-8 lg:right-12 ${
+          showCondensed ? 'pointer-events-auto' : 'hidden'
         }`}
       >
         <a
           href={wordmarkHref}
-          tabIndex={condensed && !menuOpen ? 0 : -1}
-          className="inline-flex min-h-[44px] items-center rounded-full px-3 py-2"
+          className="inline-flex min-h-[44px] items-center rounded-full px-3 py-2 text-obsidian"
           aria-label="Back to top"
         >
           <Wordmark compact />
@@ -175,11 +177,7 @@ export function SiteHeader() {
           onClick={openMenu}
           aria-expanded={menuOpen}
           aria-controls="hml-menu"
-          aria-hidden={!condensed}
-          tabIndex={condensed && !menuOpen ? 0 : -1}
-          className={`min-h-[44px] min-w-[44px] items-center justify-center rounded-full border border-obsidian/15 px-4 text-[13px] text-obsidian lg:hidden ${
-            condensed ? 'inline-flex' : 'hidden'
-          }`}
+          className="inline-flex min-h-[44px] min-w-[44px] items-center justify-center rounded-full border border-obsidian/15 px-4 text-[13px] text-obsidian lg:hidden"
         >
           Menu
         </button>

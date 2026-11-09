@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 /**
  * axe colour-contrast on all sitemap routes (local server).
+ * At 390 and 1440 widths, after scrolling to ~25%, ~50%, and bottom.
  * Ignores Vercel toolbar / deployment-protection nodes.
  */
 import fs from 'node:fs';
@@ -30,6 +31,18 @@ const routes = [
   '/services/social-media',
 ];
 
+const VIEWPORTS = [
+  { name: '390', width: 390, height: 844, deviceScaleFactor: 2 },
+  { name: '1440', width: 1440, height: 900, deviceScaleFactor: 1 },
+];
+
+const SCROLL_STEPS = [
+  { name: 'top', fraction: 0 },
+  { name: '25%', fraction: 0.25 },
+  { name: '50%', fraction: 0.5 },
+  { name: 'bottom', fraction: 1 },
+];
+
 const IGNORE = [
   '#vercel-live-feedback',
   '[data-vercel-toolbar]',
@@ -37,11 +50,9 @@ const IGNORE = [
   '[class*="vercel"]',
 ];
 
-async function auditRoute(page, route) {
-  const url = `${BASE}${route}`;
-  await page.goto(url, { waitUntil: 'networkidle2', timeout: 120_000 });
+async function runAxe(page) {
   await page.evaluate(axeSource);
-  const result = await page.evaluate(async (ignoreSelectors) => {
+  return page.evaluate(async (ignoreSelectors) => {
     // eslint-disable-next-line no-undef
     return axe.run(document, {
       runOnly: { type: 'rule', values: ['color-contrast'] },
@@ -51,9 +62,15 @@ async function auditRoute(page, route) {
       exclude: ignoreSelectors.map((sel) => [sel]),
     });
   }, IGNORE);
+}
 
-  const violations = result.violations ?? [];
-  return { route, violations };
+async function scrollToFraction(page, fraction) {
+  await page.evaluate((f) => {
+    const max = Math.max(0, document.documentElement.scrollHeight - window.innerHeight);
+  const y = f >= 1 ? max : Math.round(max * f);
+    window.scrollTo({ top: y, behavior: 'instant' in window ? 'instant' : 'auto' });
+  }, fraction);
+  await new Promise((r) => setTimeout(r, 400));
 }
 
 async function main() {
@@ -61,32 +78,48 @@ async function main() {
     headless: true,
     args: ['--no-sandbox', '--disable-setuid-sandbox'],
   });
-  const page = await browser.newPage();
-  await page.setViewport({ width: 390, height: 844, deviceScaleFactor: 2 });
 
   const all = [];
-  for (const route of routes) {
-    const { violations } = await auditRoute(page, route);
-    all.push({ route, count: violations.length, violations });
-    if (violations.length) {
-      console.error(`FAIL ${route}: ${violations.length} contrast violation(s)`);
-      for (const v of violations) {
-        for (const node of v.nodes.slice(0, 8)) {
-          console.error('  ', node.target?.join(' '), node.failureSummary);
+  let failCount = 0;
+
+  for (const vp of VIEWPORTS) {
+    const page = await browser.newPage();
+    await page.setViewport(vp);
+
+    for (const route of routes) {
+      const url = `${BASE}${route}`;
+      await page.goto(url, { waitUntil: 'networkidle2', timeout: 120_000 });
+
+      for (const step of SCROLL_STEPS) {
+        await scrollToFraction(page, step.fraction);
+        const result = await runAxe(page);
+        const violations = result.violations ?? [];
+        const key = `${vp.name} ${route} @${step.name}`;
+        all.push({ viewport: vp.name, route, scroll: step.name, count: violations.length, violations });
+
+        if (violations.length) {
+          failCount += 1;
+          console.error(`FAIL ${key}: ${violations.length} contrast violation(s)`);
+          for (const v of violations) {
+            for (const node of v.nodes.slice(0, 6)) {
+              console.error('  ', node.target?.join(' '), node.failureSummary?.split('\n')[0]);
+            }
+          }
+        } else {
+          console.log(`OK ${key}`);
         }
       }
-    } else {
-      console.log(`OK ${route}`);
     }
+
+    await page.close();
   }
 
   await browser.close();
 
-  const failed = all.filter((r) => r.count > 0);
   const out = path.join(__dirname, '../.axe-contrast-report.json');
-  fs.writeFileSync(out, JSON.stringify({ base: BASE, routes: all }, null, 2));
+  fs.writeFileSync(out, JSON.stringify({ base: BASE, results: all }, null, 2));
   console.log(`Wrote ${out}`);
-  process.exit(failed.length ? 1 : 0);
+  process.exit(failCount > 0 ? 1 : 0);
 }
 
 main().catch((err) => {
