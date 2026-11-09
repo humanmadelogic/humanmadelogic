@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
+    "build": "tsx scripts/validate-home-v2-copy.ts && next build",
     "start": "next start",
     "lint": "next lint",
     "mcp": "tsx src/mcp/stdio.ts"
