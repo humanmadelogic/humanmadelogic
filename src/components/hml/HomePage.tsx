@@ -11,10 +11,9 @@ import { SiteHeader } from './SiteHeader';
 import { Hero } from './Hero';
 import { AgencyStatement } from './AgencyStatement';
 import { Capabilities } from './Capabilities';
-import { SelectedWork } from './SelectedWork';
+import { WorkPlaceholder } from './WorkPlaceholder';
 import { Process } from './Process';
-import { ProofStrip } from './ProofStrip';
-import { Testimonial } from './Testimonial';
+import { AboutApproach } from './AboutApproach';
 import { FinalCTA } from './FinalCTA';
 import { SiteFooter } from './SiteFooter';
 
@@ -39,11 +38,9 @@ export function HomePage() {
   const isDesktop = useMediaQuery('(min-width: 1024px)');
   const [canRender3D, setCanRender3D] = useState(false);
 
-  // Pointer tracking is only installed where it is actually used.
   usePointerVelocity(finePointer && !reducedMotion);
 
   useEffect(() => {
-    // Defer the capability check so it never competes with first paint.
     const id = window.requestAnimationFrame(() => setCanRender3D(supportsWebGL()));
     return () => window.cancelAnimationFrame(id);
   }, []);
@@ -56,9 +53,6 @@ export function HomePage() {
     };
   }, []);
 
-  // Shaders are a desktop enhancement. On touch the composition renders as
-  // ordinary graded DOM images; under reduced motion the canvas still runs but
-  // every motion uniform is zeroed, so the imagery is treated yet stationary.
   const webgl = canRender3D && isDesktop && finePointer;
 
   return (
@@ -69,7 +63,6 @@ export function HomePage() {
       <LoadingTransition />
       <SiteHeader />
 
-      {/* Paper backdrop → shared canvas → content. */}
       <div aria-hidden="true" className="fixed inset-0 z-0 bg-paper" />
       {webgl && <WebGLLayer reducedMotion={reducedMotion} />}
 
@@ -77,10 +70,9 @@ export function HomePage() {
         <Hero />
         <AgencyStatement />
         <Capabilities />
-        <SelectedWork />
         <Process />
-        <ProofStrip />
-        <Testimonial />
+        <AboutApproach />
+        <WorkPlaceholder />
         <FinalCTA />
       </main>
 

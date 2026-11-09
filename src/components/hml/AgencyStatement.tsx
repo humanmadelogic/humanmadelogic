@@ -53,7 +53,7 @@ export function AgencyStatement() {
 
   return (
     <section
-      id="studio"
+      id="about"
       ref={section}
       className="scroll-mt-24 overflow-x-clip py-24 sm:py-32 lg:py-40"
     >

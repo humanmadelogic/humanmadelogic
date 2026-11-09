@@ -1,14 +1,10 @@
 /**
- * Relay — Editorial AI SaaS Template
- * ----------------------------------
- * Global site identity, navigation and metadata.
- * Edit this file first when you rebrand the template.
+ * Human Made Logic — global site identity, navigation helpers and metadata defaults.
  */
 
 export type NavItem = {
   label: string;
   href: string;
-  /** Optional short description used by the mobile menu. */
   hint?: string;
 };
 
@@ -22,110 +18,70 @@ export type SocialLink = {
   href: string;
 };
 
-export type FooterLink = {
-  label: string;
-  href: string;
-};
-
-export type FooterColumn = {
-  title: string;
-  links: FooterLink[];
-};
+export type FooterLink = { label: string; href: string };
+export type FooterColumn = { title: string; links: FooterLink[] };
 
 export type SiteConfig = {
-  /** Demo brand name. Replace with your own. */
   name: string;
-  /** Product line used in metadata titles, e.g. "Relay — …". */
   titleSuffix: string;
   tagline: string;
+  coverLine: string;
   description: string;
-  /** Absolute production URL. Used by metadata, sitemap and robots. */
+  servicesBlurb: string;
   url: string;
   locale: string;
-  /** Shown in the announcement bar. Set to `null` to hide the bar. */
+  contactEmail: string;
+  legalName: string;
+  /** ICP regions for structured data and llms.txt */
+  markets: string[];
+  /** Legacy template shell — unused on HML routes */
   announcementBar: { label: string; href: string } | null;
   nav: NavItem[];
   primaryCta: CallToAction;
   secondaryCta: CallToAction;
-  social: SocialLink[];
-  contactEmail: string;
-  contactPhone: string;
-  addressLines: string[];
-  legalName: string;
-  /** Used by the “built by” line in the footer. */
   builtByLabel: string;
 };
+
+export const footerColumns: FooterColumn[] = [
+  {
+    title: 'Services',
+    links: [
+      { label: 'Branding', href: '/services/branding' },
+      { label: 'SEO/AEO/GEO', href: '/services/seo-aeo-geo' },
+      { label: 'Performance marketing', href: '/services/performance-marketing' },
+      { label: 'Social media', href: '/services/social-media' },
+    ],
+  },
+  {
+    title: 'Studio',
+    links: [
+      { label: 'Home', href: '/' },
+      { label: 'Contact', href: '/contact' },
+    ],
+  },
+];
 
 export const siteConfig: SiteConfig = {
   name: 'Human Made Logic',
   titleSuffix: 'Human Made Logic',
-  tagline: 'Human instinct. Creative systems. Measurable growth.',
+  tagline:
+    'We make brands impossible to ignore, with identities built for people, screens, and algorithms.',
+  coverLine: 'Impossible to ignore. Built to be chosen.',
+  servicesBlurb:
+    'Branding, SEO/AEO/GEO, Performance marketing, and Social Media for SMB founders and marketing leads in the UK, Australia, Canada, and Singapore. Take the full package or pick what you need. We build brands people remember, search engines and AI answers can find, and campaigns that turn attention into measurable growth. AI speeds up the research and the drafts. People make the calls.',
   description:
-    'Human Made Logic is an independent marketing and design agency. Photography, video production, design and branding, and eCommerce — built to make brands impossible to ignore.',
-  url: 'https://humanmadelogic.fun',
-  locale: 'en',
-  announcementBar: {
-    label: 'Relay 2.4 adds review points to every automation',
-    href: '/resources/review-points-in-automated-work',
-  },
+    'Human Made Logic is a branding and performance marketing agency for SMB founders and marketing leads in the UK, Australia, Canada, and Singapore. Branding, SEO/AEO/GEO, performance marketing, and social media.',
+  url: 'https://humanmadelogic.com',
+  locale: 'en-GB',
+  contactEmail: 'info@humanmadelogic.fun',
+  legalName: 'Human Made Logic',
+  markets: ['United Kingdom', 'Australia', 'Canada', 'Singapore'],
+  announcementBar: null,
   nav: [
-    { label: 'Product', href: '/#capabilities', hint: 'The four Relay capabilities' },
-    { label: 'Use cases', href: '/#use-cases', hint: 'Who this template is built for' },
-    { label: 'Resources', href: '/resources', hint: 'Guides, stories and changelog' },
-    { label: 'Pricing', href: '/pricing', hint: 'Three tiers and a comparison' },
-    { label: 'Contact', href: '/contact', hint: 'Talk to the team' },
-  ],
-  primaryCta: { label: 'Get Relay', href: '/pricing' },
-  secondaryCta: { label: 'Contact', href: '/contact' },
-  social: [
-    { label: 'Changelog', href: '/resources#changelog' },
-    { label: 'Guides', href: '/resources#guides' },
+    { label: 'Services', href: '/#services' },
     { label: 'Contact', href: '/contact' },
   ],
-  contactEmail: 'info@humanmadelogic.fun',
-  contactPhone: '+1 (555) 014 2280',
-  addressLines: ['Relay Software', 'Studio 4, 118 Wharf Lane', 'Portland, OR 97209'],
-  legalName: 'Human Made Logic',
-  builtByLabel: 'Relay is a demo brand used to showcase this template.',
+  primaryCta: { label: 'Start a project', href: '/contact' },
+  secondaryCta: { label: 'Contact', href: '/contact' },
+  builtByLabel: 'Human Made Logic',
 };
-
-/**
- * Footer navigation. Point these at your own routes when you rebrand —
- * every href below resolves to a page that ships with the template.
- */
-export const footerColumns: FooterColumn[] = [
-  {
-    title: 'Product',
-    links: [
-      { label: 'Workspace', href: '/#workspace' },
-      { label: 'Context', href: '/#context' },
-      { label: 'Automations', href: '/#automations' },
-      { label: 'Intelligence', href: '/#intelligence' },
-    ],
-  },
-  {
-    title: 'Resources',
-    links: [
-      { label: 'Changelog', href: '/resources#changelog' },
-      { label: 'Guides', href: '/resources#guides' },
-      { label: 'Customer stories', href: '/resources#stories' },
-      { label: 'Help centre', href: '/resources#help' },
-    ],
-  },
-  {
-    title: 'Company',
-    links: [
-      { label: 'About', href: '/#use-cases' },
-      { label: 'Careers', href: '/contact' },
-      { label: 'Contact', href: '/contact' },
-    ],
-  },
-  {
-    title: 'Legal',
-    links: [
-      { label: 'Privacy', href: '/privacy' },
-      { label: 'Terms', href: '/terms' },
-      { label: 'Security', href: '/privacy#security' },
-    ],
-  },
-];

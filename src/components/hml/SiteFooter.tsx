@@ -27,6 +27,32 @@ export function SiteFooter() {
                 </li>
               ))}
             </ul>
+            <h2 className="mt-8 text-[11px] uppercase tracking-[0.2em] text-paper/45">Services</h2>
+            <ul className="mt-5 space-y-3">
+              <li>
+                <a href="/services/branding" className="text-[16px] text-paper/85 transition-colors hover:text-paper">
+                  Branding
+                </a>
+              </li>
+              <li>
+                <a href="/services/seo-aeo-geo" className="text-[16px] text-paper/85 transition-colors hover:text-paper">
+                  SEO/AEO/GEO
+                </a>
+              </li>
+              <li>
+                <a
+                  href="/services/performance-marketing"
+                  className="text-[16px] text-paper/85 transition-colors hover:text-paper"
+                >
+                  Performance marketing
+                </a>
+              </li>
+              <li>
+                <a href="/services/social-media" className="text-[16px] text-paper/85 transition-colors hover:text-paper">
+                  Social media
+                </a>
+              </li>
+            </ul>
           </nav>
 
           <div className="lg:col-span-3">

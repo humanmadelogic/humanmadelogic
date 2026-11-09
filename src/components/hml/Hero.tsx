@@ -155,6 +155,10 @@ export function Hero() {
           className="mt-6 text-[12vw] leading-[0.92] tracking-[-0.055em] sm:text-[9vw] lg:text-[7.6vw] xl:text-[112px]"
         />
 
+        <p className="mt-5 max-w-[40ch] text-[18px] font-medium tracking-[-0.02em] text-obsidian sm:text-[20px]">
+          {hero.subhead}
+        </p>
+
         <div className="mt-8 flex flex-col gap-8 lg:mt-10 lg:flex-row lg:items-end lg:justify-between">
           <p className="max-w-[46ch] text-[16px] leading-[1.55] text-slate sm:text-[17px]">
             {hero.body}

@@ -55,7 +55,7 @@ export function Process() {
   }, [reducedMotion]);
 
   return (
-    <section ref={section} className="overflow-x-clip py-24 sm:py-32 lg:py-40">
+    <section id="process" ref={section} className="scroll-mt-24 overflow-x-clip py-24 sm:py-32 lg:py-40">
       {/*
         Architectural interlude, composed as a stack of overlapping panels:
         a primary plate, a second crossing its lower-right corner, and a
