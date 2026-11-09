@@ -26,10 +26,9 @@ export function AboutApproach() {
       gsap.utils.toArray<HTMLElement>('[data-approach-card]').forEach((card, index) => {
         gsap.fromTo(
           card,
-          { y: 28, opacity: 0.72 },
+          { y: 28 },
           {
             y: 0,
-            opacity: 1,
             ease: 'power2.out',
             scrollTrigger: {
               trigger: card,

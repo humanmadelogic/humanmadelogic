@@ -265,7 +265,8 @@ dialog:focus {
    hidden sentence carries the real text for assistive technology. */
 .hml-word {
   display: inline-block;
-  will-change: transform, opacity;
+  opacity: 1;
+  will-change: transform;
 }
 
 @media (prefers-reduced-motion: reduce) {
