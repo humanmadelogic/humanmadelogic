@@ -1,20 +1,14 @@
 import type { Metadata } from 'next';
 import { HmlPageShell } from '@/components/hml/HmlPageShell';
 import { AboutView } from '@/components/hml/AboutView';
-import { agency } from '@/config/agency';
 import { siteConfig } from '@/config/site';
+import { buildMetadata } from '@/lib/seo';
 
-export const metadata: Metadata = {
-  title: `About — ${agency.name}`,
-  description: siteConfig.servicesBlurb,
-  alternates: { canonical: '/about' },
-  openGraph: {
-    title: `About — ${agency.name}`,
-    description: siteConfig.description,
-    url: new URL('/about', siteConfig.url).toString(),
-    locale: 'en_GB',
-  },
-};
+export const metadata: Metadata = buildMetadata({
+  title: 'About',
+  description: siteConfig.description,
+  path: '/about',
+});
 
 export default function AboutPage() {
   return (
