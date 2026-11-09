@@ -6,14 +6,29 @@ Tagline: We make brands impossible to ignore, with identities built for people, 
 
 Cover line: Impossible to ignore. Built to be chosen.
 
-Services:
+## Pages
+
+- Home — https://humanmadelogic.com/
+- Services overview — https://humanmadelogic.com/services
+- About — https://humanmadelogic.com/about
+- Contact — https://humanmadelogic.com/contact
+
+## Services
+
 - Branding — https://humanmadelogic.com/services/branding
 - SEO, AEO and GEO — https://humanmadelogic.com/services/seo-aeo-geo
 - Performance marketing — https://humanmadelogic.com/services/performance-marketing
 - Social media — https://humanmadelogic.com/services/social-media
 
-Contact: https://humanmadelogic.com/contact
-Email: info@humanmadelogic.fun
+## Legal and compliance
+
+- Privacy policy — https://humanmadelogic.com/privacy
+- Cookie policy — https://humanmadelogic.com/cookies
+- Terms of use — https://humanmadelogic.com/terms
+- Accessibility statement — https://humanmadelogic.com/accessibility
+- Company information — https://humanmadelogic.com/legal
+
+Contact email: info@humanmadelogic.fun
 
 Positioning: AI speeds up research and drafts. People make the calls. HML is not an AI agency.
 

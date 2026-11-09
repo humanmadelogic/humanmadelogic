@@ -1,22 +1,19 @@
-import { LegalPage } from '@/components/LegalPage';
-import { termsPage } from '@/config/content';
+import type { Metadata } from 'next';
+import { HmlLegalPage } from '@/components/hml/HmlLegalPage';
+import { HmlPageShell } from '@/components/hml/HmlPageShell';
+import { termsPage } from '@/config/legal';
 import { buildMetadata } from '@/lib/seo';
 
-export const metadata = buildMetadata({
-  title: 'Terms',
-  description:
-    'Placeholder terms of service shipped with the Relay template, including template licence notes — replace before launch.',
+export const metadata: Metadata = buildMetadata({
+  title: 'Terms of use',
+  description: termsPage.intro,
   path: '/terms',
-  noindex: true,
 });
 
 export default function Terms() {
   return (
-    <LegalPage
-      title={termsPage.title}
-      updated={termsPage.updated}
-      intro={termsPage.intro}
-      sections={termsPage.sections}
-    />
+    <HmlPageShell>
+      <HmlLegalPage page={termsPage} />
+    </HmlPageShell>
   );
 }

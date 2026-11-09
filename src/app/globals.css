@@ -86,6 +86,14 @@ button {
   top: 16px;
 }
 
+dialog::backdrop {
+  background: rgba(21, 21, 21, 0.45);
+}
+
+dialog:focus {
+  outline: none;
+}
+
 /* Barely-visible vertical rail system. Hero only. */
 .hero-rails {
   background-image: repeating-linear-gradient(

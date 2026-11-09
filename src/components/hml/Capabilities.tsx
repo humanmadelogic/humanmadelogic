@@ -10,7 +10,7 @@ export function Capabilities() {
   const [active, setActive] = useState<string | null>(null);
 
   return (
-    <section id="services" className="scroll-mt-24 pb-8 sm:pb-12">
+    <section className="scroll-mt-24 pb-8 sm:pb-12">
       <div className="mx-auto max-w-editorial px-5 sm:px-8 lg:px-12">
         <div className="grid gap-8 lg:grid-cols-12">
           <p className="text-[11px] uppercase tracking-[0.2em] text-slate lg:col-span-3">

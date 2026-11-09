@@ -27,10 +27,16 @@ export const agency = {
   // PLACEHOLDER COPY: pending content team
   availability: 'New project enquiries open',
   nav: [
-    { label: 'Services', href: '/#services' },
-    { label: 'Process', href: '/#process' },
-    { label: 'Approach', href: '/#approach' },
+    { label: 'Services', href: '/services' },
+    { label: 'About', href: '/about' },
     { label: 'Contact', href: '/contact' },
+  ] as NavLink[],
+  legalNav: [
+    { label: 'Privacy policy', href: '/privacy' },
+    { label: 'Cookie policy', href: '/cookies' },
+    { label: 'Terms of use', href: '/terms' },
+    { label: 'Accessibility', href: '/accessibility' },
+    { label: 'Company information', href: '/legal' },
   ] as NavLink[],
   cta: { label: 'Start a project', href: '/contact' },
   social: [
@@ -56,7 +62,7 @@ export const hero = {
   subhead: siteConfig.coverLine,
   body: siteConfig.tagline,
   primaryCta: { label: 'Start a project', href: '/contact' },
-  secondaryCta: { label: 'View services', href: '/#services' },
+  secondaryCta: { label: 'View services', href: '/services' },
   scrollHint: 'Scroll',
   frames: [
     { media: 'heroIdentity', discipline: 'Branding', offset: 4, rotate: -3.4, depth: 0.55 },
@@ -276,9 +282,9 @@ export const notFoundPage = {
   heading: 'This page is not here.',
   body: 'The link may be out of date. Head back to the homepage or send us a note.',
   links: [
-    { label: 'Homepage', href: '/' },
+    { label: 'Home', href: '/' },
+    { label: 'Services', href: '/services' },
+    { label: 'About', href: '/about' },
     { label: 'Contact', href: '/contact' },
-    { label: 'Branding', href: '/services/branding' },
-    { label: 'SEO/AEO/GEO', href: '/services/seo-aeo-geo' },
   ],
 };
