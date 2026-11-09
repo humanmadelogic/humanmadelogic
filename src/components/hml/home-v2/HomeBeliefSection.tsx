@@ -11,7 +11,7 @@ function beliefQuoteLines(quote: string): string[] {
     .map((part) => part.trim())
     .filter(Boolean);
   if (parts.length <= 1) return splitDisplayLines(quote, 3);
-  return parts.map((part, index) => (index < parts.length - 1 || quote.trimEnd().endsWith('.') ? `${part}.` : part));
+  return parts.map((part) => (part.endsWith('.') ? part : `${part}.`));
 }
 
 const SLOGAN_PHRASE = 'impossible to ignore';

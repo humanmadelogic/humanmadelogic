@@ -13,9 +13,11 @@ export function HomeV3Belief() {
 
   if (!isBeliefPopulated(homeV2Config.content)) return null;
 
-  const quoteParts = belief.quote.split(/\.\s+/).filter(Boolean).map((part, i, a) =>
-    i < a.length - 1 || belief.quote.trimEnd().endsWith('.') ? `${part}.` : part,
-  );
+  const quoteParts = belief.quote
+    .split(/\.\s+/)
+    .map((part) => part.trim())
+    .filter(Boolean)
+    .map((part) => (part.endsWith('.') ? part : `${part}.`));
 
   const sloganIdx = belief.slogan.toLowerCase().indexOf(PHRASE);
 
