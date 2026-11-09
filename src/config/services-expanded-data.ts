@@ -5,7 +5,6 @@ const heroCtas = {
   primaryCtaHref: '/contact',
   secondaryCtaLabel: 'All services',
   secondaryCtaHref: '/services',
-  imageAlt: '',
 } as const;
 
 const sharedFinalCta = {
@@ -30,6 +29,7 @@ export const brandingExpanded: ServiceExpandedContent = {
     intro:
       "Most small brands don't have a visibility problem. They have a memory problem: people see them, then forget them, because they look like everyone else in the category. We build brands around distinctive codes people recognise at a glance, so every post and every ad starts adding up.",
     ...heroCtas,
+    imageAlt: 'A row of plain grey bottles with one bold yellow bottle that stands out at a glance',
   },
   whoItsFor: {
     intro:
@@ -84,7 +84,8 @@ export const brandingExpanded: ServiceExpandedContent = {
           'Core layouts for your website, social posts and ads, so the new identity shows up properly from the first post.',
       },
     ],
-    featureImageAlt: '',
+    featureImageAlt:
+      'A brand kit laid flat: guidelines book, colour swatch fan, stamp, a stack of cards topped in yellow, pencil and ruler',
   },
   howItWorks: {
     heading: 'From blur to brand codes',
@@ -193,6 +194,7 @@ export const seoAeoGeoExpanded: ServiceExpandedContent = {
     intro:
       "Page two isn't the only place brands disappear. Customers now ask AI tools for recommendations too, and if your name isn't in the answer, you're not in the running. We make your brand easy to find and easy to name, across search engines and AI answers.",
     ...heroCtas,
+    imageAlt: 'A yellow sheet pulled up to the top of a pile of plain white paper',
   },
   whoItsFor: {
     intro:
@@ -253,7 +255,8 @@ export const seoAeoGeoExpanded: ServiceExpandedContent = {
           'Google Business Profile and location pages for clinics, trades and venues that rely on nearby customers.',
       },
     ],
-    featureImageAlt: '',
+    featureImageAlt:
+      'A search kit laid flat: magnifying glass, index card box, linked tags, a pinned map and a yellow notebook',
   },
   howItWorks: {
     heading: 'How we get you found',
@@ -363,6 +366,8 @@ export const performanceMarketingExpanded: ServiceExpandedContent = {
     intro:
       "Plenty of ad budgets buy attention nobody keeps. The ads look like the category, the landing page is fuzzy, and the spend resets every month. We run campaigns that turn attention into measurable growth, with creative people remember and a next step that doesn't leak.",
     ...heroCtas,
+    imageAlt:
+      'A hand tipping coins from a jar, their trail now one clean yellow path heading upwards',
   },
   whoItsFor: {
     intro:
@@ -420,7 +425,8 @@ export const performanceMarketingExpanded: ServiceExpandedContent = {
         description: "Plain-English updates on what's working, what isn't and what we'll test next.",
       },
     ],
-    featureImageAlt: '',
+    featureImageAlt:
+      'A campaign kit laid flat: folder, a clipped pair of proofs with one in yellow, page proofs, counters and a ruler',
   },
   howItWorks: {
     heading: 'How the loop runs',
@@ -529,6 +535,7 @@ export const socialMediaExpanded: ServiceExpandedContent = {
     intro:
       "Posting more isn't the same as being remembered. Bursts of content followed by silence teach your audience nothing. We build social presences that are fewer, better and easy to recognise: a clear voice, ideas worth repeating and a rhythm your team can actually keep up with.",
     ...heroCtas,
+    imageAlt: 'Three bold, matching post cards taped up side by side, clearly part of one set',
   },
   whoItsFor: {
     intro:
@@ -587,7 +594,8 @@ export const socialMediaExpanded: ServiceExpandedContent = {
         description: "A plain read of what landed, what didn't and what we'll change next.",
       },
     ],
-    featureImageAlt: '',
+    featureImageAlt:
+      'A content kit laid flat: folder, a grid of square cards with one yellow, a blank calendar and paper stars',
   },
   howItWorks: {
     heading: 'How we build your rhythm',

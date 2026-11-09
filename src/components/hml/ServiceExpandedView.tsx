@@ -68,7 +68,7 @@ export function ServiceExpandedView({ service }: Props) {
             <p className="text-[11px] uppercase tracking-[0.2em] text-slate">{e.hero.eyebrow}</p>
           ) : null}
           <div className="mt-8 grid gap-10 lg:grid-cols-12 lg:items-start">
-            <div className="lg:col-span-7">
+            <div className="order-1 lg:col-span-7">
               <RevealText
                 as="h1"
                 immediate
@@ -100,14 +100,15 @@ export function ServiceExpandedView({ service }: Props) {
                 ) : null}
               </div>
             </div>
-            <div className="lg:col-span-5">
+            <div className="order-2 lg:col-span-5">
               <ServiceOptionalImage
                 src={serviceHeroImage(service.slug)}
                 alt={e.hero.imageAlt}
                 width={1200}
                 height={900}
+                aspectClass="aspect-[4/3]"
                 priority
-                sizes="(min-width: 1024px) 42vw, 100vw"
+                sizes="(min-width: 1024px) 42vw, calc(100vw - 2.5rem)"
               />
             </div>
           </div>
@@ -174,13 +175,14 @@ export function ServiceExpandedView({ service }: Props) {
                 );
               })}
             </ul>
-            <div className="lg:col-span-5">
+            <div className="order-2 lg:order-none lg:col-span-5">
               <ServiceOptionalImage
                 src={serviceFeatureImage(service.slug)}
                 alt={e.whatYouGet.featureImageAlt}
                 width={1200}
-                height={900}
-                sizes="(min-width: 1024px) 36vw, 100vw"
+                height={800}
+                aspectClass="aspect-[3/2]"
+                sizes="(min-width: 1024px) 36vw, calc(100vw - 2.5rem)"
               />
             </div>
           </div>
