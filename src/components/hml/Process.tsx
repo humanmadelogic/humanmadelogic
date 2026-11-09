@@ -70,7 +70,7 @@ export function Process() {
             <ShaderImage
               id={media.pillar.id}
               asset={media.pillar}
-              sizes="17vw"
+              sizes="(min-width: 768px) 17vw, 1px"
               className="w-full"
             />
           </div>
