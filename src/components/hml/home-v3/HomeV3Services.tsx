@@ -140,7 +140,7 @@ export function HomeV3Services() {
                 ) : null}
                 <Link
                   href={`/services/${activeSlug}`}
-                  className="mt-6 inline-flex min-h-[44px] w-fit items-center border-b-2 border-signalYellow pb-0.5 text-[15px] font-semibold text-obsidian"
+                  className="mt-6 inline-flex min-h-[44px] w-fit items-center rounded-sm px-1 py-2.5 text-[15px] font-semibold text-obsidian underline decoration-signalYellow decoration-2 underline-offset-[6px]"
                 >
                   View service →
                 </Link>

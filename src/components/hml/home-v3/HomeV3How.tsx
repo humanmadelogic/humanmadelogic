@@ -53,9 +53,9 @@ export function HomeV3How() {
       className={`h3-how h3-ink-band scroll-mt-28 px-5 py-20 text-white sm:px-8 sm:py-24 lg:px-12 ${reveal.className}`}
     >
       <div className="mx-auto grid min-w-0 max-w-editorial grid-cols-1 gap-12 lg:grid-cols-[minmax(0,4fr)_minmax(0,8fr)] lg:gap-x-14 xl:gap-x-20">
-        <aside className="min-w-0 max-w-full lg:sticky lg:top-32 lg:self-start">
+        <aside className="h3-how__aside min-w-0 max-w-full lg:sticky lg:top-32 lg:self-start">
           {lines.length > 0 ? (
-            <h2 className="h3-display max-w-full text-[clamp(1.35rem,min(4.2vw,5.5cqh),2.35rem)] leading-[0.95] text-white [container-type:inline-size]">
+            <h2 className="h3-how__heading h3-display max-w-full leading-[0.95] text-white">
               {lines.map((line) => (
                 <span key={line} className="block">
                   <span className="h3-word">{line}</span>
