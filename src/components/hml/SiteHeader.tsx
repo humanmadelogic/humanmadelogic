@@ -3,6 +3,7 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { usePathname } from 'next/navigation';
 import { agency } from '@/config/agency';
+import { trapFocus } from '@/lib/hml/focusTrap';
 
 function Wordmark({ compact = false }: { compact?: boolean }) {
   return (
@@ -28,7 +29,9 @@ export function SiteHeader() {
   const home = pathname === '/';
   const [condensed, setCondensed] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
-  const menuButton = useRef<HTMLButtonElement>(null);
+  const menuTriggerRef = useRef<HTMLButtonElement | null>(null);
+  const wasMenuOpenRef = useRef(false);
+  const menuPanel = useRef<HTMLDivElement>(null);
   const wordmarkHref = home ? '#top' : '/';
 
   useEffect(() => {
@@ -49,18 +52,33 @@ export function SiteHeader() {
   }, []);
 
   useEffect(() => {
+    if (wasMenuOpenRef.current && !menuOpen) {
+      requestAnimationFrame(() => menuTriggerRef.current?.focus());
+    }
+    wasMenuOpenRef.current = menuOpen;
+  }, [menuOpen]);
+
+  const openMenu = useCallback((event: React.MouseEvent<HTMLButtonElement>) => {
+    menuTriggerRef.current = event.currentTarget;
+    setMenuOpen(true);
+  }, []);
+
+  useEffect(() => {
     if (!menuOpen) return;
     const onKey = (event: KeyboardEvent) => {
-      if (event.key === 'Escape') {
-        setMenuOpen(false);
-        menuButton.current?.focus();
-      }
+      if (event.key === 'Escape') setMenuOpen(false);
     };
     document.addEventListener('keydown', onKey);
     document.body.style.overflow = 'hidden';
+    const main = document.getElementById('main');
+    main?.setAttribute('inert', '');
+    const release =
+      menuPanel.current ? trapFocus(menuPanel.current) : () => undefined;
     return () => {
       document.removeEventListener('keydown', onKey);
       document.body.style.overflow = '';
+      main?.removeAttribute('inert');
+      release();
     };
   }, [menuOpen]);
 
@@ -70,13 +88,13 @@ export function SiteHeader() {
     <header className="pointer-events-none fixed inset-x-0 top-0 z-50">
       {/* Full navigation — visible at the top of the page. */}
       <div
-        className={`pointer-events-auto mx-auto flex max-w-editorial items-center justify-between gap-6 px-5 py-5 transition-[opacity,transform] duration-500 ease-out sm:px-8 lg:px-12 ${
-          condensed
-            ? 'pointer-events-none -translate-y-2 opacity-0'
-            : 'translate-y-0 opacity-100'
+        className={`mx-auto flex max-w-editorial items-center justify-between gap-6 px-5 py-5 transition-[opacity,transform,visibility] duration-500 ease-out sm:px-8 lg:px-12 ${
+          condensed || menuOpen
+            ? 'pointer-events-none invisible -translate-y-2 opacity-0'
+            : 'pointer-events-auto visible translate-y-0 opacity-100'
         }`}
       >
-        <a href={wordmarkHref} className="rounded-sm">
+        <a href={wordmarkHref} className="inline-flex min-h-[44px] items-center rounded-sm">
           <Wordmark />
         </a>
 
@@ -93,13 +111,6 @@ export function SiteHeader() {
         </nav>
 
         <div className="hidden items-center gap-5 lg:flex">
-          <span className="flex items-center gap-2 text-[13px] text-slate">
-            <span
-              aria-hidden="true"
-              className="h-[6px] w-[6px] rounded-full bg-signalYellow"
-            />
-            {agency.availability}
-          </span>
           <a
             href={agency.cta.href}
             className="inline-flex h-11 items-center rounded-full bg-obsidian px-5 text-[14px] font-medium text-paper transition-colors hover:bg-obsidian/85"
@@ -109,12 +120,13 @@ export function SiteHeader() {
         </div>
 
         <button
-          ref={menuButton}
           type="button"
-          onClick={() => setMenuOpen(true)}
+          onClick={openMenu}
           aria-expanded={menuOpen}
           aria-controls="hml-menu"
-          className="inline-flex h-11 items-center gap-2 rounded-full border border-obsidian/20 px-4 text-[14px] lg:hidden"
+          className={`inline-flex min-h-[44px] min-w-[44px] items-center justify-center gap-2 rounded-full border border-obsidian/20 px-4 text-[14px] lg:hidden ${
+            condensed ? 'hidden' : ''
+          }`}
         >
           Menu
         </button>
@@ -122,11 +134,20 @@ export function SiteHeader() {
 
       {/* Condensed pill — takes over once the page scrolls. */}
       <div
-        className={`pointer-events-auto absolute right-5 top-4 flex items-center gap-1 rounded-full border border-obsidian/10 bg-paper/85 p-1.5 shadow-[0_10px_40px_-18px_rgba(21,21,21,0.5)] backdrop-blur-md transition-[opacity,transform] duration-500 ease-out sm:right-8 lg:right-12 ${
-          condensed ? 'translate-y-0 opacity-100' : 'pointer-events-none -translate-y-3 opacity-0'
+        aria-hidden={!condensed || menuOpen}
+        {...(!condensed || menuOpen ? { inert: true } : {})}
+        className={`absolute right-5 top-4 flex items-center gap-1 rounded-full border border-obsidian/10 bg-paper/85 p-1.5 shadow-[0_10px_40px_-18px_rgba(21,21,21,0.5)] backdrop-blur-md transition-[opacity,transform,visibility] duration-500 ease-out sm:right-8 lg:right-12 ${
+          condensed && !menuOpen
+            ? 'pointer-events-auto visible translate-y-0 opacity-100'
+            : 'pointer-events-none invisible -translate-y-3 opacity-0'
         }`}
       >
-        <a href={wordmarkHref} className="rounded-full px-3 py-2" aria-label={`${agency.name} — back to top`}>
+        <a
+          href={wordmarkHref}
+          tabIndex={condensed && !menuOpen ? 0 : -1}
+          className="rounded-full px-3 py-2"
+          aria-label="Back to top"
+        >
           <Wordmark compact />
         </a>
 
@@ -151,10 +172,14 @@ export function SiteHeader() {
 
         <button
           type="button"
-          onClick={() => setMenuOpen(true)}
+          onClick={openMenu}
           aria-expanded={menuOpen}
           aria-controls="hml-menu"
-          className="inline-flex h-10 items-center rounded-full border border-obsidian/15 px-4 text-[13px] lg:hidden"
+          aria-hidden={!condensed}
+          tabIndex={condensed && !menuOpen ? 0 : -1}
+          className={`min-h-[44px] min-w-[44px] items-center justify-center rounded-full border border-obsidian/15 px-4 text-[13px] lg:hidden ${
+            condensed ? 'inline-flex' : 'hidden'
+          }`}
         >
           Menu
         </button>
@@ -162,9 +187,13 @@ export function SiteHeader() {
 
       {/* Full-screen editorial menu. */}
       <div
+        ref={menuPanel}
         id="hml-menu"
+        role="dialog"
+        aria-modal="true"
+        aria-label="Site menu"
         aria-hidden={!menuOpen}
-        className={`pointer-events-auto fixed inset-0 z-[60] flex-col bg-paper lg:hidden ${
+        className={`pointer-events-auto fixed inset-0 z-[60] flex min-h-[100dvh] flex-col bg-paper lg:hidden ${
           menuOpen ? 'flex' : 'hidden'
         }`}
       >
@@ -173,7 +202,7 @@ export function SiteHeader() {
           <button
             type="button"
             onClick={close}
-            className="inline-flex h-11 items-center rounded-full border border-obsidian/20 px-4 text-[14px]"
+            className="inline-flex min-h-[44px] min-w-[44px] items-center justify-center rounded-full border border-obsidian/20 px-4 text-[14px]"
           >
             Close
           </button>
@@ -186,7 +215,7 @@ export function SiteHeader() {
                 <a
                   href={item.href}
                   onClick={close}
-                  className="block py-5 text-[13vw] leading-[1.02] tracking-[-0.05em] sm:text-[64px]"
+                  className="flex min-h-[44px] items-center py-5 text-[13vw] leading-[1.02] tracking-[-0.05em] sm:text-[64px]"
                   style={{
                     transitionDelay: `${60 + index * 45}ms`,
                     opacity: menuOpen ? 1 : 0,
@@ -212,7 +241,12 @@ export function SiteHeader() {
         </nav>
 
         <p className="px-5 pb-8 text-[13px] text-slate sm:px-8">
-          {agency.availability} · {agency.email}
+          <a
+            href={`mailto:${agency.email}`}
+            className="inline-flex min-h-[44px] items-center underline decoration-obsidian/20 underline-offset-4"
+          >
+            {agency.email}
+          </a>
         </p>
       </div>
     </header>

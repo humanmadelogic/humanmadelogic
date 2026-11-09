@@ -1,28 +1,26 @@
-import { agency, capabilities, contact, process, work } from '@/config/agency';
+import { agency, capabilities, contact, process, workPlaceholder } from '@/config/agency';
 import { providerStatus } from './models';
 
 export function studioSnapshot() {
   return {
     name: agency.name,
+    tagline: agency.tagline,
     principle: agency.principle,
     email: agency.email,
     location: agency.location,
-    availability: agency.availability,
     contactPath: '/contact',
     mcpPath: '/api/mcp',
     capabilities: capabilities.items.map((item) => ({
       index: item.index,
       title: item.title,
       body: item.body,
+      href: item.href,
     })),
     process: process.steps,
-    work: work.items.map((item) => ({
-      client: item.client,
-      summary: item.summary,
-      services: item.services,
-      result: item.result,
-      year: item.year,
-    })),
+    work: {
+      status: 'placeholder',
+      note: workPlaceholder.note,
+    },
     inquiryTopics: contact.topics,
     providers: providerStatus(),
   };

@@ -147,7 +147,7 @@ export function McpView() {
                 >
                   <span
                     className={`block text-[12px] tabular-nums tracking-[0.18em] transition-[color,transform] duration-500 ${
-                      isActive ? 'translate-x-1 text-signalYellow' : 'text-slate'
+                      isActive ? 'translate-x-1 text-obsidian' : 'text-slate'
                     }`}
                   >
                     {String(index + 1).padStart(2, '0')}

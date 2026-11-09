@@ -15,7 +15,7 @@
 }
 
 :root {
-  --canvas: #f6f4ef;
+  --canvas: #ffffff;
   --surface: #ffffff;
   --ink: #141412;
   --muted: #5b594f;
@@ -36,6 +36,7 @@ html {
   letter-spacing: -0.014em;
   scroll-behavior: smooth;
   -webkit-text-size-adjust: 100%;
+  overflow-x: clip;
 }
 
 body {
@@ -43,6 +44,8 @@ body {
   color: var(--ink);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  overflow-x: clip;
+  -webkit-tap-highlight-color: rgba(20, 20, 18, 0.12);
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -86,6 +89,14 @@ button {
   top: 16px;
 }
 
+dialog::backdrop {
+  background: rgba(21, 21, 21, 0.45);
+}
+
+dialog:focus {
+  outline: none;
+}
+
 /* Barely-visible vertical rail system. Hero only. */
 .hero-rails {
   background-image: repeating-linear-gradient(
@@ -118,6 +129,14 @@ button {
   color: rgba(255, 255, 255, 0.05);
   user-select: none;
   pointer-events: none;
+}
+
+@media (max-width: 639px) {
+  .hml input:not([type='checkbox']),
+  .hml textarea,
+  .hml select {
+    font-size: 16px;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -233,3 +252,4 @@ button {
 @media (prefers-reduced-motion: reduce) {
   .hml-marquee { animation: none; }
 }
+
