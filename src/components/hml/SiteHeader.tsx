@@ -241,7 +241,10 @@ export function SiteHeader() {
         </nav>
 
         <p className="px-5 pb-8 text-[13px] text-slate sm:px-8">
-          <a href={`mailto:${agency.email}`} className="underline decoration-obsidian/20 underline-offset-4">
+          <a
+            href={`mailto:${agency.email}`}
+            className="inline-flex min-h-[44px] items-center underline decoration-obsidian/20 underline-offset-4"
+          >
             {agency.email}
           </a>
         </p>

@@ -6,6 +6,7 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { process } from '@/config/agency';
 import { media } from '@/config/media';
 import { useReducedMotion } from '@/lib/hml/useReducedMotion';
+import { useMediaQuery } from '@/lib/hml/useMediaQuery';
 import { RevealText } from './RevealText';
 import { ShaderImage } from './ShaderImage';
 
@@ -13,6 +14,7 @@ export function Process() {
   const section = useRef<HTMLElement>(null);
   const [current, setCurrent] = useState(0);
   const reducedMotion = useReducedMotion();
+  const showPillar = useMediaQuery('(min-width: 768px)');
 
   useEffect(() => {
     const element = section.current;
@@ -65,15 +67,17 @@ export function Process() {
       */}
       <div className="mx-auto mb-20 max-w-editorial px-5 sm:mb-24 sm:px-8 lg:mb-32 lg:px-12">
         <div className="relative pb-16 sm:pb-20 lg:pb-24">
-          {/* Narrow panel, furthest back. */}
-          <div className="absolute right-0 top-[6%] z-0 hidden w-[17%] rounded-[16px] shadow-[0_30px_70px_-34px_rgba(21,21,21,0.55)] md:block lg:w-[15%]">
-            <ShaderImage
-              id={media.pillar.id}
-              asset={media.pillar}
-              sizes="(min-width: 768px) 17vw, 1px"
-              className="w-full"
-            />
-          </div>
+          {/* Narrow panel, furthest back — desktop stack only; omitted below md. */}
+          {showPillar ? (
+            <div className="absolute right-0 top-[6%] z-0 w-[17%] rounded-[16px] shadow-[0_30px_70px_-34px_rgba(21,21,21,0.55)] lg:w-[15%]">
+              <ShaderImage
+                id={media.pillar.id}
+                asset={media.pillar}
+                sizes="17vw"
+                className="w-full"
+              />
+            </div>
+          ) : null}
 
           {/* Primary plate. */}
           <div className="relative z-10 w-full rounded-[16px] shadow-[0_40px_90px_-40px_rgba(21,21,21,0.6)] md:w-[74%] lg:w-[70%]">
