@@ -18,7 +18,7 @@ export function HmlPageShell({ children }: { children: React.ReactNode }) {
 
   useEffect(() => {
     const previous = document.body.style.backgroundColor;
-    document.body.style.backgroundColor = '#F2F0EB';
+    document.body.style.backgroundColor = '#ffffff';
     return () => {
       document.body.style.backgroundColor = previous;
     };

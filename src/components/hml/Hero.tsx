@@ -41,7 +41,7 @@ function HeroFrame({ frame, index, priority, register, onFocusChange }: FramePro
         onFrame={onFrame}
         priority={priority}
         sizes="(max-width: 640px) 40vw, 228px"
-        className="w-[19vw] max-w-[228px] bg-obsidian/5 shadow-[0_18px_50px_-30px_rgba(21,21,21,0.6)] sm:w-[17vw]"
+        className="w-[19vw] max-w-[228px] bg-white shadow-[0_18px_50px_-30px_rgba(21,21,21,0.6)] sm:w-[17vw]"
         style={{
           // Resting fan position. The magnetic loop overwrites this on
           // pointer-capable devices; everywhere else it is the final layout.

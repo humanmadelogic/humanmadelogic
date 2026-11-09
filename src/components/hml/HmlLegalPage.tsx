@@ -27,7 +27,7 @@ export function HmlLegalPage({ page }: { page: LegalPageContent }) {
           {page.sections.map((section) => (
             <section key={section.id} id={section.id} className="mb-14 scroll-mt-28 last:mb-0">
               <h2 className="text-[26px] tracking-[-0.03em]">{section.title}</h2>
-              <p className="mt-4 rounded-[12px] border border-dashed border-obsidian/25 bg-obsidian/[0.03] p-5 font-mono text-[13px] leading-[1.6] text-slate">
+              <p className="mt-4 rounded-[12px] border border-dashed border-obsidian/25 bg-white p-5 font-mono text-[13px] leading-[1.6] text-slate">
                 {section.placeholderNote}
               </p>
             </section>

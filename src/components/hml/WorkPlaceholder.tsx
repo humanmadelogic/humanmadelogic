@@ -23,7 +23,7 @@ export function WorkPlaceholder() {
         <div
           role="status"
           aria-live="polite"
-          className="mt-14 rounded-[16px] border border-obsidian/15 bg-paper/80 p-8 sm:mt-16 sm:p-10"
+          className="mt-14 rounded-[16px] border border-obsidian/15 bg-white p-8 sm:mt-16 sm:p-10"
         >
           <p className="max-w-[62ch] text-[16px] leading-[1.65] text-slate">{workPlaceholder.body}</p>
         </div>
