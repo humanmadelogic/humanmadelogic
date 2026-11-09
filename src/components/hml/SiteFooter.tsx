@@ -31,7 +31,7 @@ export function SiteFooter() {
           </div>
 
           <nav aria-label="Footer" className="lg:col-span-3">
-            <h2 className="text-[11px] uppercase tracking-[0.2em] text-paper/45">Navigate</h2>
+            <h2 className="text-[11px] uppercase tracking-[0.2em] text-paper/55">Navigate</h2>
             <ul className="mt-5 space-y-3">
               {agency.nav.map((item) => (
                 <li key={item.label}>
@@ -41,7 +41,7 @@ export function SiteFooter() {
                 </li>
               ))}
             </ul>
-            <h2 className="mt-8 text-[11px] uppercase tracking-[0.2em] text-paper/45">Services</h2>
+            <h2 className="mt-8 text-[11px] uppercase tracking-[0.2em] text-paper/55">Services</h2>
             <ul className="mt-5 space-y-3">
               <li>
                 <a href="/services" className={FOOTER_LINK}>
@@ -72,7 +72,7 @@ export function SiteFooter() {
           </nav>
 
           <div className="lg:col-span-3">
-            <h2 className="text-[11px] uppercase tracking-[0.2em] text-paper/45">Elsewhere</h2>
+            <h2 className="text-[11px] uppercase tracking-[0.2em] text-paper/55">Elsewhere</h2>
             <ul className="mt-5 space-y-3">
               {agency.social.filter((item) => isExternalSocial(item.href)).map((item) => {
                 const icon = SOCIAL_ICON[item.label];
@@ -112,7 +112,7 @@ export function SiteFooter() {
         </div>
 
         <nav aria-label="Legal" className="mt-12 border-t border-paper/12 pt-8">
-          <h2 className="text-[11px] uppercase tracking-[0.2em] text-paper/45">Legal</h2>
+          <h2 className="text-[11px] uppercase tracking-[0.2em] text-paper/55">Legal</h2>
           <ul className="mt-4 flex flex-wrap gap-x-6 gap-y-2">
             {agency.legalNav.map((item) => (
               <li key={item.href}>

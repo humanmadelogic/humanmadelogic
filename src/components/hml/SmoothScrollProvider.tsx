@@ -20,7 +20,10 @@ export function SmoothScrollProvider({ children }: { children: React.ReactNode }
   useEffect(() => {
     gsap.registerPlugin(ScrollTrigger);
 
-    if (reducedMotion) {
+    const prefersCoarse = window.matchMedia('(pointer: coarse)').matches;
+    const narrowViewport = window.matchMedia('(max-width: 1023px)').matches;
+
+    if (reducedMotion || prefersCoarse || narrowViewport) {
       ScrollTrigger.refresh();
       return;
     }

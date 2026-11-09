@@ -8,7 +8,7 @@ import { HomeV2Words } from './homeV2Typography';
 
 function KitTick() {
   return (
-    <svg width="20" height="20" viewBox="0 0 20 20" aria-hidden className="shrink-0 text-signalYellow">
+    <svg width="20" height="20" viewBox="0 0 20 20" aria-hidden className="hml-accent-tick">
       <path
         d="M4 10.5 8 14.5 16 6.5"
         fill="none"

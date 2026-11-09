@@ -72,9 +72,7 @@ export function HomeV3FinalCta() {
             {idx >= 0 ? (
               <>
                 {finalCta.heading.slice(0, idx)}
-                <span className="h3-word text-signalYellow" style={{ color: '#f4bd49', WebkitTextFillColor: '#f4bd49' }}>
-                  {finalCta.heading.slice(idx, idx + needle.length)}
-                </span>
+                <span className="h3-word">{finalCta.heading.slice(idx, idx + needle.length)}</span>
                 {finalCta.heading.slice(idx + needle.length)}
               </>
             ) : (

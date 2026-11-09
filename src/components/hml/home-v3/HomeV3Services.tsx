@@ -84,10 +84,10 @@ export function HomeV3Services() {
                       onFocus={() => pick(index)}
                       onClick={() => pick(index)}
                       onKeyDown={(event) => {
-                        if (event.key === 'ArrowDown') {
+                        if (event.key === 'ArrowDown' || event.key === 'ArrowRight') {
                           event.preventDefault();
                           focusTab(index + 1);
-                        } else if (event.key === 'ArrowUp') {
+                        } else if (event.key === 'ArrowUp' || event.key === 'ArrowLeft') {
                           event.preventDefault();
                           focusTab(index - 1);
                         } else if (event.key === 'Home') {
@@ -101,7 +101,7 @@ export function HomeV3Services() {
                     >
                       <span
                         className={`h3-display text-[clamp(2.5rem,4vw,4rem)] leading-none transition-colors ${
-                          selected ? 'text-signalYellow' : 'text-slate group-hover:text-obsidian'
+                          selected ? 'h3-accent-num' : 'text-slate group-hover:text-obsidian'
                         }`}
                       >
                         {INDEX[slug]}
@@ -177,7 +177,7 @@ export function HomeV3Services() {
                     onClick={() => setOpenMobile(isOpen ? null : index)}
                   >
                     <span className="h3-display text-xl text-obsidian">
-                      <span className="mr-2 text-signalYellow">{INDEX[slug]}</span>
+                      <span className="mr-2 h3-accent-num">{INDEX[slug]}</span>
                       {svc.title}
                     </span>
                     <span aria-hidden className="text-2xl text-slate">

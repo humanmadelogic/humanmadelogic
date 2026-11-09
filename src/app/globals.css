@@ -175,6 +175,25 @@ dialog:focus {
   word-break: normal;
 }
 
+.hml-accent-num {
+  color: #151515;
+  text-decoration: underline;
+  text-decoration-color: #f4bd49;
+  text-decoration-thickness: 0.14em;
+  text-underline-offset: 0.12em;
+}
+
+.hml-accent-tick {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+  background: #f4bd49;
+  color: #151515;
+}
+
 .hml .hml-word,
 .hml .h3-word,
 .hml .home-v2-word {

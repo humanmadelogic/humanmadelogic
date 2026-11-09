@@ -8,6 +8,7 @@
     "start": "next start",
     "lint": "next lint",
     "check:headings": "node scripts/check-heading-word-break.mjs",
+    "check:contrast": "node scripts/axe-contrast-routes.mjs",
     "mcp": "tsx src/mcp/stdio.ts"
   },
   "dependencies": {

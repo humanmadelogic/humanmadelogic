@@ -93,6 +93,27 @@
   color: transparent;
 }
 
+/* Large index numerals on light surfaces — ink with brand underline, not yellow type */
+.home-v3 .h3-accent-num {
+  color: var(--h3-ink);
+  text-decoration: underline;
+  text-decoration-color: var(--h3-y);
+  text-decoration-thickness: 0.14em;
+  text-underline-offset: 0.1em;
+}
+
+.home-v3 .h3-accent-tick {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.15em;
+  flex-shrink: 0;
+  background: var(--h3-y);
+  color: var(--h3-ink);
+  font-size: 0.75em;
+  line-height: 1.4;
+}
+
 .home-v3 .h3-body {
   font-size: 16px;
   line-height: 1.55;

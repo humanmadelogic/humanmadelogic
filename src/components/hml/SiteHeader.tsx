@@ -85,7 +85,7 @@ export function SiteHeader() {
   const close = useCallback(() => setMenuOpen(false), []);
 
   return (
-    <header className="pointer-events-none fixed inset-x-0 top-0 z-50">
+    <header className="pointer-events-none fixed inset-x-0 top-0 z-50 text-obsidian">
       {/* Full navigation — visible at the top of the page. */}
       <div
         className={`mx-auto flex max-w-editorial items-center justify-between gap-6 px-5 py-5 transition-[opacity,transform,visibility] duration-500 ease-out sm:px-8 lg:px-12 ${
@@ -103,7 +103,7 @@ export function SiteHeader() {
             <a
               key={item.label}
               href={item.href}
-              className="inline-flex min-h-[44px] items-center rounded-sm px-1 text-[14px] text-slate transition-colors hover:text-obsidian"
+              className="inline-flex min-h-[44px] items-center rounded-sm px-1 text-[14px] text-obsidian/75 transition-colors hover:text-obsidian"
             >
               {item.label}
             </a>
@@ -124,7 +124,7 @@ export function SiteHeader() {
           onClick={openMenu}
           aria-expanded={menuOpen}
           aria-controls="hml-menu"
-          className={`inline-flex min-h-[44px] min-w-[44px] items-center justify-center gap-2 rounded-full border border-obsidian/20 px-4 text-[14px] lg:hidden ${
+          className={`inline-flex min-h-[44px] min-w-[44px] items-center justify-center gap-2 rounded-full border border-obsidian/20 px-4 text-[14px] text-obsidian lg:hidden ${
             condensed ? 'hidden' : ''
           }`}
         >
@@ -156,7 +156,7 @@ export function SiteHeader() {
             <a
               key={item.label}
               href={item.href}
-              className="inline-flex min-h-[44px] items-center rounded-full px-3 py-2 text-[13px] text-slate transition-colors hover:bg-obsidian/[0.06] hover:text-obsidian"
+              className="inline-flex min-h-[44px] items-center rounded-full px-3 py-2 text-[13px] text-obsidian/75 transition-colors hover:bg-obsidian/[0.06] hover:text-obsidian"
             >
               {item.label}
             </a>
@@ -177,7 +177,7 @@ export function SiteHeader() {
           aria-controls="hml-menu"
           aria-hidden={!condensed}
           tabIndex={condensed && !menuOpen ? 0 : -1}
-          className={`min-h-[44px] min-w-[44px] items-center justify-center rounded-full border border-obsidian/15 px-4 text-[13px] lg:hidden ${
+          className={`min-h-[44px] min-w-[44px] items-center justify-center rounded-full border border-obsidian/15 px-4 text-[13px] text-obsidian lg:hidden ${
             condensed ? 'inline-flex' : 'hidden'
           }`}
         >
