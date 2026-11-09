@@ -30,6 +30,7 @@ import {
   servicePainImage,
   serviceStepIcon,
 } from '@/lib/hml/serviceAssets';
+import { HeadingWords } from './HeadingWords';
 import { RevealText } from './RevealText';
 import { ServiceOptionalImage } from './service/ServiceOptionalImage';
 import { ServiceMobileStickyCta } from './service/ServiceMobileStickyCta';
@@ -73,7 +74,7 @@ export function ServiceExpandedView({ service }: Props) {
                 as="h1"
                 immediate
                 lines={[service.title]}
-                className="break-words text-[11vw] leading-[0.95] tracking-[-0.05em] sm:text-[8vw] lg:text-[64px]"
+                className="text-[11vw] leading-[0.95] tracking-[-0.05em] sm:text-[8vw] lg:text-[64px]"
               />
               {e.hero.subline.trim() ? (
                 <p className="mt-8 max-w-[52ch] text-[17px] leading-[1.65] text-slate">{e.hero.subline}</p>
@@ -166,7 +167,9 @@ export function ServiceExpandedView({ service }: Props) {
                 return (
                   <li key={i} className="rounded-[14px] border border-obsidian/10 p-5">
                     {card.title.trim() ? (
-                      <h3 className="text-[17px] font-medium tracking-[-0.02em] text-obsidian">{card.title}</h3>
+                      <h3 className="text-[17px] font-medium tracking-[-0.02em] text-obsidian">
+                        <HeadingWords text={card.title} />
+                      </h3>
                     ) : null}
                     {card.description.trim() ? (
                       <p className="mt-2 text-[15px] leading-[1.6] text-slate">{card.description}</p>

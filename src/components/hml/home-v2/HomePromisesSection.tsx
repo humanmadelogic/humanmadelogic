@@ -3,6 +3,7 @@
 import { homeV2Config } from '@/config/home-v2';
 import { hasText, isPromisesPopulated } from '@/lib/hml/homeV2';
 import { useScrollReveal } from './useScrollReveal';
+import { HomeV2Words } from './homeV2Typography';
 
 export function HomePromisesSection() {
   const { promises } = homeV2Config.content;
@@ -26,7 +27,7 @@ export function HomePromisesSection() {
             id="home-promises-heading"
             className="home-v2-display text-[clamp(2.5rem,6.5vw,5.5rem)] leading-[0.9] text-obsidian"
           >
-            {promises.heading}
+            <HomeV2Words text={promises.heading} />
           </h2>
         ) : null}
         <ul className="mt-12 grid gap-0 border-t-2 border-obsidian sm:grid-cols-2 lg:grid-cols-4">

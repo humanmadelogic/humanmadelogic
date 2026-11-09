@@ -2,6 +2,7 @@
 
 import { homeV2Config } from '@/config/home-v2';
 import { hasText, isFaqPopulated } from '@/lib/hml/homeV2';
+import { HomeV2Words } from './homeV2Typography';
 
 export function HomeFaqSection() {
   const { faq } = homeV2Config.content;
@@ -21,7 +22,7 @@ export function HomeFaqSection() {
             id="home-faq-heading"
             className="home-v2-display text-[clamp(2.5rem,6.5vw,5.5rem)] leading-[0.9] text-obsidian"
           >
-            {faq.heading}
+            <HomeV2Words text={faq.heading} />
           </h2>
         ) : (
           <div />

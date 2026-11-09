@@ -51,7 +51,7 @@ export function ScrollHighlightWords({ text, className = '' }: Props) {
         const isRemember = normalizeWord(word).startsWith('remember');
         if (isRemember) {
           return (
-            <span key={`${word}-${index}`} className="home-v2-marker-block">
+            <span key={`${word}-${index}`} className="home-v2-word home-v2-marker-block">
               {word}
               {index < words.length - 1 ? '\u00a0' : ''}
             </span>
@@ -61,11 +61,11 @@ export function ScrollHighlightWords({ text, className = '' }: Props) {
         return (
           <span
             key={`${word}-${index}`}
-            className={
+            className={`home-v2-word ${
               active
                 ? 'text-[var(--h2v-ink)] transition-colors duration-300 motion-reduce:transition-none'
                 : 'text-[var(--h2v-muted)] transition-colors duration-300 motion-reduce:transition-none'
-            }
+            }`}
           >
             {word}
             {index < words.length - 1 ? '\u00a0' : ''}

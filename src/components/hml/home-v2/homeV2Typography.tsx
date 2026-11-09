@@ -33,6 +33,26 @@ export function HomeV2HMark({ className = '' }: { className?: string }) {
   );
 }
 
+/** Words as inline-block units — no mid-word line breaks in display type. */
+export function HomeV2Words({ text, className = '' }: { text: string; className?: string }) {
+  const words = text.trim().split(/\s+/).filter(Boolean);
+  return (
+    <span className={className}>
+      {words.map((word, index) => (
+        <span key={`${word}-${index}`} className="home-v2-word">
+          {word}
+          {index < words.length - 1 ? '\u00a0' : ''}
+        </span>
+      ))}
+    </span>
+  );
+}
+
+/** One word per visual line (sticky column headings). */
+export function displayHeadingLines(text: string): string[] {
+  return text.trim().split(/\s+/).filter(Boolean);
+}
+
 /** Split display headline into wrapped lines for stagger (~4-5 words per line). */
 export function splitDisplayLines(text: string, wordsPerLine = 4): string[] {
   const words = text.trim().split(/\s+/).filter(Boolean);

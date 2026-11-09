@@ -8,6 +8,7 @@ import { serviceSlugs, services } from '@/config/services';
 import { serviceHeroImage } from '@/lib/hml/serviceAssets';
 import { hasText, isServiceCardsPopulated } from '@/lib/hml/homeV2';
 import { useScrollReveal } from './useScrollReveal';
+import { HomeV2Words } from './homeV2Typography';
 
 const SLUG_INDEX: Record<(typeof serviceSlugs)[number], string> = {
   branding: '01',
@@ -69,7 +70,7 @@ export function HomeServicesCardsSection() {
               id="home-services-heading"
               className="home-v2-display text-[clamp(2.5rem,7.2vw,6.5rem)] leading-[0.88] text-obsidian"
             >
-              {serviceCards.heading}
+              <HomeV2Words text={serviceCards.heading} />
             </h2>
           ) : null}
           {hasText(serviceCards.lede) ? (
@@ -94,7 +95,7 @@ export function HomeServicesCardsSection() {
                   <div className="flex items-baseline gap-4">
                     <span className="home-v2-display text-[30px] text-slate">{SLUG_INDEX[slug]}</span>
                     <h3 className="home-v2-display text-[clamp(1.75rem,4.2vw,3.625rem)] leading-[0.9] text-obsidian">
-                      {service.title}
+                      <HomeV2Words text={service.title} />
                     </h3>
                   </div>
                   {hasText(copy.oneLiner) ? (

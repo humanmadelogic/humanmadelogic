@@ -5,6 +5,7 @@ import { useEffect, useRef, useState } from 'react';
 import { homeV2Config } from '@/config/home-v2';
 import { hasText, isHowWeWorkPopulated } from '@/lib/hml/homeV2';
 import { useReducedMotion } from '@/lib/hml/useReducedMotion';
+import { HomeV2Words, displayHeadingLines } from './homeV2Typography';
 
 const AI_PHRASE = 'People make the calls.';
 
@@ -74,15 +75,20 @@ export function HomeHowWeWorkSection() {
   if (!isHowWeWorkPopulated(homeV2Config.content)) return null;
 
   const steps = howWeWork.steps.filter((step) => hasText(step.title) || hasText(step.body));
+  const headingLines = hasText(howWeWork.heading) ? displayHeadingLines(howWeWork.heading) : [];
 
   return (
     <section className="home-v2-ink-band py-16 text-paper sm:py-20 lg:py-24">
       <div className="mx-auto max-w-editorial px-5 sm:px-8 lg:px-12">
         <div className="lg:grid lg:grid-cols-12 lg:gap-10 xl:gap-14">
-          <aside className="lg:col-span-4 lg:self-start lg:sticky lg:top-[7.5rem]">
-            {hasText(howWeWork.heading) ? (
-              <h2 className="home-v2-display text-[clamp(3rem,6.5vw,6rem)] leading-[0.88] text-paper">
-                {howWeWork.heading}
+          <aside className="home-v2-how__aside lg:col-span-4 lg:self-start lg:sticky lg:top-[7.5rem]">
+            {headingLines.length > 0 ? (
+              <h2 className="home-v2-how__heading home-v2-display max-w-full leading-[0.88] text-paper">
+                {headingLines.map((line) => (
+                  <span key={line} className="block">
+                    <span className="home-v2-word">{line}</span>
+                  </span>
+                ))}
               </h2>
             ) : null}
             <ol className="mt-8 hidden gap-2 lg:flex lg:flex-col" aria-label="Process progress">
@@ -134,7 +140,7 @@ export function HomeHowWeWorkSection() {
                     <div className="min-w-0 flex-1">
                       {hasText(step.title) ? (
                         <h3 className="home-v2-display text-[clamp(2rem,4.8vw,3.25rem)] leading-[0.9] text-paper">
-                          {step.title}
+                          <HomeV2Words text={step.title} />
                         </h3>
                       ) : null}
                       {hasText(step.body) ? (

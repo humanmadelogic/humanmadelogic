@@ -169,6 +169,22 @@ dialog:focus {
   font-weight: 500;
 }
 
+.hml :where(h1, h2, h3) {
+  hyphens: none;
+  overflow-wrap: normal;
+  word-break: normal;
+}
+
+.hml .hml-word,
+.hml .h3-word,
+.hml .home-v2-word {
+  display: inline-block;
+  white-space: nowrap;
+  overflow-wrap: normal;
+  word-break: normal;
+  hyphens: none;
+}
+
 /* Art-directed crops. Both are carried as custom properties on the frame and
    chosen here, so server and client render identical markup and mobile gets a
    real crop rather than a squashed desktop one. */

@@ -39,7 +39,7 @@ export function HomeProblemSection() {
         {hasText(problem.statement) ? (
           <ScrollHighlightWords
             text={problem.statement}
-            className="home-v2-display max-w-[14ch] break-words text-[clamp(2.25rem,10.5vw,9.375rem)] leading-[0.9] text-obsidian"
+            className="home-v2-display max-w-[14ch] text-[clamp(2.25rem,10.5vw,9.375rem)] leading-[0.9] text-obsidian"
           />
         ) : null}
         {lines.length > 0 ? (

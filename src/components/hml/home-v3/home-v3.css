@@ -13,6 +13,12 @@
   color: var(--h3-ink);
 }
 
+.home-v3 :where(h1, h2, h3) {
+  hyphens: none;
+  overflow-wrap: normal;
+  word-break: normal;
+}
+
 .home-v3 .h3-display {
   font-family: var(--font-grotesk), 'Archivo', system-ui, sans-serif;
   font-stretch: 62%;
@@ -22,7 +28,7 @@
   line-height: 0.92;
   hyphens: none;
   overflow-wrap: normal;
-  word-break: keep-all;
+  word-break: normal;
 }
 
 .home-v3 .h3-how__aside {
@@ -49,7 +55,8 @@
 .home-v3 .h3-how__aside .h3-word {
   max-width: 100%;
   overflow-wrap: normal;
-  word-break: keep-all;
+  word-break: normal;
+  hyphens: none;
   white-space: nowrap;
 }
 
@@ -60,6 +67,9 @@
 .home-v3 .h3-word {
   display: inline-block;
   white-space: nowrap;
+  overflow-wrap: normal;
+  word-break: normal;
+  hyphens: none;
 }
 
 .home-v3 .h3-marker {

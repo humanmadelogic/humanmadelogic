@@ -27,7 +27,7 @@ export function ServiceLegacyView({ service }: Props) {
                 as="h1"
                 immediate
                 lines={[service.title]}
-                className="break-words text-[11vw] leading-[0.95] tracking-[-0.05em] sm:text-[8vw] lg:text-[72px]"
+                className="text-[11vw] leading-[0.95] tracking-[-0.05em] sm:text-[8vw] lg:text-[72px]"
               />
               <p className="mt-8 max-w-[52ch] text-[17px] leading-[1.65] text-slate">{service.intro}</p>
             </div>

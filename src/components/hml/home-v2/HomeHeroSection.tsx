@@ -28,14 +28,14 @@ export function HomeHeroSection() {
               {hero.eyebrow}
             </p>
           ) : null}
-          <h1 className="home-v2-display home-v2-hero-h1 mt-6 max-w-[14ch] break-words text-[clamp(3.5rem,8.9vw,8rem)] leading-[0.86] text-obsidian">
+          <h1 className="home-v2-display home-v2-hero-h1 mt-6 max-w-[14ch] text-[clamp(3.5rem,8.9vw,8rem)] leading-[0.86] text-obsidian">
             {splitDisplayLines(hero.h1, 3).map((line) => (
               <span key={line} className="home-v2-hero-line block overflow-hidden pb-[0.06em]">
                 {line.split(/\s+/).map((word, wi) => {
                   const lower = word.toLowerCase();
                   const isName = lower === 'name' || lower.startsWith('name');
                   return (
-                    <span key={`${line}-${word}-${wi}`}>
+                    <span key={`${line}-${word}-${wi}`} className="home-v2-word">
                       {isName ? <HomeV2Marker className="home-v2-hero-marker">{word}</HomeV2Marker> : word}
                       {wi < line.split(/\s+/).length - 1 ? '\u00a0' : ''}
                     </span>

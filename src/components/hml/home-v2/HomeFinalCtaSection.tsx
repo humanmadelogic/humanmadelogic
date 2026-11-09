@@ -6,16 +6,19 @@ import { hasText, isFinalCtaPopulated } from '@/lib/hml/homeV2';
 import { HomeV2HMark } from './homeV2Typography';
 
 function FinalHeading({ text }: { text: string }) {
-  const lower = text.toLowerCase();
-  const needle = 'ignore?';
-  const idx = lower.lastIndexOf(needle);
-  if (idx < 0) {
-    return <span>{text}</span>;
-  }
+  const words = text.trim().split(/\s+/).filter(Boolean);
+  const lowerNeedle = 'ignore?';
   return (
     <>
-      {text.slice(0, idx)}
-      <span className="text-signalYellow">{text.slice(idx, idx + needle.length)}</span>
+      {words.map((word, index) => {
+        const isIgnore = word.toLowerCase() === lowerNeedle;
+        return (
+          <span key={`${word}-${index}`} className={`home-v2-word${isIgnore ? ' text-signalYellow' : ''}`}>
+            {word}
+            {index < words.length - 1 ? '\u00a0' : ''}
+          </span>
+        );
+      })}
     </>
   );
 }

@@ -6,6 +6,7 @@ import { hasText, isPendingHomeImageAlt, isWhoPopulated } from '@/lib/hml/homeV2
 import { useReducedMotion } from '@/lib/hml/useReducedMotion';
 import { HomeOptionalImage } from './HomeOptionalImage';
 import { useScrollReveal } from './useScrollReveal';
+import { HomeV2Words } from './homeV2Typography';
 
 function CheckRow({ line, drawn }: { line: string; drawn: boolean }) {
   return (
@@ -86,7 +87,7 @@ export function HomeWhoSection() {
         <div className={showWhoImage ? 'order-1 min-w-0 lg:order-2 lg:col-span-6' : 'min-w-0'}>
           {hasText(who.heading) ? (
             <h2 className="home-v2-display text-[clamp(3rem,9vw,7.5rem)] leading-[0.88] text-obsidian">
-              {who.heading}
+              <HomeV2Words text={who.heading} />
             </h2>
           ) : null}
           {lines.length > 0 ? (

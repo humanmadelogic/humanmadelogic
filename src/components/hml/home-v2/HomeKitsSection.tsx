@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { homeV2Config, type HomeV2Kit } from '@/config/home-v2';
 import { hasText, isKitPopulated, isKitsPopulated } from '@/lib/hml/homeV2';
 import { useScrollReveal } from './useScrollReveal';
+import { HomeV2Words } from './homeV2Typography';
 
 function KitTick() {
   return (
@@ -40,7 +41,7 @@ export function HomeKitsSection() {
             id="home-kits-heading"
             className="home-v2-display text-[clamp(3rem,7.2vw,6.5rem)] leading-[0.88] text-obsidian"
           >
-            {kits.heading}
+            <HomeV2Words text={kits.heading} />
           </h2>
         ) : null}
 
@@ -57,7 +58,7 @@ export function HomeKitsSection() {
                 </span>
                 {hasText(kit.title) ? (
                   <h3 className="home-v2-display mt-4 min-h-[2.4em] text-[clamp(1.875rem,4vw,3.75rem)] leading-[0.92] text-obsidian">
-                    {kit.title}
+                    <HomeV2Words text={kit.title} />
                   </h3>
                 ) : null}
                 {hasText(kit.bestFor) ? (
