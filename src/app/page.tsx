@@ -1,15 +1,18 @@
 import type { Metadata } from 'next';
 import { HomePage } from '@/components/hml/HomePage';
 import { HomePageV2 } from '@/components/hml/HomePageV2';
+import { HomePageV3 } from '@/components/hml/HomePageV3';
 import { HomeFaqStructuredData } from '@/components/hml/home-v2/HomeFaqStructuredData';
 import { StructuredData } from '@/components/hml/StructuredData';
 import { homePage } from '@/config/agency';
 import { homeV2Config } from '@/config/home-v2';
+import { homeV3Config } from '@/config/home-v3';
 import { siteConfig } from '@/config/site';
 import { buildMetadata, homeTitle } from '@/lib/seo';
 import { hasText, isFaqPopulated } from '@/lib/hml/homeV2';
 
-const useHomeV2 = homeV2Config.enabled;
+const useHomeV3 = homeV3Config.enabled;
+const useHomeV2 = !useHomeV3 && homeV2Config.enabled;
 
 const legacyMeta = buildMetadata({
   title: siteConfig.coverLine,
@@ -30,7 +33,7 @@ const v2Meta = buildMetadata({
   ogImage: homeV2Config.content.meta.ogImage,
 });
 
-export const metadata: Metadata = useHomeV2
+export const metadata: Metadata = useHomeV3 || useHomeV2
   ? {
       ...v2Meta,
       title: { absolute: v2MetaTitle || homeTitle() },
@@ -57,7 +60,7 @@ export const metadata: Metadata = useHomeV2
     };
 
 export default function Page() {
-  if (useHomeV2) {
+  if (useHomeV3 || useHomeV2) {
     const faqItems = isFaqPopulated(homeV2Config.content)
       ? homeV2Config.content.faq.items.filter(
           (item) => hasText(item.question) && hasText(item.answer),
@@ -68,7 +71,7 @@ export default function Page() {
       <>
         <StructuredData />
         {faqItems.length > 0 ? <HomeFaqStructuredData items={faqItems} /> : null}
-        <HomePageV2 />
+        {useHomeV3 ? <HomePageV3 /> : <HomePageV2 />}
       </>
     );
   }
