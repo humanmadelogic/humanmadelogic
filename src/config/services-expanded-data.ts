@@ -284,7 +284,7 @@ export const seoAeoGeoExpanded: ServiceExpandedContent = {
       },
     ],
     showTimeline: false,
-    showStepIcons: false,
+    showStepIcons: true,
   },
   whatChanges: {
     heading: 'What getting found changes',
@@ -455,7 +455,7 @@ export const performanceMarketingExpanded: ServiceExpandedContent = {
       },
     ],
     showTimeline: false,
-    showStepIcons: false,
+    showStepIcons: true,
   },
   whatChanges: {
     heading: 'What better ads change',
@@ -625,7 +625,7 @@ export const socialMediaExpanded: ServiceExpandedContent = {
       },
     ],
     showTimeline: false,
-    showStepIcons: false,
+    showStepIcons: true,
   },
   whatChanges: {
     heading: 'What a steady rhythm changes',
