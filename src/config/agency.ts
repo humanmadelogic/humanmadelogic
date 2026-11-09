@@ -22,10 +22,9 @@ export const agency = {
   principle: siteConfig.coverLine,
   tagline: siteConfig.tagline,
   email: siteConfig.contactEmail,
-  // PLACEHOLDER COPY: pending content team — studio footprint line
-  location: 'UK, Australia, Canada, Singapore',
-  // PLACEHOLDER COPY: pending content team
-  availability: 'New project enquiries open',
+  location:
+    'Working with SMB founders and marketing teams across the UK, Australia, Canada and Singapore.',
+  availability: 'Now booking new brand and growth projects for [MONTH TBC].',
   nav: [
     { label: 'Services', href: '/services' },
     { label: 'About', href: '/about' },
@@ -40,7 +39,6 @@ export const agency = {
   ] as NavLink[],
   cta: { label: 'Start a project', href: '/contact' },
   social: [
-    // PLACEHOLDER COPY: pending content team — replace hrefs when profiles are live
     { label: 'LinkedIn', href: '/contact' },
     { label: 'Instagram', href: '/contact' },
   ] as NavLink[],
@@ -115,9 +113,8 @@ export const workPlaceholder = {
   label: '/ Client work',
   heading: 'Case studies and logos land here.',
   body:
-    // PLACEHOLDER COPY: pending content team
-    'This section is reserved for approved client stories, metrics, and visuals. Nothing below is real work yet.',
-  note: 'Content team: replace this block when case studies are cleared for publication.',
+    "No case studies here yet, and that's on purpose. We'd rather show you how we think than fill a page with borrowed logos. Work goes up as projects are finished and signed off. Until then, see how we'd approach your brand in our process, or book a fit call and we'll talk it through using your brand, not a template.",
+  note: '',
 };
 
 /* --------------------------------------------------------------- process */
@@ -128,27 +125,23 @@ export const process = {
   steps: [
     {
       index: '01',
-      title: 'Listen',
-      // PLACEHOLDER COPY: pending content team
-      body: 'We map your market, margins, and momentum so creative choices stay tied to commercial reality.',
+      title: 'Listen and audit',
+      body: "We start by listening. We look at your brand, your market and your competitors, then dig into what customers already remember about you and where you're being found or missed: in search, on social and in AI answers. No assumptions, just a clear picture of where you stand.",
     },
     {
       index: '02',
-      title: 'Frame',
-      // PLACEHOLDER COPY: pending content team
-      body: 'Positioning, channel priorities, and success metrics agreed before we open a single tool.',
+      title: 'Define',
+      body: "Next, we decide what you should be known for. That means a sharp strategy, clear positioning and a short list of distinctive brand codes: the colours, shapes, words and habits people recognise before they read your name. Everything we build later answers to this.",
     },
     {
       index: '03',
-      title: 'Make',
-      // PLACEHOLDER COPY: pending content team
-      body: 'Brand, content, and campaigns produced in sprints. AI accelerates drafts; people sign off every direction.',
+      title: 'Build',
+      body: 'Then we make it real: identity, website or landing pages, content and campaigns, built as one system rather than a pile of separate jobs. AI speeds up research and first drafts so we move faster, and people make every call on how your brand looks and sounds.',
     },
     {
       index: '04',
-      title: 'Learn',
-      // PLACEHOLDER COPY: pending content team
-      body: 'We read performance data with you and feed what we learn back into the next cycle.',
+      title: 'Grow',
+      body: 'We launch, measure what\'s working, test and refine. From there, growth compounds through the channels that suit you: SEO/AEO/GEO to be found and named, performance campaigns that turn attention into enquiries and sales, or social that stays recognisable week after week.',
     },
   ],
 };
@@ -160,19 +153,16 @@ export const approach = {
   heading: 'A creative agency with a performance spine.',
   pillars: [
     {
-      title: 'People make the calls',
-      // PLACEHOLDER COPY: pending content team
-      body: 'AI helps us research, draft, and iterate. Strategy, taste, and accountability stay human.',
+      title: 'Distinctive before loud',
+      body: "Spend only works hard when people know it's you. So we build the parts customers remember first, the codes, the voice and the idea, and then put budget behind them. Being seen is easy to buy. Being remembered is what makes that spend add up over time.",
     },
     {
-      title: 'Beauty that converts',
-      // PLACEHOLDER COPY: pending content team
-      body: 'Brand craft and media efficiency are one conversation, not two agencies passing files.',
+      title: 'Findable everywhere people look',
+      body: "People don't only search any more. They scroll, compare and ask AI tools to explain a whole category in one breath. We make sure your brand turns up across search, social and AI answers, and gets named clearly instead of folded into a vague list of providers.",
     },
     {
-      title: 'Built for your markets',
-      // PLACEHOLDER COPY: pending content team
-      body: `We focus on founders and marketing leads in the ${siteConfig.markets.join(', ')}. Current craft depth sits in UK DTC beauty and skincare.`,
+      title: 'Fundamentals, faster',
+      body: "Good marketing still runs on fundamentals: a clear position, original ideas and creative that earns attention. We use AI to research, draft and test faster, so more of your budget goes on thinking. It's the speed layer, never the personality, and people make the calls.",
     },
   ],
 };
@@ -181,8 +171,7 @@ export const approach = {
 
 export const finalCta = {
   heading: 'Ready to be impossible to ignore?',
-  // PLACEHOLDER COPY: pending content team
-  body: 'Tell us what you are building. We will reply within one working day.',
+  body: "Start with a short, no-pressure fit call. Tell us where your brand feels stuck and what you want next. If we're not the right fit, we'll tell you honestly.",
   cta: { label: 'Start a project', href: '/contact' },
 };
 

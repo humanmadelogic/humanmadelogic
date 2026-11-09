@@ -31,7 +31,7 @@ export function AboutView() {
                 className="rounded-[16px] border border-obsidian/10 bg-paper p-8"
               >
                 <h3 className="text-[22px] tracking-[-0.03em]">{pillar.title}</h3>
-                <p className="mt-4 text-[15px] leading-[1.65] text-slate">{pillar.body}</p>
+                <p className="mt-4 text-[15px] leading-[1.65] text-slate sm:text-[16px]">{pillar.body}</p>
               </li>
             ))}
           </ul>

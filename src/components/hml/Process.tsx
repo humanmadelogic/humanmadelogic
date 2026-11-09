@@ -142,11 +142,11 @@ export function Process() {
                     >
                       {step.index}
                     </span>
-                    <h3 className="text-[30px] leading-[1.1] tracking-[-0.04em] sm:text-[38px]">
+                    <h3 className="text-[26px] leading-[1.12] tracking-[-0.04em] sm:text-[32px] lg:text-[34px]">
                       {step.title}
                     </h3>
                   </div>
-                  <p className="mt-4 max-w-[46ch] text-[16px] leading-[1.6] text-slate sm:ml-[52px]">
+                  <p className="mt-4 max-w-[58ch] text-[16px] leading-[1.65] text-slate sm:ml-[52px]">
                     {step.body}
                   </p>
                 </li>

@@ -96,7 +96,7 @@ export function SiteFooter() {
         </nav>
 
         <div className="mt-10 flex flex-col gap-3 border-t border-paper/12 pt-6 text-[13px] text-paper/50 sm:flex-row sm:items-center sm:justify-between">
-          <p>{agency.location}</p>
+          <p className="max-w-md text-balance">{agency.location}</p>
           <p>
             © {year} {agency.name}
           </p>

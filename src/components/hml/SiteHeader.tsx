@@ -93,10 +93,10 @@ export function SiteHeader() {
         </nav>
 
         <div className="hidden items-center gap-5 lg:flex">
-          <span className="flex items-center gap-2 text-[13px] text-slate">
+          <span className="hidden max-w-[17rem] text-balance text-[12px] leading-[1.4] text-slate xl:flex xl:items-center xl:gap-2">
             <span
               aria-hidden="true"
-              className="h-[6px] w-[6px] rounded-full bg-signalYellow"
+              className="h-[6px] w-[6px] shrink-0 rounded-full bg-signalYellow"
             />
             {agency.availability}
           </span>
