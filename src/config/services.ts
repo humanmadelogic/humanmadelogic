@@ -71,6 +71,8 @@ export type ServiceExpandedContent = {
     heading: string;
     steps: [ServiceExpandedStep, ServiceExpandedStep, ServiceExpandedStep, ServiceExpandedStep];
     showTimeline: boolean;
+    /** When false, step rows render without decorative icons (until all four SVGs are approved). */
+    showStepIcons: boolean;
   };
   whatChanges: {
     heading: string;
@@ -138,6 +140,7 @@ export function emptyServiceExpanded(): ServiceExpandedContent {
         { title: '', description: '' },
       ],
       showTimeline: false,
+      showStepIcons: false,
     },
     whatChanges: {
       heading: '',

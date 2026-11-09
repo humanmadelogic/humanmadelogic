@@ -207,7 +207,9 @@ export function ServiceExpandedView({ service }: Props) {
               return (
                 <li key={n} className="relative">
                   <div className="flex gap-4">
-                    <OptionalStepIcon slug={service.slug} index={n} />
+                    {e.howItWorks.showStepIcons ? (
+                      <OptionalStepIcon slug={service.slug} index={n} />
+                    ) : null}
                     <div>
                       <p className="text-[12px] tabular-nums tracking-[0.18em] text-slate">
                         {String(n).padStart(2, '0')}

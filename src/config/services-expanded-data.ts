@@ -112,6 +112,7 @@ export const brandingExpanded: ServiceExpandedContent = {
       },
     ],
     showTimeline: false,
+    showStepIcons: true,
   },
   whatChanges: {
     heading: 'What changes once it clicks',
@@ -283,6 +284,7 @@ export const seoAeoGeoExpanded: ServiceExpandedContent = {
       },
     ],
     showTimeline: false,
+    showStepIcons: false,
   },
   whatChanges: {
     heading: 'What getting found changes',
@@ -453,6 +455,7 @@ export const performanceMarketingExpanded: ServiceExpandedContent = {
       },
     ],
     showTimeline: false,
+    showStepIcons: false,
   },
   whatChanges: {
     heading: 'What better ads change',
@@ -622,6 +625,7 @@ export const socialMediaExpanded: ServiceExpandedContent = {
       },
     ],
     showTimeline: false,
+    showStepIcons: false,
   },
   whatChanges: {
     heading: 'What a steady rhythm changes',
