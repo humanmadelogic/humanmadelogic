@@ -1,22 +1,21 @@
-import { LegalPage } from '@/components/LegalPage';
-import { privacyPage } from '@/config/content';
+import type { Metadata } from 'next';
+import { HmlLegalPage } from '@/components/hml/HmlLegalPage';
+import { HmlPageShell } from '@/components/hml/HmlPageShell';
+import { homePage } from '@/config/agency';
+import { privacyPage } from '@/config/legal';
 import { buildMetadata } from '@/lib/seo';
 
-export const metadata = buildMetadata({
-  title: 'Privacy',
-  description:
-    'Placeholder privacy policy shipped with the Relay template, including a security section — replace it with a policy reviewed by your own counsel.',
+export const metadata: Metadata = buildMetadata({
+  title: 'Privacy policy',
+  description: privacyPage.intro,
   path: '/privacy',
-  noindex: true,
+  ogImage: homePage.meta.ogImage,
 });
 
 export default function Privacy() {
   return (
-    <LegalPage
-      title={privacyPage.title}
-      updated={privacyPage.updated}
-      intro={privacyPage.intro}
-      sections={privacyPage.sections}
-    />
+    <HmlPageShell>
+      <HmlLegalPage page={privacyPage} />
+    </HmlPageShell>
   );
 }

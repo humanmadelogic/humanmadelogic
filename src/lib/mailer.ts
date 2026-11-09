@@ -3,27 +3,13 @@ import type { Transporter } from 'nodemailer';
 import type { Inquiry } from './inquiries';
 
 /**
- * Enquiry delivery over Google's SMTP.
- *
- * Gmail and Google Workspace both require an App Password here — a normal
- * account password is rejected, and the account must have 2-Step Verification
- * switched on before App Passwords can be generated. Google also insists the
- * envelope sender matches the authenticated user (or one of its verified
- * "Send mail as" aliases), so the visitor's address goes in `replyTo` rather
- * than `from`.
+ * Enquiry delivery over Google SMTP (Workspace or Gmail with an app password).
  */
 
-export const CONTACT_TO = process.env.CONTACT_TO || 'info@humanmadelogic.fun';
-
-/** Copied on every enquiry. Comma-separate the env var for more recipients. */
-export const CONTACT_CC = (process.env.CONTACT_CC || 'kuntal@humanmadelogic.fun')
-  .split(',')
-  .map((address) => address.trim())
-  .filter(Boolean);
+export const CONTACT_TO = process.env.CONTACT_TO || 'info@humanmadelogic.com';
 
 const SMTP_HOST = process.env.SMTP_HOST || 'smtp.gmail.com';
 const SMTP_PORT = Number(process.env.SMTP_PORT || 465);
-/** Implicit TLS on 465, STARTTLS on 587. */
 const SMTP_SECURE = process.env.SMTP_SECURE
   ? process.env.SMTP_SECURE === 'true'
   : SMTP_PORT === 465;
@@ -37,18 +23,14 @@ export function mailConfigured() {
   return Boolean(SMTP_USER && SMTP_PASS);
 }
 
-/** Safe to expose on the unauthenticated status endpoint. */
+/** Non-sensitive summary for health endpoints. */
 export function mailStatus() {
   return {
-    to: CONTACT_TO,
-    cc: CONTACT_CC,
     provider: `smtp:${SMTP_HOST}`,
     configured: mailConfigured(),
-    from: SMTP_FROM,
   };
 }
 
-/** Transport detail and the last failure. Admin surfaces only. */
 export function mailDiagnostics() {
   return {
     ...mailStatus(),
@@ -56,11 +38,11 @@ export function mailDiagnostics() {
     port: SMTP_PORT,
     secure: SMTP_SECURE,
     user: maskAddress(SMTP_USER),
+    to: maskAddress(CONTACT_TO),
     lastError: lastMailError(),
   };
 }
 
-/** Enough of an address to recognise it, not enough to leak it. */
 function maskAddress(address: string) {
   if (!address) return '';
   const [local, domain] = address.split('@');
@@ -78,7 +60,6 @@ function getTransport() {
     port: SMTP_PORT,
     secure: SMTP_SECURE,
     auth: { user: SMTP_USER, pass: SMTP_PASS },
-    // A serverless invocation must not hang on a silent SMTP port.
     connectionTimeout: 10_000,
     greetingTimeout: 10_000,
     socketTimeout: 15_000,
@@ -101,7 +82,7 @@ function buildBody(inquiry: InquiryPayload) {
   const rows: Array<[string, string]> = [
     ['Name', inquiry.name],
     ['Email', inquiry.email],
-    ['Company', inquiry.company || '—'],
+    ['Company', inquiry.company || 'n/a'],
     ['Topic', inquiry.topic],
     ['Source', inquiry.source],
   ];
@@ -127,22 +108,16 @@ function buildBody(inquiry: InquiryPayload) {
   return { text, html };
 }
 
-/** Human-readable reason a send failed, for logs and the admin panel. */
 export function describeMailError(error: unknown): string {
   if (!error) return 'Unknown error';
   const err = error as NodeJS.ErrnoException & { responseCode?: number; response?: string };
   const parts = [err.code, err.responseCode ? `SMTP ${err.responseCode}` : '', err.message]
     .filter(Boolean)
     .join(' · ');
-  const response = err.response ? ` — ${String(err.response).slice(0, 200)}` : '';
+  const response = err.response ? ` (${String(err.response).slice(0, 200)})` : '';
   return `${parts}${response}`.trim() || String(error);
 }
 
-/**
- * Last delivery outcome, kept in module memory so /admin can show why mail is
- * failing without anyone reading platform logs. It resets on cold start and is
- * per-instance — a diagnostic, not a record.
- */
 let lastMailFailure: { at: string; reason: string } | null = null;
 
 export function noteMailFailure(reason: string) {
@@ -157,10 +132,6 @@ export function lastMailError() {
   return lastMailFailure;
 }
 
-/**
- * Opens a connection and authenticates without sending anything. This is what
- * turns "mail is not working" into Google's actual reason.
- */
 export async function verifyMail() {
   if (!mailConfigured()) {
     return { ok: false as const, reason: 'SMTP_USER / SMTP_PASS are not set' };
@@ -176,9 +147,7 @@ export async function verifyMail() {
 
 export async function sendInquiryEmail(inquiry: InquiryPayload) {
   if (!mailConfigured()) {
-    // Surface it rather than reporting a send that never happened. The
-    // caller still persists the enquiry, so nothing is lost.
-    throw new Error('SMTP_USER / SMTP_PASS are not set — enquiry saved but not emailed');
+    throw new Error('SMTP_USER / SMTP_PASS are not set');
   }
 
   const { text, html } = buildBody(inquiry);
@@ -186,10 +155,8 @@ export async function sendInquiryEmail(inquiry: InquiryPayload) {
   await getTransport().sendMail({
     from: { address: SMTP_FROM, name: SMTP_FROM_NAME },
     to: CONTACT_TO,
-    cc: CONTACT_CC.length > 0 ? CONTACT_CC : undefined,
-    // Replying from the inbox goes straight back to the enquirer.
     replyTo: inquiry.email,
-    subject: `New enquiry — ${inquiry.name} (${inquiry.topic})`,
+    subject: `New enquiry: ${inquiry.name} (${inquiry.topic})`,
     text,
     html,
   });

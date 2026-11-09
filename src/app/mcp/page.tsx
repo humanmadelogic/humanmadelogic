@@ -1,13 +1,15 @@
 import type { Metadata } from 'next';
 import { HmlPageShell } from '@/components/hml/HmlPageShell';
 import { McpView } from '@/components/hml/McpView';
-import { agency, mcp } from '@/config/agency';
+import { mcp } from '@/config/agency';
+import { buildMetadata } from '@/lib/seo';
 
-export const metadata: Metadata = {
-  title: { absolute: `MCP — ${agency.name}` },
+export const metadata: Metadata = buildMetadata({
+  title: 'MCP',
   description: mcp.body,
-  alternates: { canonical: '/mcp' },
-};
+  path: '/mcp',
+  noindex: true,
+});
 
 export default function McpPage() {
   return (
