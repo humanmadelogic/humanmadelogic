@@ -145,7 +145,7 @@ export function SiteHeader() {
         <a
           href={wordmarkHref}
           tabIndex={condensed && !menuOpen ? 0 : -1}
-          className="rounded-full px-3 py-2"
+          className="inline-flex min-h-[44px] items-center rounded-full px-3 py-2"
           aria-label="Back to top"
         >
           <Wordmark compact />
