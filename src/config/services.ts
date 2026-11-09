@@ -11,6 +11,159 @@ export type ServiceSlug =
   | 'performance-marketing'
   | 'social-media';
 
+export type ServiceExpandedPainPoint = {
+  title: string;
+  description: string;
+  imageAlt: string;
+};
+
+export type ServiceExpandedDeliverableCard = {
+  title: string;
+  description: string;
+};
+
+export type ServiceExpandedStep = {
+  title: string;
+  description: string;
+};
+
+export type ServiceExpandedOutcomeCard = {
+  title: string;
+  description: string;
+};
+
+export type ServiceExpandedFaqItem = {
+  question: string;
+  answer: string;
+};
+
+/** Long-form service page sections (empty fields = section omitted on the live page). */
+export type ServiceExpandedContent = {
+  /** Optional override; when empty, metadata uses `/og/og-<slug>.png` if present, else `ogImage`. */
+  ogImage: string;
+  hero: {
+    subline: string;
+    primaryCtaLabel: string;
+    primaryCtaHref: string;
+    secondaryCtaLabel: string;
+    secondaryCtaHref: string;
+    imageAlt: string;
+  };
+  whoItsFor: {
+    intro: string;
+    painPoints: [ServiceExpandedPainPoint, ServiceExpandedPainPoint, ServiceExpandedPainPoint];
+  };
+  whatYouGet: {
+    heading: string;
+    intro: string;
+    deliverables: ServiceExpandedDeliverableCard[];
+    featureImageAlt: string;
+  };
+  howItWorks: {
+    heading: string;
+    steps: [ServiceExpandedStep, ServiceExpandedStep, ServiceExpandedStep, ServiceExpandedStep];
+    showTimeline: boolean;
+  };
+  whatChanges: {
+    heading: string;
+    outcomes: [ServiceExpandedOutcomeCard, ServiceExpandedOutcomeCard, ServiceExpandedOutcomeCard];
+  };
+  howWeUseAi: {
+    heading: string;
+    body: string;
+  };
+  packageBand: {
+    heading: string;
+    body: string;
+    servicesLinkLabel: string;
+    contactLinkLabel: string;
+  };
+  faq: {
+    heading: string;
+    items: ServiceExpandedFaqItem[];
+  };
+  relatedServices: {
+    enabled: boolean;
+    heading: string;
+  };
+  finalCta: {
+    heading: string;
+    body: string;
+    ctaLabel: string;
+    ctaHref: string;
+  };
+};
+
+export function emptyServiceExpanded(): ServiceExpandedContent {
+  return {
+    ogImage: '',
+    hero: {
+      subline: '',
+      primaryCtaLabel: '',
+      primaryCtaHref: '',
+      secondaryCtaLabel: '',
+      secondaryCtaHref: '',
+      imageAlt: '',
+    },
+    whoItsFor: {
+      intro: '',
+      painPoints: [
+        { title: '', description: '', imageAlt: '' },
+        { title: '', description: '', imageAlt: '' },
+        { title: '', description: '', imageAlt: '' },
+      ],
+    },
+    whatYouGet: {
+      heading: '',
+      intro: '',
+      deliverables: [],
+      featureImageAlt: '',
+    },
+    howItWorks: {
+      heading: '',
+      steps: [
+        { title: '', description: '' },
+        { title: '', description: '' },
+        { title: '', description: '' },
+        { title: '', description: '' },
+      ],
+      showTimeline: true,
+    },
+    whatChanges: {
+      heading: '',
+      outcomes: [
+        { title: '', description: '' },
+        { title: '', description: '' },
+        { title: '', description: '' },
+      ],
+    },
+    howWeUseAi: {
+      heading: '',
+      body: '',
+    },
+    packageBand: {
+      heading: '',
+      body: '',
+      servicesLinkLabel: '',
+      contactLinkLabel: '',
+    },
+    faq: {
+      heading: '',
+      items: [],
+    },
+    relatedServices: {
+      enabled: false,
+      heading: '',
+    },
+    finalCta: {
+      heading: '',
+      body: '',
+      ctaLabel: '',
+      ctaHref: '',
+    },
+  };
+}
+
 export type ServiceDefinition = {
   slug: ServiceSlug;
   index: string;
@@ -26,6 +179,7 @@ export type ServiceDefinition = {
   outcomes: string[];
   metaDescription: string;
   ogImage: string;
+  expanded: ServiceExpandedContent;
 };
 
 /** Copy and metadata for `/services`. */
@@ -81,6 +235,7 @@ export const services: Record<ServiceSlug, ServiceDefinition> = {
     ],
     metaDescription:
       'Branding for SMB founders: strategy, positioning and identity systems built on distinctive brand codes, so people remember you and not just your category.',
+    expanded: emptyServiceExpanded(),
   },
   'seo-aeo-geo': {
     slug: 'seo-aeo-geo',
@@ -105,6 +260,7 @@ export const services: Record<ServiceSlug, ServiceDefinition> = {
     ],
     metaDescription:
       'SEO/AEO/GEO for SMBs in the UK, Australia, Canada and Singapore. Get found in search and named in AI answers, with content built around what buyers ask.',
+    expanded: emptyServiceExpanded(),
   },
   'performance-marketing': {
     slug: 'performance-marketing',
@@ -129,6 +285,7 @@ export const services: Record<ServiceSlug, ServiceDefinition> = {
     ],
     metaDescription:
       "Performance marketing for SMBs: paid campaigns with creative that doesn't look like the category, landing pages with a clear next step and reporting to act on.",
+    expanded: emptyServiceExpanded(),
   },
   'social-media': {
     slug: 'social-media',
@@ -153,6 +310,7 @@ export const services: Record<ServiceSlug, ServiceDefinition> = {
     ],
     metaDescription:
       'Social media for SMBs: fewer, better posts, a recognisable voice and a rhythm your team can keep, so your brand gets remembered rather than scrolled past.',
+    expanded: emptyServiceExpanded(),
   },
 };
 
