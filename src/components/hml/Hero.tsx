@@ -141,7 +141,7 @@ export function Hero() {
   }, [magnetic]);
 
   return (
-    <section id="top" className="relative overflow-hidden pt-28 sm:pt-32 lg:pt-36">
+    <section id="top" className="relative overflow-x-clip pt-28 sm:pt-32 lg:pt-36">
       <div className="mx-auto max-w-editorial px-5 sm:px-8 lg:px-12">
         <p className="text-[11px] uppercase tracking-[0.2em] text-slate sm:text-[12px]">
           {hero.eyebrow}
@@ -182,10 +182,10 @@ export function Hero() {
       </div>
 
       {/* Five-frame fan. */}
-      <div className="mx-auto mt-12 max-w-editorial px-5 sm:mt-14 sm:px-8 lg:px-12">
+      <div className="mx-auto mt-12 max-w-editorial overflow-x-clip px-5 sm:mt-14 sm:px-8 lg:px-12">
         <div
           ref={stack}
-          className="flex items-center justify-center pb-6 pt-8"
+          className="flex max-w-full items-center justify-center pb-6 pt-8"
           style={{ perspective: '1200px' }}
         >
           {hero.frames.map((frame, index) => (

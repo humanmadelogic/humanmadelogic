@@ -3,6 +3,7 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { usePathname } from 'next/navigation';
 import { agency } from '@/config/agency';
+import { trapFocus } from '@/lib/hml/focusTrap';
 
 function Wordmark({ compact = false }: { compact?: boolean }) {
   return (
@@ -29,6 +30,7 @@ export function SiteHeader() {
   const [condensed, setCondensed] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const menuButton = useRef<HTMLButtonElement>(null);
+  const menuPanel = useRef<HTMLDivElement>(null);
   const wordmarkHref = home ? '#top' : '/';
 
   useEffect(() => {
@@ -58,9 +60,15 @@ export function SiteHeader() {
     };
     document.addEventListener('keydown', onKey);
     document.body.style.overflow = 'hidden';
+    const main = document.getElementById('main');
+    main?.setAttribute('inert', '');
+    const release =
+      menuPanel.current ? trapFocus(menuPanel.current) : () => undefined;
     return () => {
       document.removeEventListener('keydown', onKey);
       document.body.style.overflow = '';
+      main?.removeAttribute('inert');
+      release();
     };
   }, [menuOpen]);
 
@@ -107,7 +115,9 @@ export function SiteHeader() {
           onClick={() => setMenuOpen(true)}
           aria-expanded={menuOpen}
           aria-controls="hml-menu"
-          className="inline-flex h-11 items-center gap-2 rounded-full border border-obsidian/20 px-4 text-[14px] lg:hidden"
+          className={`inline-flex min-h-[44px] min-w-[44px] items-center justify-center gap-2 rounded-full border border-obsidian/20 px-4 text-[14px] lg:hidden ${
+            condensed ? 'hidden' : ''
+          }`}
         >
           Menu
         </button>
@@ -115,6 +125,7 @@ export function SiteHeader() {
 
       {/* Condensed pill — takes over once the page scrolls. */}
       <div
+        aria-hidden={!condensed}
         className={`pointer-events-auto absolute right-5 top-4 flex items-center gap-1 rounded-full border border-obsidian/10 bg-paper/85 p-1.5 shadow-[0_10px_40px_-18px_rgba(21,21,21,0.5)] backdrop-blur-md transition-[opacity,transform] duration-500 ease-out sm:right-8 lg:right-12 ${
           condensed ? 'translate-y-0 opacity-100' : 'pointer-events-none -translate-y-3 opacity-0'
         }`}
@@ -147,7 +158,11 @@ export function SiteHeader() {
           onClick={() => setMenuOpen(true)}
           aria-expanded={menuOpen}
           aria-controls="hml-menu"
-          className="inline-flex h-10 items-center rounded-full border border-obsidian/15 px-4 text-[13px] lg:hidden"
+          aria-hidden={!condensed}
+          tabIndex={condensed ? 0 : -1}
+          className={`min-h-[44px] min-w-[44px] items-center justify-center rounded-full border border-obsidian/15 px-4 text-[13px] lg:hidden ${
+            condensed ? 'inline-flex' : 'hidden'
+          }`}
         >
           Menu
         </button>
@@ -155,9 +170,13 @@ export function SiteHeader() {
 
       {/* Full-screen editorial menu. */}
       <div
+        ref={menuPanel}
         id="hml-menu"
+        role="dialog"
+        aria-modal="true"
+        aria-label="Site menu"
         aria-hidden={!menuOpen}
-        className={`pointer-events-auto fixed inset-0 z-[60] flex-col bg-paper lg:hidden ${
+        className={`pointer-events-auto fixed inset-0 z-[60] flex min-h-[100dvh] flex-col bg-paper lg:hidden ${
           menuOpen ? 'flex' : 'hidden'
         }`}
       >
@@ -166,7 +185,7 @@ export function SiteHeader() {
           <button
             type="button"
             onClick={close}
-            className="inline-flex h-11 items-center rounded-full border border-obsidian/20 px-4 text-[14px]"
+            className="inline-flex min-h-[44px] min-w-[44px] items-center justify-center rounded-full border border-obsidian/20 px-4 text-[14px]"
           >
             Close
           </button>

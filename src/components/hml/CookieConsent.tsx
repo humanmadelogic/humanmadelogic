@@ -57,7 +57,7 @@ export function CookieConsent() {
         <div
           role="dialog"
           aria-labelledby={titleId}
-          className="pointer-events-auto fixed inset-x-0 bottom-0 z-[70] border-t border-obsidian/15 bg-paper/95 p-5 shadow-[0_-12px_40px_-16px_rgba(21,21,21,0.35)] backdrop-blur-md sm:p-6"
+          className="pointer-events-auto fixed inset-x-0 bottom-0 z-[70] border-t border-obsidian/15 bg-paper/95 p-5 pb-[max(1.25rem,env(safe-area-inset-bottom))] shadow-[0_-12px_40px_-16px_rgba(21,21,21,0.35)] backdrop-blur-md sm:p-6"
         >
           <div className="mx-auto flex max-w-editorial flex-col gap-5 lg:flex-row lg:items-end lg:justify-between">
             <div className="max-w-[62ch]">
@@ -82,21 +82,21 @@ export function CookieConsent() {
               <button
                 type="button"
                 onClick={() => setManageOpen(true)}
-                className="inline-flex h-11 items-center rounded-full border border-obsidian/20 px-5 text-[14px] transition-colors hover:border-obsidian/45"
+                className="inline-flex min-h-[44px] items-center rounded-full border border-obsidian/20 px-5 text-[14px] transition-colors hover:border-obsidian/45"
               >
                 Manage options
               </button>
               <button
                 type="button"
                 onClick={() => setConsent(rejectNonEssential())}
-                className="inline-flex h-11 items-center rounded-full border border-obsidian/20 px-5 text-[14px] transition-colors hover:border-obsidian/45"
+                className="inline-flex min-h-[44px] items-center rounded-full border border-obsidian/20 px-5 text-[14px] transition-colors hover:border-obsidian/45"
               >
                 Reject non-essential
               </button>
               <button
                 type="button"
                 onClick={() => setConsent(acceptAll())}
-                className="inline-flex h-11 items-center rounded-full bg-obsidian px-5 text-[14px] font-medium text-paper transition-colors hover:bg-obsidian/85"
+                className="inline-flex min-h-[44px] items-center rounded-full bg-obsidian px-5 text-[14px] font-medium text-paper transition-colors hover:bg-obsidian/85"
               >
                 Accept all
               </button>
@@ -118,10 +118,10 @@ export function CookieConsent() {
       <dialog
         ref={dialogRef}
         aria-labelledby={`${titleId}-manage`}
-        className="max-h-[90vh] w-[min(520px,calc(100vw-2rem))] rounded-[16px] border border-obsidian/15 bg-paper p-0 text-obsidian shadow-2xl backdrop:bg-obsidian/40 open:flex open:flex-col"
+        className="max-h-[90dvh] w-[min(520px,calc(100vw-2rem))] rounded-[16px] border border-obsidian/15 bg-paper p-0 text-obsidian shadow-2xl backdrop:bg-obsidian/40 open:flex open:flex-col"
         onClose={() => setManageOpen(false)}
       >
-        <div className="flex max-h-[90vh] flex-col">
+        <div className="flex max-h-[90dvh] flex-col">
           <div className="border-b border-obsidian/10 px-6 py-5">
             <h2 id={`${titleId}-manage`} className="text-[20px] tracking-[-0.02em]">
               Cookie preferences

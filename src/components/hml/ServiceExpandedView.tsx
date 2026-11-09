@@ -73,7 +73,7 @@ export function ServiceExpandedView({ service }: Props) {
                 as="h1"
                 immediate
                 lines={[service.title]}
-                className="text-[11vw] leading-[0.95] tracking-[-0.05em] sm:text-[8vw] lg:text-[64px]"
+                className="break-words text-[11vw] leading-[0.95] tracking-[-0.05em] sm:text-[8vw] lg:text-[64px]"
               />
               {e.hero.subline.trim() ? (
                 <p className="mt-8 max-w-[52ch] text-[17px] leading-[1.65] text-slate">{e.hero.subline}</p>
@@ -312,7 +312,7 @@ export function ServiceExpandedView({ service }: Props) {
               .filter((item) => item.question.trim() && item.answer.trim())
               .map((item) => (
                 <details key={item.question} className="group py-4">
-                  <summary className="cursor-pointer list-none text-[17px] font-medium tracking-[-0.02em] text-obsidian marker:content-none [&::-webkit-details-marker]:hidden">
+                  <summary className="cursor-pointer list-none py-2 text-[17px] font-medium tracking-[-0.02em] text-obsidian marker:content-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-obsidian focus-visible:ring-offset-2 [&::-webkit-details-marker]:hidden">
                     <span className="flex items-center justify-between gap-4">
                       {item.question}
                       <span
