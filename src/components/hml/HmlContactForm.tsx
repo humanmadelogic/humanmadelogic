@@ -14,7 +14,7 @@ const initial: ContactFields = {
 
 const fieldClass = (invalid: boolean) =>
   [
-    'w-full h-12 rounded-[10px] border bg-paper px-3.5 text-[15px] tracking-tight text-obsidian',
+    'w-full h-12 rounded-[10px] border bg-paper px-3.5 text-base tracking-tight text-obsidian sm:text-[15px]',
     'placeholder:text-slate/70 transition-colors duration-200',
     'focus:outline-none focus:ring-2 focus:ring-obsidian/70 focus:ring-offset-2 focus:ring-offset-paper',
     invalid
@@ -211,7 +211,8 @@ export function HmlContactForm() {
         <button
           type="submit"
           disabled={pending}
-          className="inline-flex h-12 items-center rounded-full bg-obsidian px-6 text-[15px] font-medium text-paper transition-transform duration-300 hover:scale-[1.03] disabled:pointer-events-none disabled:opacity-60"
+          aria-busy={pending}
+          className="inline-flex min-h-[44px] items-center rounded-full bg-obsidian px-6 text-[15px] font-medium text-paper transition-transform duration-300 hover:scale-[1.03] disabled:pointer-events-none disabled:opacity-60"
         >
           {pending ? 'Sending' : 'Send message'}
           <span aria-hidden="true" className="ml-3">

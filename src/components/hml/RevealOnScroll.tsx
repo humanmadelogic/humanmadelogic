@@ -26,15 +26,19 @@ export function RevealOnScroll({ children, className = '', delay = 0 }: Props) {
 
     gsap.registerPlugin(ScrollTrigger);
     const context = gsap.context(() => {
-      gsap.from(element.children, {
-        y: 26,
-        opacity: 0,
-        duration: 0.8,
-        ease: 'power3.out',
-        stagger: 0.08,
-        delay,
-        scrollTrigger: { trigger: element, start: 'top 82%', once: true },
-      });
+      gsap.fromTo(
+        element.children,
+        { y: 26, opacity: 1 },
+        {
+          y: 0,
+          opacity: 1,
+          duration: 0.8,
+          ease: 'power3.out',
+          stagger: 0.08,
+          delay,
+          scrollTrigger: { trigger: element, start: 'top 82%', once: true },
+        },
+      );
     }, element);
 
     return () => context.revert();
