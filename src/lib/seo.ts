@@ -8,7 +8,7 @@ export function siteTitle(page: string): string {
 
 /** Home document title and default social title. */
 export function homeTitle(): string {
-  return `${siteConfig.name} | ${siteConfig.coverLine}`;
+  return `${siteConfig.coverLine} | ${siteConfig.name}`;
 }
 
 function ogImages(relativePath: string, alt: string) {

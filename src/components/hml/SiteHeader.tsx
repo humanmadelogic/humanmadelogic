@@ -119,7 +119,7 @@ export function SiteHeader() {
           condensed ? 'translate-y-0 opacity-100' : 'pointer-events-none -translate-y-3 opacity-0'
         }`}
       >
-        <a href={wordmarkHref} className="rounded-full px-3 py-2" aria-label={`${agency.name}, back to top`}>
+        <a href={wordmarkHref} className="rounded-full px-3 py-2" aria-label="Back to top">
           <Wordmark compact />
         </a>
 

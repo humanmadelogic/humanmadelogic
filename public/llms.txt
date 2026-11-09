@@ -1,6 +1,6 @@
 # Human Made Logic
 
-> Branding and performance marketing agency for SMB founders and marketing leads in the UK, Australia, Canada, and Singapore.
+> Branding and performance marketing agency for SMB founders and marketing leads in the UK, Australia, Canada and Singapore.
 
 Tagline: We make brands impossible to ignore, with identities built for people, screens, and algorithms.
 
@@ -8,25 +8,25 @@ Cover line: Impossible to ignore. Built to be chosen.
 
 ## Pages
 
-- Home — https://humanmadelogic.com/
-- Services overview — https://humanmadelogic.com/services
-- About — https://humanmadelogic.com/about
-- Contact — https://humanmadelogic.com/contact
+- Home: https://humanmadelogic.com/
+- Services overview: https://humanmadelogic.com/services
+- About: https://humanmadelogic.com/about
+- Contact: https://humanmadelogic.com/contact
 
 ## Services
 
-- Branding — https://humanmadelogic.com/services/branding
-- SEO, AEO and GEO — https://humanmadelogic.com/services/seo-aeo-geo
-- Performance marketing — https://humanmadelogic.com/services/performance-marketing
-- Social media — https://humanmadelogic.com/services/social-media
+- Branding: https://humanmadelogic.com/services/branding
+- SEO/AEO/GEO: https://humanmadelogic.com/services/seo-aeo-geo
+- Performance marketing: https://humanmadelogic.com/services/performance-marketing
+- Social media: https://humanmadelogic.com/services/social-media
 
 ## Legal and compliance
 
-- Privacy policy — https://humanmadelogic.com/privacy
-- Cookie policy — https://humanmadelogic.com/cookies
-- Terms of use — https://humanmadelogic.com/terms
-- Accessibility statement — https://humanmadelogic.com/accessibility
-- Company information — https://humanmadelogic.com/legal
+- Privacy policy: https://humanmadelogic.com/privacy
+- Cookie policy: https://humanmadelogic.com/cookies
+- Terms of use: https://humanmadelogic.com/terms
+- Accessibility statement: https://humanmadelogic.com/accessibility
+- Company information: https://humanmadelogic.com/legal
 
 Contact email: info@humanmadelogic.com
 

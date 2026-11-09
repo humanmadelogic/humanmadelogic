@@ -137,7 +137,7 @@ export function CookieConsent() {
 
               <div className="rounded-[12px] border border-obsidian/10 p-4">
                 <p className="text-[15px] font-medium">Strictly necessary</p>
-                <p className="mt-1 text-[14px] text-slate">Required for security, consent storage, and core site features.</p>
+                <p className="mt-1 text-[14px] text-slate">Required for security, consent storage and core site features.</p>
                 <p className="mt-2 text-[13px] text-slate">Always active</p>
               </div>
 

@@ -53,7 +53,7 @@ export function StructuredData() {
         '@type': 'WebPage',
         '@id': `${url}/#webpage`,
         url,
-        name: `${agency.name}, ${siteConfig.coverLine}`,
+        name: `${siteConfig.coverLine} | ${agency.name}`,
         isPartOf: { '@id': `${url}/#website` },
         about: { '@id': `${url}/#organization` },
         inLanguage: siteConfig.locale,

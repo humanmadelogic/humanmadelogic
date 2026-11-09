@@ -143,11 +143,11 @@ export function AdminDashboard({
                 Mail to {mail.to}.{' '}
                 {mail.configured
                   ? `Sending over ${mail.host || mail.provider}${mail.port ? `:${mail.port}` : ''} as ${mail.user || 'configured sender'}.`
-                  : 'SMTP_USER / SMTP_PASS are not set — enquiries are stored here but not emailed.'}
+                  : 'SMTP_USER / SMTP_PASS are not set: enquiries are stored here but not emailed.'}
               </p>
               {mail.lastError ? (
                 <p className="mt-2 text-[15px] leading-[1.6] text-[#B4453C]">
-                  Last send failed — {mail.lastError.reason}
+                  Last send failed: {mail.lastError.reason}
                 </p>
               ) : null}
             </div>

@@ -37,16 +37,14 @@ export const agency = {
     { label: 'Company information', href: '/legal' },
   ] as NavLink[],
   cta: { label: 'Start a project', href: '/contact' },
-  social: [
-    { label: 'LinkedIn', href: 'https://www.linkedin.com/company/human-made-logic' },
-    // Add Instagram here when a live profile URL is approved.
-  ] as NavLink[],
+  social: [] as NavLink[],
 } as const;
 
 /** Home route metadata (document title uses {@link siteConfig.coverLine} via `homeTitle()`). */
 export const homePage = {
   meta: {
-    description: siteConfig.servicesBlurb,
+    description:
+      'Branding, SEO/AEO/GEO, performance marketing and social media for SMBs in the UK, Australia, Canada and Singapore. Brands people remember, find and then choose.',
     ogImage: '/og/og-default.png',
   },
   quickLinks: {
@@ -75,8 +73,9 @@ export type HeroFrame = {
 
 export const hero = {
   eyebrow: 'Branding and performance marketing agency',
-  headline: ['Impossible to', 'ignore.'],
-  subhead: siteConfig.coverLine,
+  headline: ['Impossible to ignore.', 'Built to be chosen.'],
+  subhead:
+    'Brand, search, ads and social for growing businesses in the UK, Australia, Canada and Singapore, built to be remembered first and found everywhere.',
   body: siteConfig.tagline,
   primaryCta: { label: 'Start a project', href: '/contact' },
   secondaryCta: { label: 'View services', href: '/services' },
@@ -84,8 +83,8 @@ export const hero = {
   frames: [
     { media: 'heroIdentity', discipline: 'Branding', offset: 4, rotate: -3.4, depth: 0.55 },
     { media: 'heroArtDirection', discipline: 'SEO/AEO/GEO', offset: -7, rotate: 2.1, depth: 0.9 },
-    { media: 'heroProduct', discipline: 'Performance', offset: 2, rotate: -1.2, depth: 1.25 },
-    { media: 'heroCampaign', discipline: 'Social', offset: -6, rotate: 3.1, depth: 0.9 },
+    { media: 'heroProduct', discipline: 'Performance marketing', offset: 2, rotate: -1.2, depth: 1.25 },
+    { media: 'heroCampaign', discipline: 'Social media', offset: -6, rotate: 3.1, depth: 0.9 },
   ] as HeroFrame[],
 };
 
@@ -93,8 +92,9 @@ export const hero = {
 
 export const statement = {
   label: '/ What we do',
-  lines: ['Built for people,', 'screens, and algorithms.'],
-  body: siteConfig.servicesBlurb,
+  lines: ['Built for people,', 'screens and algorithms.'],
+  body:
+    'We start with what people remember, then make sure they can find you and choose you. Fundamentals first, original ideas throughout and AI to move faster, while people make the calls.',
 };
 
 /* ---------------------------------------------------------- capabilities */
@@ -131,8 +131,8 @@ export const capabilities = {
 
 export const workPlaceholder = {
   id: 'work',
-  label: '/ Client work',
-  heading: 'Case studies and logos land here.',
+  label: '/ Work',
+  heading: "Thinking first. Work when it's signed off.",
   body:
     "No case studies here yet, and that's on purpose. We'd rather show you how we think than fill a page with borrowed logos. Work goes up as projects are finished and signed off. Until then, see how we'd approach your brand in our process, or book a fit call and we'll talk it through using your brand, not a template.",
   note: '',

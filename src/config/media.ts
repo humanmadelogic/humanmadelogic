@@ -118,22 +118,22 @@ export const media = {
   heroIdentity: heroStudy(
     'identity',
     'hero-identity',
-    'Hand pressing a rubber stamp; yellow seal carrying the H monogram',
+    'Typographic identity study: a black counter-form beside a yellow vertical bar',
   ),
   heroArtDirection: heroStudy(
     'art-direction',
     'hero-artdirection',
-    'Magnifier over a field of dots; the lens finds the one yellow dot',
+    'Warm light falling across a dark field',
   ),
   heroProduct: heroStudy(
     'product',
     'hero-product',
-    'Dart in the centre of a target with a yellow bullseye',
+    'Layered interface surfaces on a fine grid',
   ),
   heroCampaign: heroStudy(
     'campaign',
     'hero-campaign',
-    'Two hands holding tin-can telephones joined by a yellow string',
+    'A contact sheet of frames with one selected in yellow',
   ),
   heroCulture: heroStudy(
     'culture',

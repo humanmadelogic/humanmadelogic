@@ -62,11 +62,11 @@ export const services: Record<ServiceSlug, ServiceDefinition> = {
     slug: 'branding',
     index: '01',
     title: 'Branding',
-    metaTitle: 'Branding',
+    metaTitle: 'Branding for SMBs',
     shortTitle: 'Branding',
     ogImage: '/og/services/og-branding.png',
     summary:
-      'Identity, positioning, and visual systems built to be remembered on shelf, on screen, and in search.',
+      'Identity, positioning and visual systems built to be remembered on screen, in feeds and in search.',
     intro:
       "Most small brands don't have a visibility problem. They have a memory problem: people see them, then forget them, because they look like everyone else in the category. We build brands around distinctive codes people recognise at a glance, so every post and every ad starts adding up.",
     visual: 'letterforms',
@@ -80,17 +80,17 @@ export const services: Record<ServiceSlug, ServiceDefinition> = {
       'A recognisable system your team can use consistently, so you stop reinventing your look every time you launch something.',
     ],
     metaDescription:
-      'Branding for SMB founders and marketing leads: strategy, identity systems, and guidelines from Human Made Logic.',
+      'Branding for SMB founders: strategy, positioning and identity systems built on distinctive brand codes, so people remember you and not just your category.',
   },
   'seo-aeo-geo': {
     slug: 'seo-aeo-geo',
     index: '02',
-    title: 'SEO, AEO and GEO',
-    metaTitle: 'SEO, AEO and GEO',
+    title: 'SEO/AEO/GEO',
+    metaTitle: 'SEO/AEO/GEO for SMBs',
     shortTitle: 'SEO/AEO/GEO',
     ogImage: '/og/services/og-seo-aeo-geo.png',
     summary:
-      'Search, answer engines, and generative discovery tuned so your brand shows up where buyers look and ask.',
+      'Search engines and AI answers, tuned so your brand shows up where buyers look and ask.',
     intro:
       "Page two isn't the only place brands disappear. Customers now ask AI tools for recommendations too, and if your name isn't in the answer, you're not in the running. We make your brand easy to find and easy to name, across search engines and AI answers.",
     visual: 'signal',
@@ -104,17 +104,17 @@ export const services: Record<ServiceSlug, ServiceDefinition> = {
       'Pages and content built to be found and named, in search results and in the AI answers your customers read.',
     ],
     metaDescription:
-      'SEO, AEO, and GEO for growing brands: discoverability across search and AI answers from Human Made Logic.',
+      'SEO/AEO/GEO for SMBs in the UK, Australia, Canada and Singapore. Get found in search and named in AI answers, with content built around what buyers ask.',
   },
   'performance-marketing': {
     slug: 'performance-marketing',
     index: '03',
     title: 'Performance marketing',
-    metaTitle: 'Performance marketing',
+    metaTitle: 'Performance marketing for SMBs',
     shortTitle: 'Performance',
     ogImage: '/og/services/og-performance-marketing.png',
     summary:
-      'Paid media and experimentation that connects creative ideas to dashboards your leadership trusts.',
+      'Paid media and testing that connect creative ideas to clear reporting you can act on.',
     intro:
       "Plenty of ad budgets buy attention nobody keeps. The ads look like the category, the landing page is fuzzy, and the spend resets every month. We run campaigns that turn attention into measurable growth, with creative people remember and a next step that doesn't leak.",
     visual: 'contact-sheet',
@@ -128,17 +128,17 @@ export const services: Record<ServiceSlug, ServiceDefinition> = {
       'Ads that build recognition as well as clicks, so each campaign gives the next one a head start.',
     ],
     metaDescription:
-      'Performance marketing for SMB teams: paid media, testing, and measurement from Human Made Logic.',
+      "Performance marketing for SMBs: paid campaigns with creative that doesn't look like the category, landing pages with a clear next step and reporting to act on.",
   },
   'social-media': {
     slug: 'social-media',
     index: '04',
     title: 'Social media',
-    metaTitle: 'Social media',
+    metaTitle: 'Social media for SMBs',
     shortTitle: 'Social',
     ogImage: '/og/services/og-social-media.png',
     summary:
-      'Editorial rhythm, platform-native creative, and community care that keeps your brand in the conversation.',
+      'A steady rhythm, platform-native creative and recognisable codes that keep your brand in the conversation.',
     intro:
       "Posting more isn't the same as being remembered. Bursts of content followed by silence teach your audience nothing. We build social presences that are fewer, better and easy to recognise: a clear voice, ideas worth repeating and a rhythm your team can actually keep up with.",
     visual: 'modules',
@@ -152,7 +152,7 @@ export const services: Record<ServiceSlug, ServiceDefinition> = {
       'A rhythm you can keep up with, so social stops feeling like a hamster wheel and starts compounding.',
     ],
     metaDescription:
-      'Social media strategy and content systems for growing brands from Human Made Logic.',
+      'Social media for SMBs: fewer, better posts, a recognisable voice and a rhythm your team can keep, so your brand gets remembered rather than scrolled past.',
   },
 };
 
