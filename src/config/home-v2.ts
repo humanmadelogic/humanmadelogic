@@ -177,67 +177,61 @@ export const homeV2Config = {
       ogImage: '/og/home/og-home.png',
     },
     hero: {
-      eyebrow: placeholder('HOME-HERO-EYEBROW'),
-      h1: placeholder('HOME-HERO-H1'),
+      eyebrow: 'We make brands impossible to ignore.',
+      /** HOME-HERO-H1-OPT-A (recommended) */
+      h1: "Your brand isn't invisible. It's forgettable.",
       h1Options: [
-        placeholder('HOME-HERO-H1-OPTION-1'),
-        placeholder('HOME-HERO-H1-OPTION-2'),
-        placeholder('HOME-HERO-H1-OPTION-3'),
+        "Your brand isn't invisible. It's forgettable.",
+        'Be the brand they name without googling.',
+        'Impossible to ignore. Built to be chosen.',
       ],
-      sub: placeholder('HOME-HERO-SUB'),
-      imageAlt: placeholder('HOME-HERO-IMAGE-ALT'),
-      primaryCta: { label: placeholder('HOME-HERO-CTA-1'), href: '/contact' },
-      secondaryCta: { label: placeholder('HOME-HERO-CTA-2'), href: '/services' },
+      sub:
+        'Branding, SEO/AEO/GEO, performance marketing and social media for SMB founders and marketing leads in the UK, Australia, Canada and Singapore.',
+      imageAlt: placeholder('HOME-HERO-ALT'),
+      primaryCta: { label: 'Start a project', href: '/contact' },
+      secondaryCta: { label: 'View services', href: '/services' },
     },
     problem: {
-      heading: placeholder('HOME-PROB-HEADING'),
-      statement: placeholder('HOME-STATEMENT'),
-      statementSupport: placeholder('HOME-STATEMENT-SUPPORT'),
+      heading: '',
+      /** HOME-PROB-HEADING — full-bleed big statement */
+      statement:
+        'People saw your ad. They even liked it. Then they bought from the brand they could actually remember.',
+      statementSupport: '',
       lines: [
-        placeholder('HOME-PROB-1'),
-        placeholder('HOME-PROB-2'),
-        placeholder('HOME-PROB-3'),
+        'Same palette, same fonts, same claims. You look like everyone else in your category.',
+        "Buried on page two and missing when someone asks AI who's good.",
+        'Ads that burn out in days. Posts that never had a point.',
       ],
     },
     belief: {
-      quote: placeholder('HOME-BELIEF'),
-      body: placeholder('HOME-BELIEF-BODY'),
+      quote: 'Be remembered. Be found. Be the one they name.',
+      body:
+        'We build distinctive brand codes: the colours, shapes and words people know before they read your name. Then we make you easy to find for people, screens and algorithms.',
     },
     serviceCards: {
-      heading: placeholder('HOME-SVC-HEADING'),
-      intro: placeholder('HOME-SVC-INTRO'),
+      heading: 'Four ways in. Take one or all four.',
+      intro:
+        'Full package or à la carte. Start where it hurts most. Every service runs on the same brand codes, so nothing feels bolted on.',
       items: {
         branding: {
-          oneLiner: placeholder('HOME-SVC-BRANDING-LINE'),
-          tags: [
-            placeholder('HOME-SVC-BRANDING-TAG-1'),
-            placeholder('HOME-SVC-BRANDING-TAG-2'),
-            placeholder('HOME-SVC-BRANDING-TAG-3'),
-          ],
+          oneLiner:
+            'Identity, positioning and visual systems built to be remembered on screen and in search.',
+          tags: ['Recognised at a glance', 'One consistent system', 'Codes people remember'],
         },
         'seo-aeo-geo': {
-          oneLiner: placeholder('HOME-SVC-SEO-LINE'),
-          tags: [
-            placeholder('HOME-SVC-SEO-TAG-1'),
-            placeholder('HOME-SVC-SEO-TAG-2'),
-            placeholder('HOME-SVC-SEO-TAG-3'),
-          ],
+          oneLiner:
+            'Search engines and AI answers, tuned so your brand shows up where buyers look and ask.',
+          tags: ['Found in search', 'Ready for AI answers', 'Traffic with intent'],
         },
         'performance-marketing': {
-          oneLiner: placeholder('HOME-SVC-PERF-LINE'),
-          tags: [
-            placeholder('HOME-SVC-PERF-TAG-1'),
-            placeholder('HOME-SVC-PERF-TAG-2'),
-            placeholder('HOME-SVC-PERF-TAG-3'),
-          ],
+          oneLiner:
+            'Paid media and testing that connect creative ideas to clear reporting you can act on.',
+          tags: ['Ads people remember', 'Clicks with a next step', 'Plain-English reporting'],
         },
         'social-media': {
-          oneLiner: placeholder('HOME-SVC-SOCIAL-LINE'),
-          tags: [
-            placeholder('HOME-SVC-SOCIAL-TAG-1'),
-            placeholder('HOME-SVC-SOCIAL-TAG-2'),
-            placeholder('HOME-SVC-SOCIAL-TAG-3'),
-          ],
+          oneLiner:
+            'A steady rhythm, platform-native creative and codes people spot in a fast scroll.',
+          tags: ['Fewer, better posts', 'A voice people know', 'A rhythm you can keep'],
         },
       },
     },
@@ -249,8 +243,7 @@ export const homeV2Config = {
         { title: placeholder('HOME-HOW-3-TITLE'), body: placeholder('HOME-HOW-3-BODY') },
         { title: placeholder('HOME-HOW-4-TITLE'), body: placeholder('HOME-HOW-4-BODY') },
       ],
-      aiLine:
-        'AI speeds up the research and the drafts. People make the calls.',
+      aiLine: placeholder('HOME-AI-LINE'),
     },
     kits: {
       heading: placeholder('HOME-KITS-HEADING'),
@@ -323,9 +316,10 @@ export const homeV2Config = {
       ],
     },
     finalCta: {
-      heading: placeholder('HOME-CTA-HEADING'),
-      body: placeholder('HOME-CTA-BODY'),
-      button: { label: placeholder('HOME-CTA-BUTTON'), href: '/contact' },
+      heading: 'Ready to be impossible to ignore?',
+      body:
+        "Start with a short, no-pressure fit call. Tell us where your brand feels stuck. If we're not the right fit, we'll say so.",
+      button: { label: 'Start a project', href: '/contact' },
       note: 'We reply within one working day',
     },
   } satisfies HomeV2Content,
