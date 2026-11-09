@@ -1,50 +1,8 @@
 /**
- * Human Made Logic — art direction manifest.
- *
- * Photography is treated as raw material for the WebGL layer, not as section
- * illustration. Every entry carries its own crop, focal point and shader
- * treatment, and each one is art-directed separately for desktop and mobile.
- *
- * Tuning a composition should never require touching a component: change the
- * `aspect` / `position` here and the DOM frame, the `next/image` crop and the
- * WebGL plane all follow, because the plane tracks the DOM box.
+ * Human Made Logic art direction manifest. All imagery is self-hosted under
+ * `/public/images/hml/`.
  */
 
-/* Supplied source assets. */
-const ARCHITECTURE_PRIMARY =
-  'https://images.openai.com/static-rsc-4/iRNYKtOeCAd7w8SGvB_l0DYXZ58c99r0Py1FHnOzYaQ8OHI4M5JeFZa6AAA_2ik9f22nMxuX5vqzNPcjhTlJ-AaKCsblh3D5nmW5Cw2sRSk-ell5XcfAwsBETQTT0WJmt5J3MDszcaMTbzM4GZ6VKCk0eMKmoYS6oKMQwxmkdt2Iai5nY2TH1bNvTFraj8k6?purpose=fullsize';
-
-const ARCHITECTURE_SECOND =
-  'https://images.openai.com/static-rsc-4/9AefW1IFiK6y_DpdSL35yBizrsaUYP4zh3F7_3ToOKY8EAEc68oYYDxJIrnMPf9C0OOxRUtJUqEt4cUB8_6iHeo5Nxk5zAATPljCkWCHOfA-gCka04dypDJaiICPglc-l9lQ7Zp-1EGyRXnz7pZ-pTPSG-de8BJ8X5d9ekph61QlHauAjsDdmuDYqqzU0Q3z?purpose=fullsize';
-
-const ARCHITECTURE_THIRD =
-  'https://images.openai.com/static-rsc-4/rNdlU2BkpVvxZQEGDjEaORZ1a1sLFG-bqCgbXYf-0kPWxKu-8i1W1YoW5yCcqrx6nG9c65z9onAfeFN7EauDugsmUMHyeAv-xbJDxr-vbP0K0AI0E0TzSFqV_TdBoGXu5FIfazdsxsxPi8jvx1D5ENU_QoPImwC-V34O5n1sEvztg__O2rwxJ4l6X2xFMIKU?purpose=fullsize';
-
-const DUNES =
-  'https://images.openai.com/static-rsc-4/Vf2HAya10f5eAGtEd1rYTDVU56yY6WWYCpmWBO5xP0Ea94PVfurrocDxRzwWbBnI8WoH8m_xZa9zHXFqdJtgTh5DcAmOCdyTgB8Tu7XfNV76LCmQ0xAptltSeJmkDstMv3CGS5zXYrCUERDrzFmP6TtoA094tvYiDbCYadFUuLqsmlvxEfmaW_4gvzf9_jCo?purpose=fullsize';
-
-const VOLCANIC =
-  'https://images.openai.com/static-rsc-4/CBoiHfIaLQhY5J4ySzBiHlkHyxbXn4slxgCKybLmH-ARcL0ky0FUXvjkbPYHcLWnkxUy0glA-l_a-6W-snhtSPC65-5WfWPnUzMHcBaULPYd5Tueo5nICcicH1-Qm1COoCpODtUmnA6apWYvy4Ky2e_uCqzi9SckvnKdP0WAFlPmX48HmU5fKJUlU0kPnwlU?purpose=fullsize';
-
-const GLASS =
-  'https://images.openai.com/static-rsc-4/QYvYP3ynUG7ax6Tiuiy25OGR5ujSuptDQTk9HaAONb5qw39QE1hqdpfYBuWj2gXWa5hkH6OucdVmMY3LnI6xZFKioCEmUTIK9QBYny33mekIbflJr4fKv2kTSSFuD3DzBl5rDrjtf-_0pL8ARwPvAn9JVu7U6dWEjxeGppm2gKfi9MBkLz9tkA-kkLsmXZ6N?purpose=fullsize';
-
-const OCEAN =
-  'https://images.openai.com/static-rsc-4/Ju81xEISB1elUMCPkv86UCxA-ecgX049Gi7e5Mr4HQ0NtUER3LU4mhK5P731Y4skE3mIMZlhOW2WEEkqAtAKa98eOoau4HwiN_50D1W5tdavvfrOfmnxemVB7eGXBTalzmtwSqKWF-xksYSTa7aAlNP_lAPyyM0B2-e-i1obrGkl8LTxaj9dHYB_wL4_KEST?purpose=fullsize';
-
-const HUMAN =
-  'https://images.openai.com/static-rsc-4/x8SYJiCiH7FvNqZ5JtZfB8Xz6PmgvHt56v78CZxoYUIyCnNSIUx3AXHhsyJ9uxcUUEKwxCAROISM7t4ysLqxdA3a5VT1Hi84PozsyjC0i7NpOnCGA95GrRTHCmuHp1wjZr9sjJdaTKY7rvmqlJOsYTrdS04k9B0ojb2ERJWiwVFok3h0cP74bYKmXEs8fc1L?purpose=fullsize';
-
-/**
- * Shader behaviour per image. Each mode is a different physical idea, not a
- * different amount of the same wobble.
- *
- * refract   — architecture: very slow, edge-aware refraction + pointer parallax
- * material  — dunes/terrain: low-frequency drift along the flow of the form
- * optical   — glass: the frame is still until the pointer bends it locally
- * current   — ocean: horizontal displacement with a trailing pointer field
- * kinetic   — human: directional stretch driven only by scroll velocity
- */
 export type SurfaceMode = 'refract' | 'material' | 'optical' | 'current' | 'kinetic';
 
 export const SURFACE_MODE_IDS: Record<SurfaceMode, number> = {
@@ -56,88 +14,43 @@ export const SURFACE_MODE_IDS: Record<SurfaceMode, number> = {
 };
 
 export type Grade = {
-  /** 1 = untouched. Everything here sits slightly below it. */
   saturation: number;
   contrast: number;
-  /** Negative deepens the blacks. */
   lift: number;
-  /** Warm bias applied in the highlights only. */
   warmth: number;
-  /** Overall multiplier. Below 1 sinks the frame towards black. */
   brightness: number;
 };
 
 export type Crop = {
-  /** CSS aspect-ratio for the frame. */
   aspect: string;
-  /** object-position / shader focal point, as `x% y%`. */
   position: string;
 };
 
 export type Treatment = {
   mode: SurfaceMode;
   grade: Grade;
-  /** Overall displacement amount. Deliberately small everywhere. */
   displacement: number;
   pointerInfluence: number;
   scrollInfluence: number;
-  /** Chromatic separation ceiling, in UV units. Kept near invisible. */
   chromatic: number;
-  /** Higher settles faster. */
   damping: number;
 };
 
 export type MediaAsset = {
   id: string;
   src: string;
-  /** Empty string marks the image decorative. */
   alt: string;
   desktop: Crop;
   mobile: Crop;
   treatment: Treatment;
-  /** Corner radius in CSS pixels, matched by the shader mask. */
   radius: number;
 };
 
-/* Grading presets — one family so eight different photographs read as one
-   universe: lowered saturation, deeper blacks, restrained highlights. */
 const EDITORIAL: Grade = { saturation: 0.78, contrast: 1.1, lift: -0.035, warmth: 0.02, brightness: 1 };
 const EDITORIAL_WARM: Grade = { saturation: 0.8, contrast: 1.12, lift: -0.04, warmth: 0.05, brightness: 1 };
-const EDITORIAL_COOL: Grade = { saturation: 0.86, contrast: 1.14, lift: -0.05, warmth: -0.01, brightness: 1 };
-const EDITORIAL_DEEP: Grade = { saturation: 0.7, contrast: 1.16, lift: -0.06, warmth: 0.015, brightness: 1 };
 
-
-/* Neutral grade for the hero studies. These are HML's own artwork rather
-   than sourced photography, so they are shown as authored. */
 const AUTHORED: Grade = { saturation: 1, contrast: 1, lift: 0, warmth: 0, brightness: 1 };
 
-/**
- * The hero fan. Five studies, each a distinct discipline, treated with the
- * original cursor-driven refraction rather than the editorial photographic
- * grade used for the sourced imagery.
- */
-const heroStudy = (id: string, file: string, alt: string): MediaAsset => ({
-  id: `hero-${id}`,
-  src: `/images/hml/${file}.png`,
-  alt,
-  desktop: { aspect: '3 / 4', position: '50% 50%' },
-  mobile: { aspect: '3 / 4', position: '50% 50%' },
-  radius: 16,
-  treatment: {
-    mode: 'refract',
-    grade: AUTHORED,
-    displacement: 1,
-    pointerInfluence: 1.82,
-    scrollInfluence: 0.6,
-    chromatic: 1,
-    damping: 11.5,
-  },
-});
-
-/*
- * Shared treatment for the three architectural panels: the original V1 hover
- * feel — strong cursor-driven refraction that settles once the pointer leaves.
- */
 const PANEL_TREATMENT: Treatment = {
   mode: 'refract',
   grade: EDITORIAL,
@@ -148,11 +61,6 @@ const PANEL_TREATMENT: Treatment = {
   damping: 11.5,
 };
 
-/*
- * The backdrop field. The hero studies, washed out and softened until they
- * read as one painterly ground rather than four separate cards. This is the
- * layer the shader plays across, behind the scenic photography.
- */
 const BACKDROP_GRADE: Grade = {
   saturation: 0.38,
   contrast: 0.8,
@@ -171,9 +79,29 @@ const BACKDROP_TREATMENT: Treatment = {
   damping: 9.9,
 };
 
+const localWebp = (file: string) => `/images/hml/${file}.webp`;
+
+const heroStudy = (id: string, file: string, alt: string): MediaAsset => ({
+  id: `hero-${id}`,
+  src: localWebp(file),
+  alt,
+  desktop: { aspect: '3 / 4', position: '50% 50%' },
+  mobile: { aspect: '3 / 4', position: '50% 50%' },
+  radius: 16,
+  treatment: {
+    mode: 'refract',
+    grade: AUTHORED,
+    displacement: 1,
+    pointerInfluence: 1.82,
+    scrollInfluence: 0.6,
+    chromatic: 1,
+    damping: 11.5,
+  },
+});
+
 const backdropPanel = (id: string, file: string): MediaAsset => ({
   id: `stage-${id}`,
-  src: `/images/hml/${file}.png`,
+  src: localWebp(file),
   alt: '',
   desktop: { aspect: '1 / 1', position: '50% 50%' },
   mobile: { aspect: '1 / 1', position: '50% 50%' },
@@ -181,204 +109,72 @@ const backdropPanel = (id: string, file: string): MediaAsset => ({
   treatment: BACKDROP_TREATMENT,
 });
 
-
-/*
- * Selected work — Human Made Logic services.
- *
- * Each entry mirrors the aspect ratios of the asset it replaced, so the
- * alternating card composition, image dimensions and stage proportions in the
- * section are unchanged.
- */
-/*
- * Selected Work sources. Served from this repository so the homepage does
- * not depend on the WordPress origin. The four files are the service
- * photographs: studio SUV (photography), post-production suite (video),
- * Noir Aviary shopfront (design and branding), product packaging (eCommerce).
- */
-const WORK_UPLOADS = '/images/hml/selected-work';
-
-const serviceWork = (
-  id: string,
-  file: string,
-  alt: string,
-  crops: { desktop: Crop; mobile: Crop },
-  treatment: Treatment,
-): MediaAsset => ({
-  id: `work-${id}`,
-  src: `${WORK_UPLOADS}/${file}.webp`,
-  alt,
-  desktop: crops.desktop,
-  mobile: crops.mobile,
-  radius: 12,
-  treatment,
-});
-
 export const media = {
-  /* ------------------------------------------------------- selected work */
-
-  photography: serviceWork(
-    'photography',
-    'Professional-Studio-Photoshoot-of-a-Luxury-SUV',
-    'A silver-blue performance SUV lit in a photographic studio, ringed by softboxes and warm strip lighting',
-    {
-      desktop: { aspect: '16 / 9', position: '50% 58%' },
-      mobile: { aspect: '12 / 5', position: '50% 50%' },
-    },
-    {
-      mode: 'refract',
-      grade: EDITORIAL,
-      displacement: 0.9,
-      pointerInfluence: 1.8,
-      scrollInfluence: 0.6,
-      chromatic: 0.8,
-      damping: 10.5,
-    },
-  ),
-
-  videoProduction: serviceWork(
-    'video-production',
-    'Post-Production-Studio-Monochrome-Photograph',
-    'Three editors silhouetted at monitors in a darkened post-production suite',
-    {
-      desktop: { aspect: '2 / 1', position: '50% 50%' },
-      mobile: { aspect: '2 / 1', position: '50% 50%' },
-    },
-    {
-      mode: 'refract',
-      grade: EDITORIAL_COOL,
-      displacement: 0.7,
-      pointerInfluence: 1.5,
-      scrollInfluence: 0.6,
-      chromatic: 0.7,
-      damping: 10,
-    },
-  ),
-
-  designBranding: serviceWork(
-    'design-branding',
-    'Noir-Aviary-Boutique',
-    'The Noir Aviary shopfront: a black facade with yellow window panels and bird motifs',
-    {
-      desktop: { aspect: '5 / 4', position: '50% 62%' },
-      mobile: { aspect: '3 / 2', position: '50% 50%' },
-    },
-    {
-      mode: 'optical',
-      grade: EDITORIAL,
-      displacement: 0.9,
-      pointerInfluence: 1.9,
-      scrollInfluence: 0.4,
-      chromatic: 1,
-      damping: 11,
-    },
-  ),
-
-  ecommerce: serviceWork(
-    'ecommerce',
-    'Eco-friendly-Product-Packaging-Concept',
-    'A flat-lay of kraft and white product packaging, folded garments and ceramics on a blue ground',
-    {
-      desktop: { aspect: '16 / 9', position: '50% 52%' },
-      mobile: { aspect: '4 / 3', position: '50% 50%' },
-    },
-    {
-      mode: 'material',
-      grade: EDITORIAL_WARM,
-      displacement: 0.8,
-      pointerInfluence: 1.2,
-      scrollInfluence: 0.9,
-      damping: 8.5,
-      chromatic: 0.4,
-    },
-  ),
-
-  /* Backdrop field — four hero studies softened into one shader-driven ground. */
   stageFieldOne: backdropPanel('one', 'hero-identity'),
   stageFieldTwo: backdropPanel('two', 'hero-artdirection'),
   stageFieldThree: backdropPanel('three', 'hero-campaign'),
   stageFieldFour: backdropPanel('four', 'hero-culture'),
 
-  /* ---------------------------------------------------------------- hero */
-
   heroIdentity: heroStudy(
     'identity',
     'hero-identity',
-    'Typographic identity study: a black counter-form beside a yellow vertical bar',
+    'Hand pressing a rubber stamp; yellow seal carrying the H monogram',
   ),
   heroArtDirection: heroStudy(
     'art-direction',
     'hero-artdirection',
-    'Art direction study: warm light falling across a dark field',
+    'Magnifier over a field of dots; the lens finds the one yellow dot',
   ),
   heroProduct: heroStudy(
     'product',
     'hero-product',
-    'Product design study: layered interface surfaces on a fine grid',
+    'Dart in the centre of a target with a yellow bullseye',
   ),
   heroCampaign: heroStudy(
     'campaign',
     'hero-campaign',
-    'Campaign study: a contact sheet of frames with one selected in yellow',
+    'Two hands holding tin-can telephones joined by a yellow string',
   ),
   heroCulture: heroStudy(
     'culture',
     'hero-culture',
-    'Culture study: soft black forms against a warm yellow field',
+    'Hands stacked together over a yellow torn disc',
   ),
 
-  /* -------------------------------------------------------- architecture */
-
-  /*
-   * A stack of three overlapping panels rather than a scattered cluster: one
-   * large plate, a second crossing its lower-right corner, and a narrow third
-   * sitting behind them at the right. All three carry the original V1 hover
-   * treatment — strong cursor-driven refraction that settles when the pointer
-   * leaves — so the movement matches the hero fan rather than the subdued
-   * treatment used for the full-bleed photographic bands.
-   */
-  /** The primary panel. */
   monument: {
     id: 'process-monument',
-    src: ARCHITECTURE_PRIMARY,
-    alt: 'Monumental concrete architecture, cropped so the structure falls away into deep shadow',
+    src: localWebp('process-monument'),
+    alt: 'An old ear trumpet taking in yellow sound lines',
     desktop: { aspect: '16 / 11', position: '40% 44%' },
     mobile: { aspect: '4 / 3', position: '44% 44%' },
     radius: 12,
     treatment: PANEL_TREATMENT,
   },
 
-  /** Crosses the lower-right corner of the primary panel. */
   aperture: {
     id: 'process-aperture',
-    src: ARCHITECTURE_THIRD,
-    alt: '',
+    src: localWebp('process-aperture'),
+    alt: 'A hand holding up an empty frame filled with yellow',
     desktop: { aspect: '16 / 11', position: '52% 48%' },
     mobile: { aspect: '4 / 3', position: '52% 46%' },
     radius: 16,
     treatment: PANEL_TREATMENT,
   },
 
-  /** Narrow panel tucked behind the stack, visible at the right edge. */
   pillar: {
     id: 'process-pillar',
-    src: ARCHITECTURE_SECOND,
-    alt: '',
+    src: localWebp('process-pillar'),
+    alt: 'A hand holding a yellow pencil upright above pencil shavings',
     desktop: { aspect: '3 / 5', position: '52% 38%' },
     mobile: { aspect: '3 / 4', position: '50% 40%' },
     radius: 12,
     treatment: PANEL_TREATMENT,
   },
 
-  /* ----------------------------------------------------------- statement */
-
-  /**
-   * Aerial dunes cropped to a hard panorama until the ridge lines read as
-   * folded fabric rather than landscape.
-   */
   belief: {
     id: 'belief-dunes',
-    src: DUNES,
-    alt: 'Aerial dunes cropped until the ridgelines read as folded fabric',
+    src: localWebp('belief'),
+    alt: 'Two people cutting and arranging paper shapes on a worktable, one piece in yellow',
     desktop: { aspect: '16 / 10', position: '50% 52%' },
     mobile: { aspect: '4 / 3', position: '54% 50%' },
     radius: 12,
@@ -393,70 +189,10 @@ export const media = {
     },
   },
 
-  /* ---------------------------------------------------------------- work */
-
-  /** Optical glass — one source refracted into several coherent expressions. */
-  identity: {
-    id: 'work-identity',
-    src: GLASS,
-    alt: 'An optical glass form splitting a single light source into several coherent bands',
-    desktop: { aspect: '16 / 9', position: '50% 46%' },
-    mobile: { aspect: '4 / 3', position: '50% 46%' },
-    radius: 2,
-    treatment: {
-      mode: 'optical',
-      grade: EDITORIAL_COOL,
-      displacement: 0.85,
-      pointerInfluence: 1.82,
-      scrollInfluence: 0.25,
-      chromatic: 1.1,
-      damping: 10.7,
-    },
-  },
-
-  /** The single human moment on the page. */
-  culture: {
-    id: 'work-culture',
-    src: HUMAN,
-    alt: 'A figure in motion against a black field, cropped close',
-    desktop: { aspect: '4 / 5', position: '48% 38%' },
-    mobile: { aspect: '4 / 5', position: '50% 36%' },
-    radius: 2,
-    treatment: {
-      mode: 'kinetic',
-      grade: EDITORIAL,
-      displacement: 0.7,
-      pointerInfluence: 0.27,
-      scrollInfluence: 1.5,
-      chromatic: 0.35,
-      damping: 6.6,
-    },
-  },
-
-  /** Dark water — cropped past recognition into black, cyan and turbulence. */
-  digital: {
-    id: 'work-digital',
-    src: OCEAN,
-    alt: 'Dark water cropped to abstraction: black, deep cyan and white turbulence',
-    desktop: { aspect: '5 / 4', position: '54% 55%' },
-    mobile: { aspect: '4 / 3', position: '54% 55%' },
-    radius: 2,
-    treatment: {
-      mode: 'current',
-      grade: EDITORIAL_COOL,
-      displacement: 0.75,
-      pointerInfluence: 1.55,
-      scrollInfluence: 0.7,
-      chromatic: 0.9,
-      damping: 7.4,
-    },
-  },
-
-  /** Volcanic terrain for the launch-system project. */
   terrain: {
     id: 'work-terrain',
-    src: VOLCANIC,
-    alt: 'Volcanic terrain from above, burnt orange against deep shadow',
+    src: localWebp('terrain'),
+    alt: 'A crowd crossing a city junction from above, one walker circled in yellow',
     desktop: { aspect: '16 / 9', position: '46% 50%' },
     mobile: { aspect: '4 / 3', position: '48% 50%' },
     radius: 2,

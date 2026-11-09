@@ -21,7 +21,7 @@ export function ServiceStructuredData({ service }: { service: ServiceDefinition 
         '@type': 'WebPage',
         '@id': `${url}#webpage`,
         url,
-        name: `${service.title} — ${agency.name}`,
+        name: `${service.title}, ${agency.name}`,
         isPartOf: { '@id': `${siteConfig.url}/#website` },
         about: { '@id': `${url}#service` },
         inLanguage: siteConfig.locale,

@@ -1,13 +1,14 @@
 import type { Metadata } from 'next';
 import { HmlPageShell } from '@/components/hml/HmlPageShell';
 import { AboutView } from '@/components/hml/AboutView';
-import { siteConfig } from '@/config/site';
+import { aboutPage } from '@/config/agency';
 import { buildMetadata } from '@/lib/seo';
 
 export const metadata: Metadata = buildMetadata({
-  title: 'About',
-  description: siteConfig.description,
+  title: aboutPage.meta.title,
+  description: aboutPage.meta.description,
   path: '/about',
+  ogImage: aboutPage.meta.ogImage,
 });
 
 export default function AboutPage() {

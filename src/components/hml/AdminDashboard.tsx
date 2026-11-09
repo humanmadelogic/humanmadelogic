@@ -41,14 +41,12 @@ type Provider = {
 
 type Mail = {
   to: string;
-  cc: string[];
   provider: string;
   host?: string;
   port?: number;
   secure?: boolean;
   user?: string;
   configured: boolean;
-  from: string;
   lastError?: { at: string; reason: string } | null;
 };
 
@@ -142,10 +140,9 @@ export function AdminDashboard({
                 Endpoint <code className="text-obsidian">{endpoint}</code>
               </p>
               <p className="mt-2 text-[15px] leading-[1.6] text-slate">
-                Mail to {mail.to}
-                {mail.cc.length > 0 ? `, cc ${mail.cc.join(', ')}` : ''}.{' '}
+                Mail to {mail.to}.{' '}
                 {mail.configured
-                  ? `Sending over ${mail.host || mail.provider}${mail.port ? `:${mail.port}` : ''} as ${mail.user || mail.from}.`
+                  ? `Sending over ${mail.host || mail.provider}${mail.port ? `:${mail.port}` : ''} as ${mail.user || 'configured sender'}.`
                   : 'SMTP_USER / SMTP_PASS are not set — enquiries are stored here but not emailed.'}
               </p>
               {mail.lastError ? (

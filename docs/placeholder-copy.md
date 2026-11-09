@@ -5,7 +5,7 @@
 | Field | Page / section | Purpose | Target words | File location | Status |
 | --- | --- | --- | --- | --- | --- |
 | 1 | Global — studio footprint | Where HML operates | 12–20 | `src/config/agency.ts` → `agency.location` | Filled (v1 QA, pending approval) |
-| 2 | Global — availability line | Header status pill | 8–16 | `src/config/agency.ts` → `agency.availability` | Filled (v1 QA, pending approval); **`[MONTH TBC]`** awaits Pawan |
+| 2 | Global — availability line | Header status pill | 8–16 | — | **Removed** (Pawan, Nov 2026) — no header pill in UI or config |
 | 3 | Global — social URLs | Footer external links | n/a | `src/config/agency.ts` → `agency.social` | Still placeholder (links point to `/contact`) |
 | 4 | Home — case study block | Explain empty work section | 40–70 | `src/config/agency.ts` → `workPlaceholder.body` | Filled (v1 QA, pending approval) |
 | 5 | Home — final CTA body | Pre-contact reassurance | 20–35 | `src/config/agency.ts` → `finalCta.body` | Filled (v1 QA, pending approval) |

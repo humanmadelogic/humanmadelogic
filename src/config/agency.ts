@@ -24,7 +24,6 @@ export const agency = {
   email: siteConfig.contactEmail,
   location:
     'Working with SMB founders and marketing teams across the UK, Australia, Canada and Singapore.',
-  availability: 'Now booking new brand and growth projects for [MONTH TBC].',
   nav: [
     { label: 'Services', href: '/services' },
     { label: 'About', href: '/about' },
@@ -39,9 +38,29 @@ export const agency = {
   ] as NavLink[],
   cta: { label: 'Start a project', href: '/contact' },
   social: [
-    { label: 'LinkedIn', href: '/contact' },
-    { label: 'Instagram', href: '/contact' },
+    { label: 'LinkedIn', href: 'https://www.linkedin.com/company/human-made-logic' },
+    // Add Instagram here when a live profile URL is approved.
   ] as NavLink[],
+} as const;
+
+/** Home route metadata (document title uses {@link siteConfig.coverLine} via `homeTitle()`). */
+export const homePage = {
+  meta: {
+    description: siteConfig.servicesBlurb,
+    ogImage: '/og/og-default.png',
+  },
+  quickLinks: {
+    viewAllServices: { label: 'View all services', href: '/services' },
+    aboutUs: { label: 'About us', href: '/about' },
+  },
+} as const;
+
+export const aboutPage = {
+  meta: {
+    title: 'About',
+    description: siteConfig.description,
+    ogImage: '/og/og-about.png',
+  },
 } as const;
 
 /* ------------------------------------------------------------------ hero */
@@ -90,9 +109,11 @@ export type Capability = {
 };
 
 export const capabilities = {
+  id: 'services',
   label: '/ Services',
   heading: 'Full package or à la carte.',
   intro: siteConfig.servicesBlurb,
+  viewServiceLabel: 'View service',
   items: serviceSlugs.map((slug) => {
     const service = services[slug];
     return {

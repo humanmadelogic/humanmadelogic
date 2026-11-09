@@ -8,7 +8,6 @@ export function studioSnapshot() {
     principle: agency.principle,
     email: agency.email,
     location: agency.location,
-    availability: agency.availability,
     contactPath: '/contact',
     mcpPath: '/api/mcp',
     capabilities: capabilities.items.map((item) => ({

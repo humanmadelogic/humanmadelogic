@@ -6,7 +6,7 @@ Supply assets in British-market brand style (UK DTC beauty/skincare craft where 
 | --- | --- | --- | --- | --- |
 | Favicon | 32×32, 16×16 | SVG (+ ICO optional) | 8 KB | Browser tab (`public/icon.svg`) |
 | Apple touch icon | 180×180 | PNG or SVG | 40 KB | iOS home screen (not yet wired) |
-| Open Graph default | 1200×630 | PNG or WebP | 250 KB | `src/app/opengraph-image.tsx`, social shares (all pages unless overridden) |
+| Open Graph default | 1200×630 | PNG | 250 KB | `public/og/og-default.png`, social shares (per-route overrides in metadata) |
 | OG — Services overview | 1200×630 | PNG or WebP | 250 KB | `/services` (optional dedicated OG) |
 | OG — About | 1200×630 | PNG or WebP | 250 KB | `/about` (optional) |
 | OG — each service (×4) | 1200×630 | PNG or WebP | 250 KB | `/services/*` (optional per route) |

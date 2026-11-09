@@ -2,8 +2,11 @@ import type { Metadata, Viewport } from 'next';
 import { Archivo, Inter, Instrument_Serif } from 'next/font/google';
 import './globals.css';
 import { AppShell } from '@/components/AppShell';
+import { homePage } from '@/config/agency';
 import { siteConfig } from '@/config/site';
 import { homeTitle } from '@/lib/seo';
+
+const defaultOgImage = new URL(homePage.meta.ogImage, siteConfig.url).toString();
 
 const inter = Inter({
   subsets: ['latin'],
@@ -53,11 +56,13 @@ export const metadata: Metadata = {
     title: homeTitle(),
     description: siteConfig.description,
     locale: 'en_GB',
+    images: [{ url: defaultOgImage, width: 1200, height: 630, alt: homeTitle() }],
   },
   twitter: {
     card: 'summary_large_image',
     title: homeTitle(),
     description: siteConfig.description,
+    images: [defaultOgImage],
   },
   robots: {
     index: true,

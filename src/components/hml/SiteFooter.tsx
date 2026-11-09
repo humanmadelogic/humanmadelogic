@@ -1,4 +1,14 @@
+import Image from 'next/image';
 import { agency } from '@/config/agency';
+
+const SOCIAL_ICON: Record<string, string> = {
+  LinkedIn: '/images/hml/social/linkedin.svg',
+  Instagram: '/images/hml/social/instagram.svg',
+};
+
+function isExternalSocial(href: string) {
+  return href.startsWith('https://') || href.startsWith('http://');
+}
 
 export function SiteFooter() {
   const year = new Date().getFullYear();
@@ -8,12 +18,10 @@ export function SiteFooter() {
       <div className="mx-auto max-w-editorial px-5 sm:px-8 lg:px-12">
         <div className="grid gap-12 border-t border-paper/12 pt-14 lg:grid-cols-12 lg:gap-8">
           <div className="lg:col-span-6">
-            <p className="text-[9vw] leading-[0.94] tracking-[-0.05em] sm:text-[6vw] lg:text-[4vw] xl:text-[58px]">
+            <p className="font-grotesk text-[9vw] leading-[0.94] tracking-[-0.05em] sm:text-[6vw] lg:text-[4vw] xl:text-[58px]">
               {agency.name}
             </p>
-            <p className="mt-6 max-w-[34ch] text-[15px] leading-[1.6] text-paper/60">
-              {agency.principle}
-            </p>
+            <p className="mt-6 max-w-[34ch] text-[15px] leading-[1.6] text-paper/60">{agency.principle}</p>
           </div>
 
           <nav aria-label="Footer" className="lg:col-span-3">
@@ -63,13 +71,31 @@ export function SiteFooter() {
           <div className="lg:col-span-3">
             <h2 className="text-[11px] uppercase tracking-[0.2em] text-paper/45">Elsewhere</h2>
             <ul className="mt-5 space-y-3">
-              {agency.social.map((item) => (
-                <li key={item.label}>
-                  <a href={item.href} className="text-[16px] text-paper/85 transition-colors hover:text-paper">
-                    {item.label}
-                  </a>
-                </li>
-              ))}
+              {agency.social.filter((item) => isExternalSocial(item.href)).map((item) => {
+                const icon = SOCIAL_ICON[item.label];
+                return (
+                  <li key={item.label}>
+                    <a
+                      href={item.href}
+                      className="inline-flex items-center gap-2.5 text-[16px] text-paper/85 transition-colors hover:text-paper"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      {icon ? (
+                        <Image
+                          src={icon}
+                          alt=""
+                          width={20}
+                          height={20}
+                          className="opacity-85"
+                          aria-hidden
+                        />
+                      ) : null}
+                      <span>{item.label}</span>
+                    </a>
+                  </li>
+                );
+              })}
               <li>
                 <a
                   href={`mailto:${agency.email}`}

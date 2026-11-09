@@ -26,21 +26,6 @@ export function WorkPlaceholder() {
           className="mt-14 rounded-[16px] border border-obsidian/15 bg-paper/80 p-8 sm:mt-16 sm:p-10"
         >
           <p className="max-w-[62ch] text-[16px] leading-[1.65] text-slate">{workPlaceholder.body}</p>
-          {workPlaceholder.note ? (
-            <p className="mt-6 font-mono text-[13px] leading-[1.5] text-slate/80">{workPlaceholder.note}</p>
-          ) : null}
-
-          <ul className="mt-10 grid gap-4 sm:grid-cols-3" aria-label="Placeholder slots for future case studies">
-            {[1, 2, 3].map((slot) => (
-              <li
-                key={slot}
-                className="flex min-h-[140px] flex-col justify-end rounded-[12px] border border-dashed border-obsidian/25 bg-obsidian/[0.03] p-5"
-              >
-                <span className="text-[11px] uppercase tracking-[0.18em] text-slate">Placeholder {slot}</span>
-                <span className="mt-2 text-[14px] text-slate/70">Case study pending approval</span>
-              </li>
-            ))}
-          </ul>
         </div>
       </div>
     </section>

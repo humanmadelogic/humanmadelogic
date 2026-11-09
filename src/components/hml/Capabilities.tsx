@@ -10,7 +10,7 @@ export function Capabilities() {
   const [active, setActive] = useState<string | null>(null);
 
   return (
-    <section className="scroll-mt-24 pb-8 sm:pb-12">
+    <section id={capabilities.id} className="scroll-mt-24 pb-8 sm:pb-12">
       <div className="mx-auto max-w-editorial px-5 sm:px-8 lg:px-12">
         <div className="grid gap-8 lg:grid-cols-12">
           <p className="text-[11px] uppercase tracking-[0.2em] text-slate lg:col-span-3">
@@ -69,7 +69,7 @@ export function Capabilities() {
                       isActive ? 'translate-x-1 text-obsidian' : 'text-slate'
                     }`}
                   >
-                    View service
+                    {capabilities.viewServiceLabel}
                     <span aria-hidden="true" className="transition-transform duration-500 group-hover:translate-x-0.5">
                       →
                     </span>

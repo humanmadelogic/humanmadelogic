@@ -3,6 +3,7 @@
  */
 
 import type { CapabilityVisualKind } from './agency';
+import { siteConfig } from './site';
 
 export type ServiceSlug =
   | 'branding'
@@ -14,6 +15,8 @@ export type ServiceDefinition = {
   slug: ServiceSlug;
   index: string;
   title: string;
+  /** Short document title segment for `buildMetadata` (usually same as `title`). */
+  metaTitle: string;
   shortTitle: string;
   /** Homepage card summary */
   summary: string;
@@ -22,7 +25,30 @@ export type ServiceDefinition = {
   deliverables: string[];
   outcomes: string[];
   metaDescription: string;
+  ogImage: string;
 };
+
+/** Copy and metadata for `/services`. */
+export const servicesIndex = {
+  metaTitle: 'Services',
+  metaDescription: siteConfig.servicesBlurb,
+  ogImage: '/og/og-services.png',
+  eyebrow: 'Services',
+  viewServiceLabel: 'View service',
+} as const;
+
+/** Shared labels on each `/services/[slug]` page. */
+export const servicePage = {
+  eyebrowSuffix: 'Service',
+  deliverablesHeading: 'What we deliver',
+  outcomesHeading: 'What you gain',
+  allServicesLabel: 'All services',
+  allServicesHref: '/services',
+  notFound: {
+    metaTitle: 'Service not found',
+    metaDescription: 'This service page could not be found.',
+  },
+} as const;
 
 export const serviceSlugs: ServiceSlug[] = [
   'branding',
@@ -36,7 +62,9 @@ export const services: Record<ServiceSlug, ServiceDefinition> = {
     slug: 'branding',
     index: '01',
     title: 'Branding',
+    metaTitle: 'Branding',
     shortTitle: 'Branding',
+    ogImage: '/og/services/og-branding.png',
     summary:
       'Identity, positioning, and visual systems built to be remembered on shelf, on screen, and in search.',
     intro:
@@ -58,7 +86,9 @@ export const services: Record<ServiceSlug, ServiceDefinition> = {
     slug: 'seo-aeo-geo',
     index: '02',
     title: 'SEO, AEO and GEO',
+    metaTitle: 'SEO, AEO and GEO',
     shortTitle: 'SEO/AEO/GEO',
+    ogImage: '/og/services/og-seo-aeo-geo.png',
     summary:
       'Search, answer engines, and generative discovery tuned so your brand shows up where buyers look and ask.',
     intro:
@@ -80,7 +110,9 @@ export const services: Record<ServiceSlug, ServiceDefinition> = {
     slug: 'performance-marketing',
     index: '03',
     title: 'Performance marketing',
+    metaTitle: 'Performance marketing',
     shortTitle: 'Performance',
+    ogImage: '/og/services/og-performance-marketing.png',
     summary:
       'Paid media and experimentation that connects creative ideas to dashboards your leadership trusts.',
     intro:
@@ -102,7 +134,9 @@ export const services: Record<ServiceSlug, ServiceDefinition> = {
     slug: 'social-media',
     index: '04',
     title: 'Social media',
+    metaTitle: 'Social media',
     shortTitle: 'Social',
+    ogImage: '/og/services/og-social-media.png',
     summary:
       'Editorial rhythm, platform-native creative, and community care that keeps your brand in the conversation.',
     intro:

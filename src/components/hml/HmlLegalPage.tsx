@@ -2,10 +2,12 @@ import type { LegalPageContent } from '@/config/legal';
 
 export function HmlLegalPage({ page }: { page: LegalPageContent }) {
   return (
-    <article className="py-20 sm:py-28">
+    <article className="pt-28 pb-20 sm:pb-28 lg:pt-36">
       <div className="mx-auto max-w-editorial px-5 sm:px-8 lg:px-12">
         <p className="text-[11px] uppercase tracking-[0.2em] text-slate">{page.updated}</p>
-        <h1 className="mt-6 text-[12vw] leading-[1.02] tracking-[-0.04em] sm:text-[52px]">{page.title}</h1>
+        <h1 className="mt-6 text-[12vw] leading-[1.02] tracking-[-0.04em] sm:text-[52px] lg:text-[56px]">
+          {page.title}
+        </h1>
         <p className="mt-6 max-w-prose text-[16px] leading-[1.65] text-slate">{page.intro}</p>
 
         <nav aria-label="On this page" className="mt-12 border-y border-obsidian/10 py-6">

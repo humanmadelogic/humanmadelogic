@@ -1,13 +1,14 @@
 import type { Metadata } from 'next';
 import { HmlPageShell } from '@/components/hml/HmlPageShell';
 import { ServicesOverview } from '@/components/hml/ServicesOverview';
-import { siteConfig } from '@/config/site';
+import { servicesIndex } from '@/config/services';
 import { buildMetadata } from '@/lib/seo';
 
 export const metadata: Metadata = buildMetadata({
-  title: 'Services',
-  description: siteConfig.servicesBlurb,
+  title: servicesIndex.metaTitle,
+  description: servicesIndex.metaDescription,
   path: '/services',
+  ogImage: servicesIndex.ogImage,
 });
 
 export default function ServicesPage() {

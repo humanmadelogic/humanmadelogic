@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import { agency, finalCta } from '@/config/agency';
-import type { ServiceDefinition } from '@/config/services';
+import { servicePage, type ServiceDefinition } from '@/config/services';
 import { CapabilityVisual } from './CapabilityVisual';
 import { RevealOnScroll } from './RevealOnScroll';
 import { RevealText } from './RevealText';
@@ -17,7 +17,7 @@ export function ServiceView({ service }: Props) {
     <section className="pt-28 sm:pt-32 lg:pt-36">
       <div className="mx-auto max-w-editorial px-5 sm:px-8 lg:px-12">
         <p className="text-[11px] uppercase tracking-[0.2em] text-slate">
-          {service.index} · Service
+          {service.index} · {servicePage.eyebrowSuffix}
         </p>
 
         <div className="mt-8 grid gap-10 lg:grid-cols-12 lg:items-start">
@@ -43,10 +43,10 @@ export function ServiceView({ service }: Props) {
             {agency.cta.label}
           </Link>
           <Link
-            href="/#services"
+            href={servicePage.allServicesHref}
             className="inline-flex h-12 items-center rounded-full border border-obsidian/20 px-6 text-[15px] transition-colors hover:border-obsidian/45"
           >
-            All services
+            {servicePage.allServicesLabel}
           </Link>
         </div>
       </div>
@@ -57,7 +57,9 @@ export function ServiceView({ service }: Props) {
         <RevealOnScroll>
           <div className="grid gap-16 lg:grid-cols-2">
             <div>
-              <h2 className="text-[11px] uppercase tracking-[0.2em] text-slate">What we deliver</h2>
+              <h2 className="text-[11px] uppercase tracking-[0.2em] text-slate">
+                {servicePage.deliverablesHeading}
+              </h2>
               <ul className="mt-6 space-y-4">
                 {service.deliverables.map((item) => (
                   <li
@@ -70,7 +72,9 @@ export function ServiceView({ service }: Props) {
               </ul>
             </div>
             <div>
-              <h2 className="text-[11px] uppercase tracking-[0.2em] text-slate">What you gain</h2>
+              <h2 className="text-[11px] uppercase tracking-[0.2em] text-slate">
+                {servicePage.outcomesHeading}
+              </h2>
               <ul className="mt-6 space-y-4">
                 {service.outcomes.map((item) => (
                   <li

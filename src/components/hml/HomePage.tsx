@@ -6,6 +6,7 @@ import { useEffect, useState } from 'react';
 import { useFinePointer, useMediaQuery } from '@/lib/hml/useMediaQuery';
 import { useReducedMotion } from '@/lib/hml/useReducedMotion';
 import { usePointerVelocity } from '@/lib/hml/usePointerVelocity';
+import { homePage } from '@/config/agency';
 import { HmlPageShell } from './HmlPageShell';
 import { LoadingTransition } from './LoadingTransition';
 import { Hero } from './Hero';
@@ -53,16 +54,16 @@ function HomeMain() {
       <section className="pb-16 pt-2">
         <div className="mx-auto max-w-editorial px-5 sm:px-8 lg:px-12">
           <Link
-            href="/services"
+            href={homePage.quickLinks.viewAllServices.href}
             className="inline-flex h-12 items-center rounded-full border border-obsidian/20 px-6 text-[15px] transition-colors hover:border-obsidian/45"
           >
-            View all services
+            {homePage.quickLinks.viewAllServices.label}
           </Link>
           <Link
-            href="/about"
+            href={homePage.quickLinks.aboutUs.href}
             className="ml-3 inline-flex h-12 items-center rounded-full border border-obsidian/20 px-6 text-[15px] transition-colors hover:border-obsidian/45"
           >
-            About us
+            {homePage.quickLinks.aboutUs.label}
           </Link>
         </div>
       </section>

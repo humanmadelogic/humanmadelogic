@@ -11,6 +11,11 @@ export function homeTitle(): string {
   return `${siteConfig.name} | ${siteConfig.coverLine}`;
 }
 
+function ogImages(relativePath: string, alt: string) {
+  const url = new URL(relativePath, siteConfig.url).toString();
+  return [{ url, width: 1200, height: 630, alt }];
+}
+
 /**
  * Page metadata: pass a short page title only (no brand). The root layout
  * template appends ` | Human Made Logic` for the document title.
@@ -22,6 +27,7 @@ export function buildMetadata({
   type = 'website',
   publishedTime,
   noindex = false,
+  ogImage,
 }: {
   title: string;
   description: string;
@@ -29,9 +35,11 @@ export function buildMetadata({
   type?: 'website' | 'article';
   publishedTime?: string;
   noindex?: boolean;
+  ogImage?: string;
 }): Metadata {
   const url = new URL(path, siteConfig.url).toString();
   const fullTitle = siteTitle(title);
+  const images = ogImage ? ogImages(ogImage, fullTitle) : undefined;
 
   return {
     title,
@@ -46,11 +54,13 @@ export function buildMetadata({
       locale: 'en_GB',
       type,
       ...(publishedTime ? { publishedTime } : {}),
+      ...(images ? { images } : {}),
     },
     twitter: {
       card: 'summary_large_image',
       title: fullTitle,
       description,
+      ...(images ? { images: images.map((image) => image.url) } : {}),
     },
   };
 }

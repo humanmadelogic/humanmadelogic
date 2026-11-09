@@ -14,7 +14,7 @@ export const metadata: Metadata = buildMetadata({
 export default function NotFound() {
   return (
     <HmlPageShell>
-      <section className="py-24 sm:py-32">
+      <section className="pt-28 pb-24 sm:pt-32 sm:pb-32 lg:pt-36">
         <div className="mx-auto max-w-editorial px-5 sm:px-8 lg:px-12">
           <p className="text-[11px] uppercase tracking-[0.2em] text-slate">Error {notFoundPage.code}</p>
           <h1 className="mt-6 text-[12vw] leading-[1.02] tracking-[-0.04em] sm:text-[56px]">

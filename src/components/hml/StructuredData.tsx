@@ -20,7 +20,7 @@ export function StructuredData() {
         slogan: agency.tagline,
         description: siteConfig.description,
         logo: { '@type': 'ImageObject', url: `${url}/icon.svg` },
-        image: `${url}/opengraph-image`,
+        image: `${url}/og/og-default.png`,
         areaServed: siteConfig.markets,
         knowsAbout: capabilities.items.map((item) => item.title),
         makesOffer: capabilities.items.map((item) => ({
@@ -53,7 +53,7 @@ export function StructuredData() {
         '@type': 'WebPage',
         '@id': `${url}/#webpage`,
         url,
-        name: `${agency.name} — ${siteConfig.coverLine}`,
+        name: `${agency.name}, ${siteConfig.coverLine}`,
         isPartOf: { '@id': `${url}/#website` },
         about: { '@id': `${url}/#organization` },
         inLanguage: siteConfig.locale,

@@ -1,24 +1,27 @@
 import type { Metadata } from 'next';
 import { HomePage } from '@/components/hml/HomePage';
 import { StructuredData } from '@/components/hml/StructuredData';
+import { homePage } from '@/config/agency';
 import { siteConfig } from '@/config/site';
-import { homeTitle } from '@/lib/seo';
+import { buildMetadata, homeTitle } from '@/lib/seo';
+
+const homeMeta = buildMetadata({
+  title: siteConfig.coverLine,
+  description: homePage.meta.description,
+  path: '/',
+  ogImage: homePage.meta.ogImage,
+});
 
 export const metadata: Metadata = {
+  ...homeMeta,
   title: { absolute: homeTitle() },
-  description: siteConfig.servicesBlurb,
-  alternates: { canonical: '/' },
   openGraph: {
-    type: 'website',
+    ...homeMeta.openGraph,
     title: homeTitle(),
-    description: siteConfig.servicesBlurb,
-    siteName: siteConfig.name,
-    locale: 'en_GB',
   },
   twitter: {
-    card: 'summary_large_image',
+    ...homeMeta.twitter,
     title: homeTitle(),
-    description: siteConfig.servicesBlurb,
   },
 };
 
