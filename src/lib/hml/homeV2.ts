@@ -1,4 +1,4 @@
-import { HOME_V2_PENDING_ALT_PLACEHOLDERS, homeV2Config, type HomeV2Content } from '@/config/home-v2';
+import { homeV2Config, type HomeV2Content } from '@/config/home-v2';
 
 export function hasText(value?: string | null): boolean {
   return Boolean(value?.trim());
@@ -128,18 +128,13 @@ export function collectHomeV2CopyStrings(): string[] {
 }
 
 export function findPlaceholderCopy(strings: string[]): string[] {
-  const allowed = new Set<string>(HOME_V2_PENDING_ALT_PLACEHOLDERS);
   return strings.filter((value) => {
     const trimmed = value.trim();
-    return trimmed.startsWith('[') && !allowed.has(trimmed);
+    return trimmed.startsWith('[');
   });
 }
 
 export function isPendingHomeImageAlt(alt: string): boolean {
   const trimmed = alt.trim();
-  return (
-    HOME_V2_PENDING_ALT_PLACEHOLDERS.includes(
-      trimmed as (typeof HOME_V2_PENDING_ALT_PLACEHOLDERS)[number],
-    ) || trimmed.startsWith('[ALT PENDING')
-  );
+  return !trimmed || trimmed.startsWith('[');
 }

@@ -147,11 +147,6 @@ export type HomeV2Content = {
   };
 };
 
-/** Pending Sam manifest alts: hidden images, allowed in production builds. */
-export const HOME_V2_PENDING_ALT_PLACEHOLDERS = ['[HOME-HERO-ALT]', '[HOME-WHO-ALT]'] as const;
-
-const pendingAlt = (id: 'HOME-HERO-ALT' | 'HOME-WHO-ALT') => `[${id}]`;
-
 export const homeV2Config = {
   /** When true, `/` renders {@link HomePageV2}. Keep legacy {@link HomePage} for revert. */
   enabled: true,
@@ -186,7 +181,8 @@ export const homeV2Config = {
       h1: 'Be the brand they name without googling.',
       sub:
         'Branding, SEO/AEO/GEO, performance marketing and social media for SMB founders and marketing leads in the UK, Australia, Canada and Singapore.',
-      imageAlt: pendingAlt('HOME-HERO-ALT'),
+      imageAlt:
+        'A hand lifts one yellow card out of a grid of plain grey cards, while an empty speech bubble points at it.',
       primaryCta: { label: 'Start a project', href: '/contact' },
       secondaryCta: { label: 'View services', href: '/services' },
     },
@@ -304,7 +300,8 @@ export const homeV2Config = {
         'Your trade or venue runs on word of mouth. You want to be the name people say.',
         "You're in the UK, Australia, Canada or Singapore with more ideas than hours.",
       ],
-      imageAlt: pendingAlt('HOME-WHO-ALT'),
+      imageAlt:
+        'Hands pack a serum bottle into a box of yellow tissue, beside skincare jars, brushes, a tape measure and a hammer.',
     },
     promises: {
       heading: 'No case studies yet. Just promises we keep.',
