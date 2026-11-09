@@ -3,9 +3,9 @@ import { notFound } from 'next/navigation';
 import { HmlPageShell } from '@/components/hml/HmlPageShell';
 import { ServiceStructuredData } from '@/components/hml/ServiceStructuredData';
 import { ServiceView } from '@/components/hml/ServiceView';
-import { agency } from '@/config/agency';
 import { getService, serviceSlugs } from '@/config/services';
 import { siteConfig } from '@/config/site';
+import { buildMetadata } from '@/lib/seo';
 
 type PageProps = { params: { slug: string } };
 
@@ -15,29 +15,20 @@ export function generateStaticParams() {
 
 export function generateMetadata({ params }: PageProps): Metadata {
   const service = getService(params.slug);
-  if (!service) return { title: 'Service not found' };
+  if (!service) {
+    return buildMetadata({
+      title: 'Service not found',
+      description: 'This service page could not be found.',
+      path: `/services/${params.slug}`,
+      noindex: true,
+    });
+  }
 
-  const title = `${service.title} — ${agency.name}`;
-  const url = `/services/${service.slug}`;
-
-  return {
-    title,
+  return buildMetadata({
+    title: service.title,
     description: service.metaDescription,
-    alternates: { canonical: url },
-    openGraph: {
-      type: 'website',
-      title,
-      description: service.metaDescription,
-      url: new URL(url, siteConfig.url).toString(),
-      siteName: agency.name,
-      locale: siteConfig.locale.replace('-', '_'),
-    },
-    twitter: {
-      card: 'summary_large_image',
-      title,
-      description: service.metaDescription,
-    },
-  };
+    path: `/services/${service.slug}`,
+  });
 }
 
 export default function ServicePage({ params }: PageProps) {

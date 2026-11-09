@@ -3,19 +3,21 @@ import { cookies } from 'next/headers';
 import { AdminDashboard } from '@/components/hml/AdminDashboard';
 import { AdminLogin } from '@/components/hml/AdminLogin';
 import { HmlPageShell } from '@/components/hml/HmlPageShell';
-import { agency, admin } from '@/config/agency';
+import { admin } from '@/config/agency';
 import { ADMIN_COOKIE, verifyAdminToken } from '@/lib/admin-auth';
 import { listInquiries } from '@/lib/inquiries';
 import { mailDiagnostics } from '@/lib/mailer';
 import { providerStatus } from '@/lib/models';
+import { buildMetadata } from '@/lib/seo';
 
 export const dynamic = 'force-dynamic';
 
-export const metadata: Metadata = {
-  title: { absolute: `Studio — ${agency.name}` },
+export const metadata: Metadata = buildMetadata({
+  title: 'Studio',
   description: admin.body,
-  robots: { index: false, follow: false },
-};
+  path: '/admin',
+  noindex: true,
+});
 
 export default async function AdminPage() {
   const token = cookies().get(ADMIN_COOKIE)?.value;

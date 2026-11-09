@@ -2,11 +2,14 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import { HmlPageShell } from '@/components/hml/HmlPageShell';
 import { notFoundPage } from '@/config/agency';
+import { buildMetadata } from '@/lib/seo';
 
-export const metadata: Metadata = {
+export const metadata: Metadata = buildMetadata({
   title: 'Page not found',
   description: 'The page you were looking for does not exist on Human Made Logic.',
-};
+  path: '/404',
+  noindex: true,
+});
 
 export default function NotFound() {
   return (

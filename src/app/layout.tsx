@@ -3,6 +3,7 @@ import { Archivo, Inter, Instrument_Serif } from 'next/font/google';
 import './globals.css';
 import { AppShell } from '@/components/AppShell';
 import { siteConfig } from '@/config/site';
+import { homeTitle } from '@/lib/seo';
 
 const inter = Inter({
   subsets: ['latin'],
@@ -26,8 +27,8 @@ const archivo = Archivo({
 export const metadata: Metadata = {
   metadataBase: new URL(siteConfig.url),
   title: {
-    default: `${siteConfig.name} — ${siteConfig.coverLine}`,
-    template: `%s — ${siteConfig.titleSuffix}`,
+    default: homeTitle(),
+    template: `%s | ${siteConfig.name}`,
   },
   description: siteConfig.description,
   applicationName: siteConfig.name,
@@ -49,13 +50,13 @@ export const metadata: Metadata = {
     type: 'website',
     url: siteConfig.url,
     siteName: siteConfig.name,
-    title: `${siteConfig.name} — ${siteConfig.coverLine}`,
+    title: homeTitle(),
     description: siteConfig.description,
     locale: 'en_GB',
   },
   twitter: {
     card: 'summary_large_image',
-    title: `${siteConfig.name} — ${siteConfig.coverLine}`,
+    title: homeTitle(),
     description: siteConfig.description,
   },
   robots: {
