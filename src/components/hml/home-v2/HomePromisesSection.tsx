@@ -30,13 +30,13 @@ export function HomePromisesSection() {
           {items.map((item, index) => (
             <li
               key={item.title || `promise-${index}`}
-              className="rounded-[14px] border border-obsidian/10 bg-paper p-5"
+              className="min-w-0 break-words rounded-[14px] border border-obsidian/10 bg-paper p-5"
             >
               <p className="text-[12px] tabular-nums tracking-[0.14em] text-slate">
                 {String(index + 1).padStart(2, '0')}
               </p>
               {hasText(item.title) ? (
-                <h3 className="mt-2 text-[17px] font-medium tracking-[-0.02em] text-obsidian">
+                <h3 className="mt-2 text-[16px] font-medium leading-snug tracking-[-0.02em] text-obsidian sm:text-[17px]">
                   {item.title}
                 </h3>
               ) : null}

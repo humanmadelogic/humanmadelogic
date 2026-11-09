@@ -1,4 +1,4 @@
-import { homeV2Config, type HomeV2Content } from '@/config/home-v2';
+import { HOME_V2_PENDING_ALT_PLACEHOLDERS, homeV2Config, type HomeV2Content } from '@/config/home-v2';
 
 export function hasText(value?: string | null): boolean {
   return Boolean(value?.trim());
@@ -6,24 +6,6 @@ export function hasText(value?: string | null): boolean {
 
 export function isProductionBuild(): boolean {
   return process.env.VERCEL_ENV === 'production';
-}
-
-/** Preview / development: allow hero hook query switching. */
-export function isPreviewBuild(): boolean {
-  return !isProductionBuild();
-}
-
-export function resolveHeroH1(hookParam?: string): string {
-  const { h1, h1Options } = homeV2Config.content.hero;
-  if (!isPreviewBuild() || !h1Options?.length) {
-    return h1.trim();
-  }
-  const index = Number(hookParam);
-  if (index >= 1 && index <= 3) {
-    const option = h1Options[index - 1];
-    if (hasText(option)) return option.trim();
-  }
-  return h1.trim();
 }
 
 export function isHeroPopulated(content: HomeV2Content): boolean {
@@ -48,11 +30,21 @@ export function isProblemPopulated(content: HomeV2Content): boolean {
 }
 
 export function isBeliefPopulated(content: HomeV2Content): boolean {
-  return hasText(content.belief.quote) || hasText(content.belief.body);
+  return (
+    hasText(content.belief.quote) ||
+    hasText(content.belief.body) ||
+    hasText(content.belief.slogan)
+  );
 }
 
 export function isServiceCardsPopulated(content: HomeV2Content): boolean {
-  if (hasText(content.serviceCards.heading) || hasText(content.serviceCards.intro)) return true;
+  if (
+    hasText(content.serviceCards.heading) ||
+    hasText(content.serviceCards.lede) ||
+    hasText(content.serviceCards.blurb)
+  ) {
+    return true;
+  }
   return Object.values(content.serviceCards.items).some(
     (card) => hasText(card.oneLiner) || card.tags.some((tag) => hasText(tag)),
   );
@@ -66,10 +58,10 @@ export function isHowWeWorkPopulated(content: HomeV2Content): boolean {
 export function isKitPopulated(kit: HomeV2Content['kits']['items'][number]): boolean {
   return (
     hasText(kit.title) ||
-    hasText(kit.body) ||
     hasText(kit.bestFor) ||
     (kit.inclusions?.some((line) => hasText(line)) ?? false) ||
-    hasText(kit.price)
+    hasText(kit.price) ||
+    hasText(kit.cta?.label)
   );
 }
 
@@ -136,5 +128,18 @@ export function collectHomeV2CopyStrings(): string[] {
 }
 
 export function findPlaceholderCopy(strings: string[]): string[] {
-  return strings.filter((value) => value.trim().startsWith('['));
+  const allowed = new Set<string>(HOME_V2_PENDING_ALT_PLACEHOLDERS);
+  return strings.filter((value) => {
+    const trimmed = value.trim();
+    return trimmed.startsWith('[') && !allowed.has(trimmed);
+  });
+}
+
+export function isPendingHomeImageAlt(alt: string): boolean {
+  const trimmed = alt.trim();
+  return (
+    HOME_V2_PENDING_ALT_PLACEHOLDERS.includes(
+      trimmed as (typeof HOME_V2_PENDING_ALT_PLACEHOLDERS)[number],
+    ) || trimmed.startsWith('[ALT PENDING')
+  );
 }

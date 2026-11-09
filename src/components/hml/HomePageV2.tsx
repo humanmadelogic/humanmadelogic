@@ -2,7 +2,6 @@
 
 import { useEffect } from 'react';
 import { homeV2Config } from '@/config/home-v2';
-import { resolveHeroH1 } from '@/lib/hml/homeV2';
 import { HmlPageShell } from './HmlPageShell';
 import { HomeBeliefSection } from './home-v2/HomeBeliefSection';
 import { HomeFaqSection } from './home-v2/HomeFaqSection';
@@ -17,13 +16,7 @@ import { HomeServicesTicker } from './home-v2/HomeServicesTicker';
 import { HomeWhoSection } from './home-v2/HomeWhoSection';
 import { HomeWorkSection } from './home-v2/HomeWorkSection';
 
-type Props = {
-  hookParam?: string;
-};
-
-export function HomePageV2({ hookParam }: Props) {
-  const h1 = resolveHeroH1(hookParam);
-
+export function HomePageV2() {
   useEffect(() => {
     document.documentElement.classList.add('home-v2-js');
     return () => {
@@ -33,7 +26,7 @@ export function HomePageV2({ hookParam }: Props) {
 
   return (
     <HmlPageShell>
-      <HomeHeroSection h1={h1} />
+      <HomeHeroSection />
       {homeV2Config.enabled ? <HomeServicesTicker /> : null}
       <HomeProblemSection />
       <HomeBeliefSection />

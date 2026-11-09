@@ -2,6 +2,7 @@
 
 import Image from 'next/image';
 import { useState } from 'react';
+import { isPendingHomeImageAlt } from '@/lib/hml/homeV2';
 
 type Props = {
   src: string;
@@ -14,9 +15,7 @@ type Props = {
   reveal?: boolean;
 };
 
-/**
- * Reserved aspect-ratio slot; keeps the box when the asset is missing (no broken img, no CLS).
- */
+/** Renders nothing until alt is approved and the asset loads (pending alts stay hidden). */
 export function HomeOptionalImage({
   src,
   alt,
@@ -29,19 +28,13 @@ export function HomeOptionalImage({
 }: Props) {
   const [missing, setMissing] = useState(false);
 
+  if (!hasText(alt) || isPendingHomeImageAlt(alt)) {
+    return null;
+  }
+
   const boxClass = `relative w-full overflow-hidden rounded-[14px] border border-obsidian/10 bg-paper ${
     reveal ? 'home-v2-hero-reveal' : ''
   }`;
-
-  if (!hasText(alt)) {
-    return (
-      <div
-        className={boxClass}
-        style={{ aspectRatio: `${width} / ${height}` }}
-        aria-hidden="true"
-      />
-    );
-  }
 
   return (
     <div className={boxClass} style={{ aspectRatio: `${width} / ${height}` }}>

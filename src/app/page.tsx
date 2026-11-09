@@ -18,8 +18,13 @@ const legacyMeta = buildMetadata({
   ogImage: homePage.meta.ogImage,
 });
 
+const v2MetaTitle = homeV2Config.content.meta.title.trim();
+const v2MetaPageSegment = v2MetaTitle.includes(' | ')
+  ? v2MetaTitle.split(' | ')[0]?.trim() ?? v2MetaTitle
+  : v2MetaTitle;
+
 const v2Meta = buildMetadata({
-  title: homeV2Config.content.meta.title,
+  title: v2MetaPageSegment || siteConfig.coverLine,
   description: homeV2Config.content.meta.description,
   path: '/',
   ogImage: homeV2Config.content.meta.ogImage,
@@ -28,14 +33,14 @@ const v2Meta = buildMetadata({
 export const metadata: Metadata = useHomeV2
   ? {
       ...v2Meta,
-      title: { absolute: homeV2Config.content.meta.title.trim() || homeTitle() },
+      title: { absolute: v2MetaTitle || homeTitle() },
       openGraph: {
         ...v2Meta.openGraph,
-        title: homeV2Config.content.meta.title.trim() || homeTitle(),
+        title: v2MetaTitle || homeTitle(),
       },
       twitter: {
         ...v2Meta.twitter,
-        title: homeV2Config.content.meta.title.trim() || homeTitle(),
+        title: v2MetaTitle || homeTitle(),
       },
     }
   : {
@@ -51,13 +56,7 @@ export const metadata: Metadata = useHomeV2
       },
     };
 
-type PageProps = {
-  searchParams?: { hook?: string };
-};
-
-export default function Page({ searchParams }: PageProps) {
-  const hookParam = searchParams?.hook;
-
+export default function Page() {
   if (useHomeV2) {
     const faqItems = isFaqPopulated(homeV2Config.content)
       ? homeV2Config.content.faq.items.filter(
@@ -69,7 +68,7 @@ export default function Page({ searchParams }: PageProps) {
       <>
         <StructuredData />
         {faqItems.length > 0 ? <HomeFaqStructuredData items={faqItems} /> : null}
-        <HomePageV2 hookParam={hookParam} />
+        <HomePageV2 />
       </>
     );
   }

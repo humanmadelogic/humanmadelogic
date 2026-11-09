@@ -20,11 +20,16 @@ export function HomeBeliefSection() {
             </p>
           </blockquote>
         ) : null}
-        {hasText(belief.body) ? (
-          <p className="text-[16px] leading-[1.65] text-slate lg:col-span-5 lg:pt-2">
-            {belief.body}
-          </p>
-        ) : null}
+        <div className="lg:col-span-5 lg:pt-2">
+          {hasText(belief.body) ? (
+            <p className="text-[16px] leading-[1.65] text-slate">{belief.body}</p>
+          ) : null}
+          {hasText(belief.slogan) ? (
+            <p className="mt-8 max-w-[48ch] text-[clamp(1.125rem,2.2vw,1.375rem)] font-medium leading-[1.45] tracking-[-0.02em] text-obsidian">
+              {belief.slogan}
+            </p>
+          ) : null}
+        </div>
       </div>
     </section>
   );

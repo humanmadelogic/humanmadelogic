@@ -47,8 +47,8 @@ export function HomeServicesCardsSection() {
             {serviceCards.heading}
           </h2>
         ) : null}
-        {hasText(serviceCards.intro) ? (
-          <p className="mt-4 max-w-[58ch] text-[16px] leading-[1.65] text-slate">{serviceCards.intro}</p>
+        {hasText(serviceCards.lede) ? (
+          <p className="mt-4 max-w-[58ch] text-[16px] leading-[1.65] text-slate">{serviceCards.lede}</p>
         ) : null}
 
         <div className="home-v2-snap-row mt-12 flex gap-4 overflow-x-auto pb-2 lg:grid lg:grid-cols-2 lg:gap-6 lg:overflow-visible lg:pb-0">
@@ -96,6 +96,12 @@ export function HomeServicesCardsSection() {
             );
           })}
         </div>
+
+        {hasText(serviceCards.blurb) ? (
+          <p className="mt-12 w-full max-w-[70ch] text-[16px] leading-[1.65] text-slate">
+            {serviceCards.blurb}
+          </p>
+        ) : null}
       </div>
     </section>
   );

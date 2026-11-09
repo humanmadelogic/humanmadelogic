@@ -5,6 +5,7 @@
  */
 
 import type { ServiceSlug } from './services';
+import { siteConfig } from './site';
 
 export type HomeV2Cta = { label: string; href: string };
 
@@ -16,14 +17,14 @@ export type HomeV2ServiceCardCopy = {
 };
 
 export type HomeV2Kit = {
-  /** HOME-KIT-n-TITLE */
+  /** HOME-KIT-n-NAME */
   title: string;
-  /** HOME-KIT-n-BODY */
-  body: string;
   /** HOME-KIT-n-FOR */
   bestFor?: string;
   /** HOME-KIT-n-INC-1..3 */
   inclusions?: string[];
+  /** HOME-KIT-n-CTA */
+  cta?: HomeV2Cta;
   /** Shown only when set */
   price?: string;
 };
@@ -64,10 +65,8 @@ export type HomeV2Content = {
   hero: {
     /** HOME-HERO-EYEBROW */
     eyebrow: string;
-    /** HOME-HERO-H1 (production) */
+    /** HOME-HERO-H1 (locked OPT-B) */
     h1: string;
-    /** Preview only: three hook options for ?hook=1|2|3 */
-    h1Options?: [string, string, string];
     /** HOME-HERO-SUB */
     sub: string;
     imageAlt: string;
@@ -91,12 +90,16 @@ export type HomeV2Content = {
     quote: string;
     /** HOME-BELIEF-BODY */
     body: string;
+    /** HOME-BELIEF-SLOGAN (locked; Oxford comma preserved) */
+    slogan: string;
   };
   serviceCards: {
     /** HOME-SVC-HEADING */
     heading: string;
-    /** HOME-SVC-INTRO */
-    intro: string;
+    /** HOME-SVC-INTRO (above cards) */
+    lede: string;
+    /** HOME-SVC-BLURB (full width under cards) */
+    blurb: string;
     items: Record<ServiceSlug, HomeV2ServiceCardCopy>;
   };
   howWeWork: {
@@ -109,8 +112,6 @@ export type HomeV2Content = {
   kits: {
     /** HOME-KITS-HEADING */
     heading: string;
-    /** HOME-KITS-LINK */
-    linkLabel: string;
     items: HomeV2Kit[];
   };
   who: {
@@ -146,12 +147,10 @@ export type HomeV2Content = {
   };
 };
 
-const emptyServiceCard = (): HomeV2ServiceCardCopy => ({
-  oneLiner: '',
-  tags: ['', '', ''],
-});
+/** Pending Sam manifest alts: hidden images, allowed in production builds. */
+export const HOME_V2_PENDING_ALT_PLACEHOLDERS = ['[HOME-HERO-ALT]', '[HOME-WHO-ALT]'] as const;
 
-const placeholder = (id: string) => `[${id}]`;
+const pendingAlt = (id: 'HOME-HERO-ALT' | 'HOME-WHO-ALT') => `[${id}]`;
 
 export const homeV2Config = {
   /** When true, `/` renders {@link HomePageV2}. Keep legacy {@link HomePage} for revert. */
@@ -172,22 +171,17 @@ export const homeV2Config = {
   },
   content: {
     meta: {
-      title: placeholder('HOME-META-TITLE'),
-      description: placeholder('HOME-META-DESC'),
+      title: 'Impossible to ignore. Built to be chosen. | Human Made Logic',
+      description:
+        'Branding, SEO/AEO/GEO, performance marketing and social media for SMBs in the UK, Australia, Canada and Singapore. Be remembered, found and chosen.',
       ogImage: '/og/home/og-home.png',
     },
     hero: {
       eyebrow: 'We make brands impossible to ignore.',
-      /** HOME-HERO-H1-OPT-A (recommended) */
-      h1: "Your brand isn't invisible. It's forgettable.",
-      h1Options: [
-        "Your brand isn't invisible. It's forgettable.",
-        'Be the brand they name without googling.',
-        'Impossible to ignore. Built to be chosen.',
-      ],
+      h1: 'Be the brand they name without googling.',
       sub:
         'Branding, SEO/AEO/GEO, performance marketing and social media for SMB founders and marketing leads in the UK, Australia, Canada and Singapore.',
-      imageAlt: placeholder('HOME-HERO-ALT'),
+      imageAlt: pendingAlt('HOME-HERO-ALT'),
       primaryCta: { label: 'Start a project', href: '/contact' },
       secondaryCta: { label: 'View services', href: '/services' },
     },
@@ -207,11 +201,13 @@ export const homeV2Config = {
       quote: 'Be remembered. Be found. Be the one they name.',
       body:
         'We build distinctive brand codes: the colours, shapes and words people know before they read your name. Then we make you easy to find for people, screens and algorithms.',
+      slogan: siteConfig.tagline,
     },
     serviceCards: {
       heading: 'Four ways in. Take one or all four.',
-      intro:
+      lede:
         'Full package or à la carte. Start where it hurts most. Every service runs on the same brand codes, so nothing feels bolted on.',
+      blurb: siteConfig.servicesBlurb,
       items: {
         branding: {
           oneLiner:
@@ -236,83 +232,136 @@ export const homeV2Config = {
       },
     },
     howWeWork: {
-      heading: placeholder('HOME-HOW-HEADING'),
+      heading: 'How brands become unforgettable',
       steps: [
-        { title: placeholder('HOME-HOW-1-TITLE'), body: placeholder('HOME-HOW-1-BODY') },
-        { title: placeholder('HOME-HOW-2-TITLE'), body: placeholder('HOME-HOW-2-BODY') },
-        { title: placeholder('HOME-HOW-3-TITLE'), body: placeholder('HOME-HOW-3-BODY') },
-        { title: placeholder('HOME-HOW-4-TITLE'), body: placeholder('HOME-HOW-4-BODY') },
+        {
+          title: 'Listen and audit',
+          body:
+            "We look at your brand, your market and where you're found or missed: in search, on social and in AI answers.",
+        },
+        {
+          title: "Decide what you're known for",
+          body:
+            'A sharp position and a short list of distinctive brand codes. Everything we build after this answers to it.',
+        },
+        {
+          title: 'Build it as one system',
+          body:
+            'Identity, site, content and campaigns made together, so every touchpoint looks and sounds like you.',
+        },
+        {
+          title: 'Launch, learn, repeat',
+          body:
+            "We measure what's working, report it plainly and refine, so every campaign gives the next one a head start.",
+        },
       ],
-      aiLine: placeholder('HOME-AI-LINE'),
+      aiLine: 'AI speeds up the research and the drafts. People make the calls.',
     },
     kits: {
-      heading: placeholder('HOME-KITS-HEADING'),
-      linkLabel: placeholder('HOME-KITS-LINK'),
+      heading: 'Three kits for three starting points',
       items: [
         {
-          title: placeholder('HOME-KIT-1-TITLE'),
-          body: placeholder('HOME-KIT-1-BODY'),
-          bestFor: placeholder('HOME-KIT-1-FOR'),
+          title: 'Launch Kit',
+          bestFor:
+            'Best for new or relaunching brands that need to look right and get moving.',
           inclusions: [
-            placeholder('HOME-KIT-1-INC-1'),
-            placeholder('HOME-KIT-1-INC-2'),
-            placeholder('HOME-KIT-1-INC-3'),
+            'A brand identity',
+            'A website or landing page',
+            'A 30 to 60 day performance or social sprint',
           ],
+          cta: { label: 'Ask about this kit', href: '/contact' },
         },
         {
-          title: placeholder('HOME-KIT-2-TITLE'),
-          body: placeholder('HOME-KIT-2-BODY'),
-          bestFor: placeholder('HOME-KIT-2-FOR'),
-          inclusions: [
-            placeholder('HOME-KIT-2-INC-1'),
-            placeholder('HOME-KIT-2-INC-2'),
-            placeholder('HOME-KIT-2-INC-3'),
-          ],
+          title: 'Authority Kit',
+          bestFor:
+            'Best for brands that want to be the name search engines and AI answers trust.',
+          inclusions: ['Positioning and site structure', 'SEO/AEO/GEO', 'A content engine'],
+          cta: { label: 'Ask about this kit', href: '/contact' },
         },
         {
-          title: placeholder('HOME-KIT-3-TITLE'),
-          body: placeholder('HOME-KIT-3-BODY'),
-          bestFor: placeholder('HOME-KIT-3-FOR'),
+          title: 'Local Domination Kit',
+          bestFor:
+            'Best for clinics, trades, studios and venues that live on nearby customers.',
           inclusions: [
-            placeholder('HOME-KIT-3-INC-1'),
-            placeholder('HOME-KIT-3-INC-2'),
-            placeholder('HOME-KIT-3-INC-3'),
+            'Google Business Profile and local SEO',
+            'Reviews and lead-gen ads',
+            'A light brand refresh',
           ],
+          cta: { label: 'Ask about this kit', href: '/contact' },
         },
       ] satisfies HomeV2Kit[],
     },
     who: {
-      heading: placeholder('HOME-WHO-HEADING'),
+      heading: "Sounds like you?",
       lines: [
-        placeholder('HOME-WHO-1'),
-        placeholder('HOME-WHO-2'),
-        placeholder('HOME-WHO-3'),
-        placeholder('HOME-WHO-4'),
+        "You run a skincare brand that's genuinely good but looks like everyone else's.",
+        'Your clinic or studio is brilliant, but searches keep finding someone else.',
+        'Your trade or venue runs on word of mouth. You want to be the name people say.',
+        "You're in the UK, Australia, Canada or Singapore with more ideas than hours.",
       ],
-      imageAlt: placeholder('HOME-WHO-IMAGE-ALT'),
+      imageAlt: pendingAlt('HOME-WHO-ALT'),
     },
     promises: {
-      heading: placeholder('HOME-PROMISE-HEADING'),
+      heading: 'No case studies yet. Just promises we keep.',
       items: [
-        { title: placeholder('HOME-PROMISE-1-TITLE'), body: placeholder('HOME-PROMISE-1-BODY') },
-        { title: placeholder('HOME-PROMISE-2-TITLE'), body: placeholder('HOME-PROMISE-2-BODY') },
-        { title: placeholder('HOME-PROMISE-3-TITLE'), body: placeholder('HOME-PROMISE-3-BODY') },
-        { title: placeholder('HOME-PROMISE-4-TITLE'), body: placeholder('HOME-PROMISE-4-BODY') },
-        { title: placeholder('HOME-PROMISE-5-TITLE'), body: placeholder('HOME-PROMISE-5-BODY') },
+        {
+          title: 'No borrowed logos',
+          body:
+            "No fake results, no made-up quotes, no logos we didn't earn. Real work goes up once it's finished and signed off.",
+        },
+        {
+          title: 'Reporting in plain English',
+          body:
+            "What's working, what isn't and what we'll test next. No dashboards that need a translator.",
+        },
+        {
+          title: 'Your accounts, your data',
+          body:
+            'Ad accounts, pixels and data stay in your name. If we ever part ways, all of it stays with you.',
+        },
+        {
+          title: 'Nothing posts without you',
+          body:
+            "Every post gets your yes before it goes out. Nothing lands in your feed that you haven't seen.",
+        },
       ],
     },
     work: {
       items: [] as HomeV2WorkCase[],
     },
     faq: {
-      heading: placeholder('HOME-FAQ-HEADING'),
+      heading: 'Things founders ask first',
       items: [
-        { question: placeholder('HOME-FAQ-1-Q'), answer: placeholder('HOME-FAQ-1-A') },
-        { question: placeholder('HOME-FAQ-2-Q'), answer: placeholder('HOME-FAQ-2-A') },
-        { question: placeholder('HOME-FAQ-3-Q'), answer: placeholder('HOME-FAQ-3-A') },
-        { question: placeholder('HOME-FAQ-4-Q'), answer: placeholder('HOME-FAQ-4-A') },
-        { question: placeholder('HOME-FAQ-5-Q'), answer: placeholder('HOME-FAQ-5-A') },
-        { question: placeholder('HOME-FAQ-6-Q'), answer: placeholder('HOME-FAQ-6-A') },
+        {
+          question: 'What does Human Made Logic do?',
+          answer:
+            'We make brands impossible to ignore. Human Made Logic offers branding, SEO/AEO/GEO, performance marketing and social media for SMB founders and marketing leads. We build distinctive brand codes first, then make sure people can find you, remember you and choose you.',
+        },
+        {
+          question: 'Do you only work with beauty brands?',
+          answer:
+            'No. UK DTC beauty and skincare is a big focus because brands there blur fast, but the fundamentals travel. The same work suits clinics, trades, studios, gyms, hospitality, education and property. If people need to remember you, this work is for you.',
+        },
+        {
+          question: 'Can I buy just one service?',
+          answer:
+            'Yes. Take any service on its own or combine them in a kit: Launch, Authority or Local Domination. Full package or à la carte, it all runs on the same brand codes. The fit call is where we work out what you need first.',
+        },
+        {
+          question: 'What does it cost to get started?',
+          answer:
+            "It depends on what you need, so there's no price list here. We scope every project after a short, no-pressure fit call, once we know your goals, your channels and where your brand feels stuck. You get a clear proposal before any work starts.",
+        },
+        {
+          question: 'Do you use AI?',
+          answer:
+            'Yes, as a tool, never as our personality. AI speeds up the research and the drafts. People make the calls. It helps us move faster on audits and first versions, while people choose every idea, edit every line and sign off what you see.',
+        },
+        {
+          question: 'Do you work with businesses outside the UK?',
+          answer:
+            'Yes. We work with SMB founders and marketing leads right across the UK, Australia, Canada and Singapore. The work happens remotely, with calls always planned around your own time zone. We write in British English unless your market needs something else.',
+        },
       ],
     },
     finalCta: {

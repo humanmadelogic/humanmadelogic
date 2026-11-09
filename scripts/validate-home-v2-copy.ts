@@ -1,4 +1,7 @@
-import { collectHomeV2CopyStrings, findPlaceholderCopy } from '../src/lib/hml/homeV2';
+import {
+  collectHomeV2CopyStrings,
+  findPlaceholderCopy,
+} from '../src/lib/hml/homeV2';
 
 const isProduction = process.env.VERCEL_ENV === 'production';
 

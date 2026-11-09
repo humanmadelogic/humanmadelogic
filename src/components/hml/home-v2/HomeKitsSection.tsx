@@ -32,42 +32,38 @@ export function HomeKitsSection() {
             return (
               <article
                 key={kit.title || `kit-${index}`}
-                className="home-v2-snap-card flex min-w-[min(78vw,320px)] shrink-0 flex-col rounded-[14px] border border-obsidian/10 bg-paper p-5 sm:p-6 lg:min-w-0"
+                className="home-v2-snap-card flex min-w-[min(82vw,300px)] max-w-[calc(100vw-2.5rem)] shrink-0 flex-col rounded-[14px] border border-obsidian/10 bg-paper p-5 sm:min-w-[min(78vw,320px)] sm:p-6 lg:min-w-0 lg:max-w-none"
               >
                 {hasText(kit.title) ? (
-                  <h3 className="text-[18px] font-medium tracking-[-0.02em] text-obsidian">{kit.title}</h3>
-                ) : null}
-                {hasText(kit.body) ? (
-                  <p className="mt-2 text-[15px] leading-[1.6] text-slate">{kit.body}</p>
+                  <h3 className="break-words text-[17px] font-medium leading-snug tracking-[-0.02em] text-obsidian sm:text-[18px]">
+                    {kit.title}
+                  </h3>
                 ) : null}
                 {hasText(kit.bestFor) ? (
-                  <p className="mt-3 text-[14px] leading-[1.5] text-slate">
-                    <span className="font-medium text-obsidian">Best for: </span>
-                    {kit.bestFor}
-                  </p>
+                  <p className="mt-3 break-words text-[15px] leading-[1.55] text-slate">{kit.bestFor}</p>
                 ) : null}
                 {inclusions.length > 0 ? (
                   <ul className="mt-4 space-y-2 text-[15px] leading-[1.55] text-obsidian">
                     {inclusions.map((line) => (
-                      <li key={line} className="flex gap-2">
-                        <span aria-hidden="true" className="text-slate">
+                      <li key={line} className="flex gap-2 break-words">
+                        <span aria-hidden="true" className="shrink-0 text-slate">
                           ·
                         </span>
-                        <span>{line}</span>
+                        <span className="min-w-0 flex-1">{line}</span>
                       </li>
                     ))}
                   </ul>
                 ) : null}
                 {hasText(kit.price) ? (
-                  <p className="mt-4 text-[16px] font-medium text-obsidian">{kit.price}</p>
+                  <p className="mt-4 break-words text-[16px] font-medium text-obsidian">{kit.price}</p>
                 ) : null}
                 <div className="mt-6 flex grow items-end">
-                  {hasText(kits.linkLabel) ? (
+                  {hasText(kit.cta?.label) ? (
                     <Link
-                      href="/contact"
-                      className="inline-flex min-h-11 items-center text-[15px] font-medium text-obsidian underline-offset-4 hover:underline"
+                      href={kit.cta?.href ?? '/contact'}
+                      className="inline-flex min-h-11 items-center break-words text-[15px] font-medium text-obsidian underline-offset-4 hover:underline"
                     >
-                      {kits.linkLabel}
+                      {kit.cta?.label}
                     </Link>
                   ) : null}
                 </div>
