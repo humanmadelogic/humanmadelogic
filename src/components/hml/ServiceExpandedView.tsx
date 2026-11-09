@@ -130,9 +130,10 @@ export function ServiceExpandedView({ service }: Props) {
                   <ServiceOptionalImage
                     src={servicePainImage(service.slug, n)}
                     alt={point.imageAlt}
-                    width={800}
-                    height={600}
-                    sizes="(min-width: 768px) 30vw, 100vw"
+                    width={960}
+                    height={720}
+                    aspectClass="aspect-[4/3]"
+                    sizes="(min-width: 1024px) 28vw, (min-width: 768px) 30vw, calc(100vw - 2.5rem)"
                   />
                   {point.title.trim() ? (
                     <h3 className="text-[20px] tracking-[-0.03em] text-obsidian">{point.title}</h3>

@@ -46,15 +46,14 @@ export const brandingExpanded: ServiceExpandedContent = {
         title: 'People see you, then forget',
         description:
           "They scroll past your ad, maybe even like it, then can't recall your name a day later. The attention you paid for leaks away because nothing about you is distinctive enough to stick.",
-        imageAlt:
-          'A skincare jar in focus, followed by blurred copies that fade away to nothing',
+        imageAlt: 'A skincare jar in focus, with blurred copies fading away behind it',
       },
       {
         title: 'Every launch looks different',
         description:
           'New serum, new look. Without a system, every campaign reinvents the colours, the type and the tone, so nothing builds on what came before.',
         imageAlt:
-          'Four taped-up campaign cards side by side, each with a different shape, pattern and colour',
+          'Four mismatched campaign cards taped side by side, each with a different shape, pattern and colour',
       },
     ],
   },
@@ -203,8 +202,7 @@ export const seoAeoGeoExpanded: ServiceExpandedContent = {
         title: 'Buried on page two',
         description:
           'Competitors take the top spots for the searches that matter, like "best vitamin C serum UK" or "physio near me". Buyers make their choice before they ever scroll down to you.',
-        imageAlt:
-          'A pile of blank paper with one yellow sheet buried near the bottom, an arrow pointing to it',
+        imageAlt: 'A stack of blank paper with one yellow sheet buried near the bottom',
       },
       {
         title: 'Missing from AI answers',
@@ -380,7 +378,7 @@ export const performanceMarketingExpanded: ServiceExpandedContent = {
         title: 'Creative that burns out fast',
         description:
           "Your best ad stops working within days and there's nothing ready to replace it. Without a steady pipeline of new creative, you end up paying to show people the same tired thing.",
-        imageAlt: 'A rubber stamp repeating the same yellow mark until it fades away',
+        imageAlt: 'A rubber stamp repeating the same mark, each print fainter than the last',
       },
       {
         title: "Clicks that don't convert",
@@ -540,7 +538,7 @@ export const socialMediaExpanded: ServiceExpandedContent = {
         title: 'Posting without a point',
         description:
           "The calendar is full but there's no clear idea or voice holding it together. Each post is fine on its own and forgettable as a set.",
-        imageAlt: 'A calendar grid crammed with random, unrelated shapes in every day',
+        imageAlt: 'A calendar crammed with random, unrelated shapes in every day',
       },
       {
         title: 'Followers who never engage',

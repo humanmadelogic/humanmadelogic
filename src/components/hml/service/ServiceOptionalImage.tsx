@@ -6,8 +6,9 @@ import { useState } from 'react';
 type Props = {
   src: string;
   alt: string;
-  width: number;
-  height: number;
+  /** Intrinsic width (e.g. 960) for aspect ratio hint; layout uses fill + aspect box. */
+  width?: number;
+  height?: number;
   priority?: boolean;
   sizes?: string;
   className?: string;
@@ -18,10 +19,10 @@ type Props = {
 export function ServiceOptionalImage({
   src,
   alt,
-  width,
-  height,
+  width = 960,
+  height = 720,
   priority = false,
-  sizes,
+  sizes = '(min-width: 768px) 33vw, 100vw',
   className = '',
   aspectClass = 'aspect-[4/3]',
 }: Props) {
@@ -30,15 +31,17 @@ export function ServiceOptionalImage({
   if (hidden || !alt.trim()) return null;
 
   return (
-    <div className={`relative overflow-hidden rounded-[14px] border border-obsidian/10 bg-white ${aspectClass}`}>
+    <div
+      className={`relative w-full overflow-hidden rounded-[14px] border border-obsidian/10 bg-white ${aspectClass}`}
+      style={{ aspectRatio: `${width} / ${height}` }}
+    >
       <Image
         src={src}
         alt={alt}
-        width={width}
-        height={height}
+        fill
         priority={priority}
         sizes={sizes}
-        className={`h-full w-full object-cover ${className}`}
+        className={`object-cover ${className}`}
         onError={() => setHidden(true)}
       />
     </div>
