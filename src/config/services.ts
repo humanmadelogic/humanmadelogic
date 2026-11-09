@@ -3,6 +3,12 @@
  */
 
 import type { CapabilityVisualKind } from './agency';
+import {
+  brandingExpanded,
+  performanceMarketingExpanded,
+  seoAeoGeoExpanded,
+  socialMediaExpanded,
+} from './services-expanded-data';
 import { siteConfig } from './site';
 
 export type ServiceSlug =
@@ -42,7 +48,9 @@ export type ServiceExpandedContent = {
   /** Optional override; when empty, metadata uses `/og/og-<slug>.png` if present, else `ogImage`. */
   ogImage: string;
   hero: {
+    eyebrow: string;
     subline: string;
+    intro: string;
     primaryCtaLabel: string;
     primaryCtaHref: string;
     secondaryCtaLabel: string;
@@ -98,7 +106,9 @@ export function emptyServiceExpanded(): ServiceExpandedContent {
   return {
     ogImage: '',
     hero: {
+      eyebrow: '',
       subline: '',
+      intro: '',
       primaryCtaLabel: '',
       primaryCtaHref: '',
       secondaryCtaLabel: '',
@@ -127,7 +137,7 @@ export function emptyServiceExpanded(): ServiceExpandedContent {
         { title: '', description: '' },
         { title: '', description: '' },
       ],
-      showTimeline: true,
+      showTimeline: false,
     },
     whatChanges: {
       heading: '',
@@ -234,8 +244,8 @@ export const services: Record<ServiceSlug, ServiceDefinition> = {
       'A recognisable system your team can use consistently, so you stop reinventing your look every time you launch something.',
     ],
     metaDescription:
-      'Branding for SMB founders: strategy, positioning and identity systems built on distinctive brand codes, so people remember you and not just your category.',
-    expanded: emptyServiceExpanded(),
+      'Branding for SMBs: positioning, identity and distinctive brand codes, so people recognise you at a glance and name you first when someone asks.',
+    expanded: brandingExpanded,
   },
   'seo-aeo-geo': {
     slug: 'seo-aeo-geo',
@@ -259,8 +269,8 @@ export const services: Record<ServiceSlug, ServiceDefinition> = {
       'Pages and content built to be found and named, in search results and in the AI answers your customers read.',
     ],
     metaDescription:
-      'SEO/AEO/GEO for SMBs in the UK, Australia, Canada and Singapore. Get found in search and named in AI answers, with content built around what buyers ask.',
-    expanded: emptyServiceExpanded(),
+      'SEO/AEO/GEO for SMBs: get found in search and named in AI answers, with technical fixes, local search and content built on what buyers ask.',
+    expanded: seoAeoGeoExpanded,
   },
   'performance-marketing': {
     slug: 'performance-marketing',
@@ -284,8 +294,8 @@ export const services: Record<ServiceSlug, ServiceDefinition> = {
       'Ads that build recognition as well as clicks, so each campaign gives the next one a head start.',
     ],
     metaDescription:
-      "Performance marketing for SMBs: paid campaigns with creative that doesn't look like the category, landing pages with a clear next step and reporting to act on.",
-    expanded: emptyServiceExpanded(),
+      "Performance marketing for SMBs: ads built on your brand codes, landing pages that don't leak and plain reporting on what's working and what's next.",
+    expanded: performanceMarketingExpanded,
   },
   'social-media': {
     slug: 'social-media',
@@ -309,8 +319,8 @@ export const services: Record<ServiceSlug, ServiceDefinition> = {
       'A rhythm you can keep up with, so social stops feeling like a hamster wheel and starts compounding.',
     ],
     metaDescription:
-      'Social media for SMBs: fewer, better posts, a recognisable voice and a rhythm your team can keep, so your brand gets remembered rather than scrolled past.',
-    expanded: emptyServiceExpanded(),
+      'Social media for SMBs: fewer, better posts, a voice people recognise and a rhythm your team can keep, so your brand is remembered, not scrolled past.',
+    expanded: socialMediaExpanded,
   },
 };
 

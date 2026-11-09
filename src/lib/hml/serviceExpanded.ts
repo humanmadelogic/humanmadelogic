@@ -7,7 +7,9 @@ function hasText(value: string | undefined) {
 export function isHeroPopulated(hero: ServiceExpandedContent['hero']) {
   if (!hero) return false;
   return (
+    hasText(hero.eyebrow) ||
     hasText(hero.subline) ||
+    hasText(hero.intro) ||
     hasText(hero.primaryCtaLabel) ||
     hasText(hero.secondaryCtaLabel) ||
     hasText(hero.imageAlt)

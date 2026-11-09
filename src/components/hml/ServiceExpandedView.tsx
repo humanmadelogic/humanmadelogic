@@ -64,9 +64,9 @@ export function ServiceExpandedView({ service }: Props) {
     {isHeroPopulated(e.hero) ? (
       <section className="pt-28 sm:pt-32 lg:pt-36">
         <div className="mx-auto max-w-editorial px-5 sm:px-8 lg:px-12">
-          <p className="text-[11px] uppercase tracking-[0.2em] text-slate">
-            {service.index} · {servicePage.eyebrowSuffix}
-          </p>
+          {e.hero.eyebrow.trim() ? (
+            <p className="text-[11px] uppercase tracking-[0.2em] text-slate">{e.hero.eyebrow}</p>
+          ) : null}
           <div className="mt-8 grid gap-10 lg:grid-cols-12 lg:items-start">
             <div className="lg:col-span-7">
               <RevealText
@@ -77,6 +77,9 @@ export function ServiceExpandedView({ service }: Props) {
               />
               {e.hero.subline.trim() ? (
                 <p className="mt-8 max-w-[52ch] text-[17px] leading-[1.65] text-slate">{e.hero.subline}</p>
+              ) : null}
+              {e.hero.intro.trim() ? (
+                <p className="mt-6 max-w-[52ch] text-[17px] leading-[1.65] text-slate">{e.hero.intro}</p>
               ) : null}
               <div className="mt-10 flex flex-wrap gap-3">
                 {e.hero.primaryCtaLabel.trim() && e.hero.primaryCtaHref.trim() ? (
