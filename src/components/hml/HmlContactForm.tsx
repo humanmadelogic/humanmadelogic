@@ -1,16 +1,19 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { contact } from '@/config/agency';
 import { validateContact, type ContactErrors, type ContactFields } from '@/lib/contact';
+import type { ContactTopic } from '@/lib/hml/contactTopics';
 
-const initial: ContactFields = {
-  name: '',
-  email: '',
-  company: '',
-  topic: contact.topics[0],
-  message: '',
-};
+function emptyFields(topic: ContactTopic): ContactFields {
+  return {
+    name: '',
+    email: '',
+    company: '',
+    topic,
+    message: '',
+  };
+}
 
 const fieldClass = (invalid: boolean) =>
   [
@@ -22,8 +25,16 @@ const fieldClass = (invalid: boolean) =>
       : 'border-obsidian/20 hover:border-obsidian/40 focus:border-obsidian/50',
   ].join(' ');
 
-export function HmlContactForm() {
-  const [values, setValues] = useState<ContactFields>(initial);
+export function HmlContactForm({ initialTopic }: { initialTopic?: ContactTopic }) {
+  const [values, setValues] = useState<ContactFields>(() =>
+    emptyFields(initialTopic ?? contact.topics[0]),
+  );
+
+  useEffect(() => {
+    if (initialTopic) {
+      setValues((current) => ({ ...current, topic: initialTopic }));
+    }
+  }, [initialTopic]);
   const [errors, setErrors] = useState<ContactErrors>({});
   const [touched, setTouched] = useState<Partial<Record<keyof ContactFields, boolean>>>({});
   const [website, setWebsite] = useState('');
@@ -80,7 +91,7 @@ export function HmlContactForm() {
         <button
           type="button"
           onClick={() => {
-            setValues(initial);
+            setValues(emptyFields(values.topic));
             setErrors({});
             setTouched({});
             setSubmitted(false);

@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import { Suspense } from 'react';
 import { JsonLd } from '@/components/hml/JsonLd';
 import { ContactView } from '@/components/hml/ContactView';
 import { HmlPageShell } from '@/components/hml/HmlPageShell';
@@ -22,7 +23,9 @@ export default function ContactPage() {
           description: contact.body,
         })}
       />
-      <ContactView />
+      <Suspense fallback={null}>
+        <ContactView />
+      </Suspense>
     </HmlPageShell>
   );
 }
