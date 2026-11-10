@@ -1,7 +1,9 @@
 'use client';
 
+import { useSearchParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { contact } from '@/config/agency';
+import { resolveContactTopic } from '@/lib/hml/contactTopics';
 import { HmlContactForm } from './HmlContactForm';
 import { MagneticDisc } from './MagneticDisc';
 import { RevealOnScroll } from './RevealOnScroll';
@@ -9,6 +11,8 @@ import { RevealText } from './RevealText';
 
 export function ContactView() {
   const [current, setCurrent] = useState(0);
+  const searchParams = useSearchParams();
+  const initialTopic = resolveContactTopic(searchParams.get('topic'));
 
   useEffect(() => {
     setCurrent(0);
@@ -33,7 +37,7 @@ export function ContactView() {
       <section className="py-16 sm:py-20 lg:py-28">
         <div className="mx-auto grid max-w-editorial gap-12 px-5 sm:px-8 lg:grid-cols-12 lg:gap-16 lg:px-12">
           <RevealOnScroll className="lg:col-span-7">
-            <HmlContactForm />
+            <HmlContactForm initialTopic={initialTopic} />
           </RevealOnScroll>
 
           <aside className="lg:col-span-5 lg:pt-4">

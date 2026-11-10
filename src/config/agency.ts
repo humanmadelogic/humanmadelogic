@@ -212,6 +212,10 @@ export const contact = {
     'SEO/AEO/GEO',
     'Performance marketing',
     'Social media',
+    'Launch Kit',
+    'Authority Kit',
+    'Local Domination Kit',
+    'Free AI visibility check',
     'Something else',
   ],
   details: [
