@@ -13,7 +13,7 @@ const BUILD_PAGES = path.join(ROOT, '.next/server/app');
 const SITE = 'https://humanmadelogic.com';
 
 const ROUTES = [
-  { route: '/', file: 'index.html', expect: ['Organization', 'WebSite', 'WebPage', 'FAQPage'] },
+  { route: '/', file: 'index.html', expect: ['Organization', 'WebSite', 'WebPage', 'FAQPage', 'Person'] },
   { route: '/services', file: 'services.html', expect: ['Organization', 'WebSite', 'CollectionPage', 'BreadcrumbList', 'ItemList'] },
   { route: '/about', file: 'about.html', expect: ['Organization', 'WebSite', 'AboutPage', 'BreadcrumbList'] },
   { route: '/contact', file: 'contact.html', expect: ['Organization', 'WebSite', 'ContactPage', 'BreadcrumbList'] },
