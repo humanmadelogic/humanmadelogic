@@ -1,71 +1,12 @@
 /**
- * Human Made Logic — homepage content.
- * Every string, capability, project and stat on the homepage lives here.
+ * Human Made Logic — homepage and shared chrome content.
  */
 
 import type { MediaKey } from './media';
+import { services, serviceSlugs, type ServiceSlug } from './services';
+import { siteConfig } from './site';
 
 export type NavLink = { label: string; href: string };
-
-export const agency = {
-  name: 'Human Made Logic',
-  shortName: 'HML',
-  principle: 'Human instinct. Creative systems. Measurable growth.',
-  email: 'info@humanmadelogic.fun',
-  location: 'Working worldwide',
-  availability: 'Taking projects for Q3',
-  nav: [
-    { label: 'Work', href: '/#work' },
-    { label: 'Services', href: '/#capabilities' },
-    { label: 'Studio', href: '/#studio' },
-    { label: 'Contact', href: '/contact' },
-  ] as NavLink[],
-  cta: { label: 'Start a project', href: '/contact' },
-  social: [
-    { label: 'Instagram', href: '/contact' },
-    { label: 'LinkedIn', href: '/contact' },
-  ] as NavLink[],
-} as const;
-
-/* ------------------------------------------------------------------ hero */
-
-export type HeroFrame = {
-  /** Key into the art-direction manifest in `src/config/media.ts`. */
-  media: MediaKey;
-  discipline: string;
-  /** Vertical offset in % of the frame height — drives the alternating fan. */
-  offset: number;
-  /** Resting rotation in degrees. */
-  rotate: number;
-  /** Pointer-follow depth multiplier. Higher = moves further. */
-  depth: number;
-};
-
-export const hero = {
-  eyebrow: 'Independent creative partner · Strategy to scale',
-  headline: ['We make brands', 'impossible to ignore.'],
-  body: 'Human Made Logic is a marketing and design agency building identities, digital experiences and campaigns that turn attention into measurable growth.',
-  primaryCta: { label: 'Start a project', href: '/contact' },
-  secondaryCta: { label: 'Explore our work', href: '/#work' },
-  scrollHint: 'Scroll',
-  frames: [
-    { media: 'heroIdentity', discipline: 'Identity', offset: 4, rotate: -3.4, depth: 0.55 },
-    { media: 'heroArtDirection', discipline: 'Art direction', offset: -7, rotate: 2.1, depth: 0.9 },
-    { media: 'heroProduct', discipline: 'Product', offset: 2, rotate: -1.2, depth: 1.25 },
-    { media: 'heroCampaign', discipline: 'Campaign', offset: -9, rotate: 3.1, depth: 0.9 },
-    { media: 'heroCulture', discipline: 'Culture', offset: 6, rotate: -2.4, depth: 0.55 },
-  ] as HeroFrame[],
-};
-
-/* ------------------------------------------------------------- statement */
-
-export const statement = {
-  label: '/ What we believe',
-  lines: ['Good marketing earns attention.', 'Great design makes it meaningful.'],
-  body: 'We connect brand thinking, visual craft and commercial strategy to create work people remember—and businesses can measure.',
-};
-
-/* ---------------------------------------------------------- capabilities */
 
 export type CapabilityVisualKind =
   | 'letterforms'
@@ -75,181 +16,185 @@ export type CapabilityVisualKind =
   | 'signal'
   | 'modules';
 
+export const agency = {
+  name: siteConfig.name,
+  shortName: 'HML',
+  principle: siteConfig.coverLine,
+  tagline: siteConfig.tagline,
+  email: siteConfig.contactEmail,
+  location:
+    'Working with SMB founders and marketing teams across the UK, Australia, Canada and Singapore.',
+  nav: [
+    { label: 'Services', href: '/services' },
+    { label: 'About', href: '/about' },
+    { label: 'Contact', href: '/contact' },
+  ] as NavLink[],
+  legalNav: [
+    { label: 'Privacy policy', href: '/privacy' },
+    { label: 'Cookie policy', href: '/cookies' },
+    { label: 'Terms of use', href: '/terms' },
+    { label: 'Accessibility', href: '/accessibility' },
+    { label: 'Company information', href: '/legal' },
+  ] as NavLink[],
+  cta: { label: 'Start a project', href: '/contact' },
+  social: [
+    { label: 'LinkedIn', href: 'https://www.linkedin.com/company/human-made-logic/' },
+  ] as NavLink[],
+} as const;
+
+/** Home route metadata (document title uses {@link siteConfig.coverLine} via `homeTitle()`). */
+export const homePage = {
+  meta: {
+    description:
+      'Branding, SEO/AEO/GEO, performance marketing and social media for SMBs in the UK, Australia, Canada and Singapore. Brands people remember, find and then choose.',
+    ogImage: '/og/og-default.png',
+  },
+  quickLinks: {
+    viewAllServices: { label: 'View all services', href: '/services' },
+    aboutUs: { label: 'About us', href: '/about' },
+  },
+} as const;
+
+export const aboutPage = {
+  meta: {
+    title: 'About',
+    description: siteConfig.description,
+    ogImage: '/og/og-about.png',
+  },
+} as const;
+
+/* ------------------------------------------------------------------ hero */
+
+export type HeroFrame = {
+  media: MediaKey;
+  discipline: string;
+  offset: number;
+  rotate: number;
+  depth: number;
+};
+
+export const hero = {
+  eyebrow: 'Branding and performance marketing agency',
+  headline: ['Impossible to ignore.', 'Built to be chosen.'],
+  subhead:
+    'Brand, search, ads and social for growing businesses in the UK, Australia, Canada and Singapore, built to be remembered first and found everywhere.',
+  body: siteConfig.tagline,
+  primaryCta: { label: 'Start a project', href: '/contact' },
+  secondaryCta: { label: 'View services', href: '/services' },
+  scrollHint: 'Scroll',
+  frames: [
+    { media: 'heroIdentity', discipline: 'Branding', offset: 4, rotate: -3.4, depth: 0.55 },
+    { media: 'heroArtDirection', discipline: 'SEO/AEO/GEO', offset: -7, rotate: 2.1, depth: 0.9 },
+    { media: 'heroProduct', discipline: 'Performance marketing', offset: 2, rotate: -1.2, depth: 1.25 },
+    { media: 'heroCampaign', discipline: 'Social media', offset: -6, rotate: 3.1, depth: 0.9 },
+  ] as HeroFrame[],
+};
+
+/* ------------------------------------------------------------- statement */
+
+export const statement = {
+  label: '/ What we do',
+  lines: ['Built for people,', 'screens and algorithms.'],
+  body:
+    'We start with what people remember, then make sure they can find you and choose you. Fundamentals first, original ideas throughout and AI to move faster, while people make the calls.',
+};
+
+/* ---------------------------------------------------------- capabilities */
+
 export type Capability = {
   index: string;
+  slug: ServiceSlug;
   title: string;
   body: string;
   visual: CapabilityVisualKind;
+  href: string;
 };
 
 export const capabilities = {
-  label: '/ What we do',
-  heading: 'One creative system. Every point of contact.',
-  items: [
-    {
-      index: '01',
-      title: 'Brand Strategy',
-      body: 'Positioning, research, naming and the strategic foundations that make every creative decision clearer.',
-      visual: 'letterforms',
-    },
-    {
-      index: '02',
-      title: 'Identity Systems',
-      body: 'Visual identities built to remain distinctive across campaigns, products and platforms.',
-      visual: 'system',
-    },
-    {
-      index: '03',
-      title: 'Web & Digital',
-      body: 'High-performance websites and digital experiences designed around real audience behaviour.',
-      visual: 'cursor',
-    },
-    {
-      index: '04',
-      title: 'Campaigns',
-      body: 'Creative concepts and launch systems that turn cultural relevance into sustained attention.',
-      visual: 'contact-sheet',
-    },
-    {
-      index: '05',
-      title: 'Performance Marketing',
-      body: 'Paid media, experimentation and conversion strategy informed by creative intelligence.',
-      visual: 'signal',
-    },
-    {
-      index: '06',
-      title: 'Content Systems',
-      body: 'Repeatable visual and editorial systems that help brands publish without becoming predictable.',
-      visual: 'modules',
-    },
-  ] as Capability[],
+  id: 'services',
+  label: '/ Services',
+  heading: 'Full package or à la carte.',
+  intro: siteConfig.servicesBlurb,
+  viewServiceLabel: 'View service',
+  items: serviceSlugs.map((slug) => {
+    const service = services[slug];
+    return {
+      index: service.index,
+      slug,
+      title: service.title,
+      body: service.summary,
+      visual: service.visual,
+      href: `/services/${slug}`,
+    };
+  }) as Capability[],
 };
 
-/* ------------------------------------------------------------------ work */
+/* ----------------------------------------------------------- placeholder */
 
-export type Project = {
-  id: string;
-  client: string;
-  summary: string;
-  services: string[];
-  result: string;
-  year: string;
-  /** Key into the art-direction manifest in `src/config/media.ts`. */
-  media: MediaKey;
-  /** Composition weight — alternates the layout down the page. */
-  layout: 'monument' | 'offset-right' | 'offset-left' | 'panorama';
-};
-
-export const work = {
-  label: '/ Selected work',
-  heading: ['Ideas made visible.', 'Results made measurable.'],
-  /*
-   * Real Human Made Logic services. The field names are the section's
-   * originals so the component is untouched: `client` carries the service
-   * title, `summary` its description, `services` the tags, `result` the
-   * outcome line, and `year` the "Service" label that sits where a date did.
-   */
-  items: [
-    {
-      id: 'photography',
-      client: 'Photography',
-      summary:
-        'Professional photography for products, events and corporate needs—crafted to tell your story and highlight what makes your brand distinct.',
-      services: ['Product Photography', 'Events', 'Corporate'],
-      result: 'Images that tell the brand story',
-      year: 'Service',
-      media: 'photography',
-      layout: 'monument',
-    },
-    {
-      id: 'video-production',
-      client: 'Video Production',
-      summary:
-        'Promotional films, commercials and cinematic narratives handled from concept and filming through editing and post-production.',
-      services: ['Creative Direction', 'Production', 'Post-production'],
-      result: 'From initial concept to final cut',
-      year: 'Service',
-      media: 'videoProduction',
-      layout: 'offset-right',
-    },
-    {
-      id: 'design-branding',
-      client: 'Design & Branding',
-      summary:
-        'From logos to complete identity systems, we create clean, distinctive visuals that capture your brand’s essence and help it stand out.',
-      services: ['Brand Strategy', 'Identity', 'Visual Design'],
-      result: 'Distinctive across every touchpoint',
-      year: 'Service',
-      media: 'designBranding',
-      layout: 'offset-left',
-    },
-    {
-      id: 'ecommerce',
-      client: 'eCommerce',
-      summary:
-        'Design-led eCommerce experiences paired with thoughtful technology—built to elevate businesses and help brands shine.',
-      services: ['eCommerce', 'UX Design', 'Development'],
-      result: 'Commerce experiences designed to perform',
-      year: 'Service',
-      media: 'ecommerce',
-      layout: 'panorama',
-    },
-  ] as Project[],
+export const workPlaceholder = {
+  id: 'work',
+  label: '/ Work',
+  heading: "Thinking first. Work when it's signed off.",
+  body:
+    "No case studies here yet, and that's on purpose. We'd rather show you how we think than fill a page with borrowed logos. Work goes up as projects are finished and signed off. Until then, see how we'd approach your brand in our process, or book a fit call and we'll talk it through using your brand, not a template.",
+  note: '',
 };
 
 /* --------------------------------------------------------------- process */
 
 export const process = {
   label: '/ How we work',
-  heading: 'Clear thinking before decoration.',
+  heading: 'Research fast. Decide together.',
   steps: [
     {
       index: '01',
-      title: 'Discover',
-      body: 'We uncover the audience tension, commercial goal and cultural opportunity.',
+      title: 'Listen and audit',
+      body: "We start by listening. We look at your brand, your market and your competitors, then dig into what customers already remember about you and where you're being found or missed: in search, on social and in AI answers. No assumptions, just a clear picture of where you stand.",
     },
     {
       index: '02',
       title: 'Define',
-      body: 'We turn research into a focused position, creative idea and measurable brief.',
+      body: "Next, we decide what you should be known for. That means a sharp strategy, clear positioning and a short list of distinctive brand codes: the colours, shapes, words and habits people recognise before they read your name. Everything we build later answers to this.",
     },
     {
       index: '03',
-      title: 'Design',
-      body: 'We build the identity, experience and campaign as one connected system.',
+      title: 'Build',
+      body: 'Then we make it real: identity, website or landing pages, content and campaigns, built as one system rather than a pile of separate jobs. AI speeds up research and first drafts so we move faster, and people make every call on how your brand looks and sounds.',
     },
     {
       index: '04',
-      title: 'Deliver',
-      body: 'We launch, learn and keep improving the work using real performance signals.',
+      title: 'Grow',
+      body: 'We launch, measure what\'s working, test and refine. From there, growth compounds through the channels that suit you: SEO/AEO/GEO to be found and named, performance campaigns that turn attention into enquiries and sales, or social that stays recognisable week after week.',
     },
   ],
 };
 
-/* ----------------------------------------------------------------- proof */
+/* ---------------------------------------------------------------- approach */
 
-export const proof = [
-  { value: '24', label: 'launches' },
-  { value: '11', label: 'industries' },
-  { value: '8', label: 'countries' },
-  { value: '92%', label: 'referral-led' },
-  { value: 'Strategy', label: 'through execution' },
-];
-
-/* ----------------------------------------------------------- testimonial */
-
-export const testimonial = {
-  quote:
-    'Human Made Logic gave us more than a new identity. They gave the entire company a clearer way to speak, design and make decisions.',
-  name: 'Maya Rao',
-  role: 'Co-founder, Northline',
+export const approach = {
+  label: '/ Approach',
+  heading: 'A creative agency with a performance spine.',
+  pillars: [
+    {
+      title: 'Distinctive before loud',
+      body: "Spend only works hard when people know it's you. So we build the parts customers remember first, the codes, the voice and the idea, and then put budget behind them. Being seen is easy to buy. Being remembered is what makes that spend add up over time.",
+    },
+    {
+      title: 'Findable everywhere people look',
+      body: "People don't only search any more. They scroll, compare and ask AI tools to explain a whole category in one breath. We make sure your brand turns up across search, social and AI answers, and gets named clearly instead of folded into a vague list of providers.",
+    },
+    {
+      title: 'Fundamentals, faster',
+      body: "Good marketing still runs on fundamentals: a clear position, original ideas and creative that earns attention. We use AI to research, draft and test faster, so more of your budget goes on thinking. It's the speed layer, never the personality, and people make the calls.",
+    },
+  ],
 };
 
 /* ------------------------------------------------------------- final cta */
 
 export const finalCta = {
-  heading: 'Have something worth noticing?',
-  body: 'Tell us what you are building, changing or trying to make impossible to ignore.',
+  heading: 'Ready to be impossible to ignore?',
+  body: "Start with a short, no-pressure fit call. Tell us where your brand feels stuck and what you want next. If we're not the right fit, we'll tell you honestly.",
   cta: { label: 'Start a project', href: '/contact' },
 };
 
@@ -261,11 +206,17 @@ export const contact = {
   body: 'A short note is enough. We read every enquiry ourselves, and we reply within one working day.',
   successTitle: 'Message received.',
   successBody: 'Thank you. We will write back to the address you gave us, usually within one working day.',
-  topics: ['New project', 'Retainer', 'MCP access', 'Collaboration', 'Something else'],
+  topics: [
+    'Full package',
+    'Branding',
+    'SEO/AEO/GEO',
+    'Performance marketing',
+    'Social media',
+    'Something else',
+  ],
   details: [
-    { label: 'Email', value: 'info@humanmadelogic.fun' },
-    { label: 'Studio', value: 'Working worldwide' },
-    { label: 'Availability', value: 'Taking projects for Q3' },
+    { label: 'Email', value: siteConfig.contactEmail },
+    { label: 'Markets', value: agency.location },
     { label: 'Response', value: 'One working day' },
   ],
 };
@@ -275,7 +226,7 @@ export const contact = {
 export const mcp = {
   eyebrow: '/ ComLabs MCP',
   heading: ['One server.', 'Claude, GPT, Gemini.'],
-  body: 'The ComLabs MCP server is how Claude, ChatGPT, Cursor and other MCP clients talk to the studio — and to the models behind them.',
+  body: 'The ComLabs MCP server is how Claude, ChatGPT, Cursor and other MCP clients talk to the studio, and to the models behind them.',
   clients: ['Claude', 'ChatGPT', 'Cursor', 'Gemini', 'Windsurf', 'VS Code'],
   providers: [
     {
@@ -298,7 +249,7 @@ export const mcp = {
     {
       index: '01',
       title: 'Connect a client',
-      body: 'Point Claude Desktop, Cursor, ChatGPT or any MCP host at /api/mcp — or run the stdio server locally.',
+      body: 'Point Claude Desktop, Cursor, ChatGPT or any MCP host at /api/mcp, or run the stdio server locally.',
     },
     {
       index: '02',
@@ -308,13 +259,13 @@ export const mcp = {
     {
       index: '03',
       title: 'Use the studio',
-      body: 'Read capabilities and selected work as resources, or submit an enquiry that lands in the same inbox as the contact form.',
+      body: 'Read capabilities and services as resources, or submit an enquiry that lands in the same inbox as the contact form.',
     },
   ],
   tools: [
     { name: 'studio_profile', purpose: 'Who we are, where we work, how to reach us' },
-    { name: 'list_capabilities', purpose: 'The six studio disciplines' },
-    { name: 'list_work', purpose: 'Selected projects and results' },
+    { name: 'list_capabilities', purpose: 'The four agency services' },
+    { name: 'list_work', purpose: 'Reserved for future case studies' },
     { name: 'list_providers', purpose: 'Which model backends are configured' },
     { name: 'ask', purpose: 'Send a prompt to Claude, GPT or Gemini' },
     { name: 'submit_inquiry', purpose: 'The same intake as the contact page' },
@@ -334,4 +285,18 @@ export const admin = {
     heading: 'Connect Claude, GPT and Cursor to the studio.',
     body: 'The server lives at /api/mcp. Point an MCP client at that URL, then call list_providers and ask.',
   },
+};
+
+/* ----------------------------------------------------------- not found */
+
+export const notFoundPage = {
+  code: '404',
+  heading: 'This page is not here.',
+  body: 'The link may be out of date. Head back to the homepage or send us a note.',
+  links: [
+    { label: 'Home', href: '/' },
+    { label: 'Services', href: '/services' },
+    { label: 'About', href: '/about' },
+    { label: 'Contact', href: '/contact' },
+  ],
 };

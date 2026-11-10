@@ -6,18 +6,8 @@ export default function robots(): MetadataRoute.Robots {
     rules: {
       userAgent: '*',
       allow: '/',
-      disallow: [
-        '/admin',
-        '/api/',
-        '/mcp',
-        // Relay template demo routes — not part of the agency site.
-        '/pricing',
-        '/resources',
-        '/privacy',
-        '/terms',
-      ],
+      disallow: ['/api/'],
     },
     sitemap: new URL('/sitemap.xml', siteConfig.url).toString(),
-    host: siteConfig.url,
   };
 }

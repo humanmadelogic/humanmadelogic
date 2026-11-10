@@ -99,3 +99,4 @@ yarn.lock
 ```
 # TypeScript incremental build info
 *.tsbuildinfo
+.axe-contrast-report.json

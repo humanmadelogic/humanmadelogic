@@ -1,17 +1,27 @@
 import type { Metadata } from 'next';
+import { JsonLd } from '@/components/hml/JsonLd';
 import { ContactView } from '@/components/hml/ContactView';
 import { HmlPageShell } from '@/components/hml/HmlPageShell';
-import { agency, contact } from '@/config/agency';
+import { contact, homePage } from '@/config/agency';
+import { contactPageGraph } from '@/lib/schema';
+import { buildMetadata, siteTitle } from '@/lib/seo';
 
-export const metadata: Metadata = {
-  title: { absolute: `Contact — ${agency.name}` },
+export const metadata: Metadata = buildMetadata({
+  title: 'Contact',
   description: contact.body,
-  alternates: { canonical: '/contact' },
-};
+  path: '/contact',
+  ogImage: homePage.meta.ogImage,
+});
 
 export default function ContactPage() {
   return (
     <HmlPageShell>
+      <JsonLd
+        data={contactPageGraph({
+          name: siteTitle('Contact'),
+          description: contact.body,
+        })}
+      />
       <ContactView />
     </HmlPageShell>
   );
