@@ -37,7 +37,9 @@ export const agency = {
     { label: 'Company information', href: '/legal' },
   ] as NavLink[],
   cta: { label: 'Start a project', href: '/contact' },
-  social: [] as NavLink[],
+  social: [
+    { label: 'LinkedIn', href: 'https://www.linkedin.com/company/human-made-logic/' },
+  ] as NavLink[],
 } as const;
 
 /** Home route metadata (document title uses {@link siteConfig.coverLine} via `homeTitle()`). */

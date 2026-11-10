@@ -1,5 +1,6 @@
 import type { ServiceExpandedFaqItem } from '@/config/services';
-import { siteConfig } from '@/config/site';
+import { canonicalUrl } from '@/lib/schema';
+import { JsonLd } from './JsonLd';
 
 type Props = {
   items: ServiceExpandedFaqItem[];
@@ -20,14 +21,14 @@ export function ServiceFaqStructuredData({ items, path }: Props) {
 
   if (mainEntity.length === 0) return null;
 
-  const graph = {
-    '@context': 'https://schema.org',
-    '@type': 'FAQPage',
-    '@id': `${siteConfig.url}${path}#faq`,
-    mainEntity,
-  };
-
   return (
-    <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(graph) }} />
+    <JsonLd
+      data={{
+        '@context': 'https://schema.org',
+        '@type': 'FAQPage',
+        '@id': `${canonicalUrl(path)}#faq`,
+        mainEntity,
+      }}
+    />
   );
 }

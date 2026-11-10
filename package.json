@@ -9,6 +9,7 @@
     "lint": "next lint",
     "check:headings": "node scripts/check-heading-word-break.mjs",
     "check:contrast": "node scripts/axe-contrast-routes.mjs",
+    "check:json-ld": "node scripts/validate-json-ld.mjs",
     "mcp": "tsx src/mcp/stdio.ts"
   },
   "dependencies": {

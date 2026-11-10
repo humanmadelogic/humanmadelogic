@@ -1,5 +1,6 @@
 import type { HomeV2FaqItem } from '@/config/home-v2';
 import { siteConfig } from '@/config/site';
+import { JsonLd } from '../JsonLd';
 
 type Props = {
   items: HomeV2FaqItem[];
@@ -19,14 +20,14 @@ export function HomeFaqStructuredData({ items }: Props) {
 
   if (mainEntity.length === 0) return null;
 
-  const graph = {
-    '@context': 'https://schema.org',
-    '@type': 'FAQPage',
-    '@id': `${siteConfig.url}/#faq`,
-    mainEntity,
-  };
-
   return (
-    <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(graph) }} />
+    <JsonLd
+      data={{
+        '@context': 'https://schema.org',
+        '@type': 'FAQPage',
+        '@id': `${siteConfig.url}/#faq`,
+        mainEntity,
+      }}
+    />
   );
 }

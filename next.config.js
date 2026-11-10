@@ -1,5 +1,17 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  async headers() {
+    return [
+      {
+        source: '/admin',
+        headers: [{ key: 'X-Robots-Tag', value: 'noindex' }],
+      },
+      {
+        source: '/admin/:path*',
+        headers: [{ key: 'X-Robots-Tag', value: 'noindex' }],
+      },
+    ]
+  },
   async redirects() {
     return [
       { source: '/pricing', destination: '/', permanent: true },

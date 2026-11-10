@@ -59,6 +59,10 @@ export const metadata: Metadata = useHomeV3 || useHomeV2
       },
     };
 
+const homeJsonLdName = useHomeV3 || useHomeV2 ? v2MetaTitle || homeTitle() : homeTitle();
+const homeJsonLdDescription =
+  useHomeV3 || useHomeV2 ? homeV2Config.content.meta.description : homePage.meta.description;
+
 export default function Page() {
   if (useHomeV3 || useHomeV2) {
     const faqItems = isFaqPopulated(homeV2Config.content)
@@ -69,7 +73,7 @@ export default function Page() {
 
     return (
       <>
-        <StructuredData />
+        <StructuredData name={homeJsonLdName} description={homeJsonLdDescription} />
         {faqItems.length > 0 ? <HomeFaqStructuredData items={faqItems} /> : null}
         {useHomeV3 ? <HomePageV3 /> : <HomePageV2 />}
       </>
@@ -78,7 +82,7 @@ export default function Page() {
 
   return (
     <>
-      <StructuredData />
+      <StructuredData name={homeJsonLdName} description={homeJsonLdDescription} />
       <HomePage />
     </>
   );

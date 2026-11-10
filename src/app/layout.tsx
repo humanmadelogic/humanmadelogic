@@ -2,6 +2,8 @@ import type { Metadata, Viewport } from 'next';
 import { Archivo, Inter, Instrument_Serif } from 'next/font/google';
 import './globals.css';
 import { AppShell } from '@/components/AppShell';
+import { ProductionGoogleAnalytics } from '@/components/hml/ProductionGoogleAnalytics';
+import { SiteJsonLd } from '@/components/hml/SiteJsonLd';
 import { homePage } from '@/config/agency';
 import { siteConfig } from '@/config/site';
 import { homeTitle } from '@/lib/seo';
@@ -48,7 +50,6 @@ export const metadata: Metadata = {
   ],
   authors: [{ name: siteConfig.legalName }],
   creator: siteConfig.legalName,
-  alternates: { canonical: '/' },
   referrer: 'origin-when-cross-origin',
   openGraph: {
     type: 'website',
@@ -92,6 +93,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       className={`${inter.variable} ${instrumentSerif.variable} ${archivo.variable}`}
     >
       <body className="antialiased min-h-screen flex flex-col">
+        <SiteJsonLd />
+        <ProductionGoogleAnalytics />
         <AppShell>{children}</AppShell>
       </body>
     </html>

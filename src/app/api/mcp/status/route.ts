@@ -6,7 +6,12 @@ import { connectGuide } from '@/lib/studio';
 export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
 
+/** Public callers must not see env or provider configuration. */
 export async function GET(request: Request) {
+  if (process.env.NODE_ENV === 'production') {
+    return NextResponse.json({ ok: true });
+  }
+
   const origin = new URL(request.url).origin;
   return NextResponse.json({
     ok: true,

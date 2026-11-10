@@ -12,7 +12,6 @@ const routes = [
   '/contact',
   '/cookies',
   '/legal',
-  '/mcp',
   '/pricing',
   '/privacy',
   '/services',
