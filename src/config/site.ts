@@ -79,6 +79,7 @@ export const siteConfig: SiteConfig = {
   announcementBar: null,
   nav: [
     { label: 'Services', href: '/services' },
+    { label: 'Kits', href: '/kits' },
     { label: 'Contact', href: '/contact' },
   ],
   primaryCta: { label: 'Start a project', href: '/contact' },

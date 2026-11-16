@@ -27,6 +27,26 @@ const ROUTES = [
   { route: '/services/performance-marketing', file: path.join('services', 'performance-marketing.html'), expect: ['Organization', 'WebSite', 'Service', 'WebPage', 'BreadcrumbList', 'FAQPage'] },
   { route: '/services/social-media', file: path.join('services', 'social-media.html'), expect: ['Organization', 'WebSite', 'Service', 'WebPage', 'BreadcrumbList', 'FAQPage'] },
   {
+    route: '/kits',
+    file: path.join('kits.html'),
+    expect: ['Organization', 'WebSite', 'CollectionPage', 'BreadcrumbList', 'ItemList', 'FAQPage'],
+  },
+  {
+    route: '/kits/launch-kit',
+    file: path.join('kits', 'launch-kit.html'),
+    expect: ['Organization', 'WebSite', 'Service', 'WebPage', 'BreadcrumbList', 'FAQPage'],
+  },
+  {
+    route: '/kits/authority-kit',
+    file: path.join('kits', 'authority-kit.html'),
+    expect: ['Organization', 'WebSite', 'Service', 'WebPage', 'BreadcrumbList', 'FAQPage'],
+  },
+  {
+    route: '/kits/local-domination-kit',
+    file: path.join('kits', 'local-domination-kit.html'),
+    expect: ['Organization', 'WebSite', 'Service', 'WebPage', 'BreadcrumbList', 'FAQPage'],
+  },
+  {
     route: '/guides',
     file: path.join('guides.html'),
     expect: ['Organization', 'WebSite', 'CollectionPage', 'BreadcrumbList', 'ItemList'],
