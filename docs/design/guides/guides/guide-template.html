@@ -1,0 +1,113 @@
+<!doctype html>
+<!--
+  HML guide art: live-text source (layered HTML/CSS). Same layout as make_guide_art.py.
+  Open with URL params, then screenshot the frame you need at 1x or 2x (device scale factor 2):
+    guide-template.html?title=SEO%20vs%20AEO%20vs%20GEO&category=seo-aeo-geo&frame=og
+    frame = og (1200x630) | card (640x480 CSS px, export at 2x = 1280x960) | both (default)
+    category = seo-aeo-geo | branding | performance | social ; byline=0 hides the OG byline
+  Layers (top to bottom): wordmark, H mark, eyebrow + category pill, title (live text), byline, motif.
+  Rules: #FFFFFF paper, #151515 ink, #F4BD49 only as a marker or behind ink text (never yellow text on white).
+-->
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<title>HML guide art template</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,800&family=Inter:wght@400;500;600&display=block" rel="stylesheet">
+<style>
+  :root { --paper:#FFFFFF; --ink:#151515; --slate:#6B6A66; --yellow:#F4BD49; }
+  * { box-sizing:border-box; margin:0; padding:0; }
+  body { background:#e9e9e9; font-family:Inter, sans-serif; color:var(--ink); padding:40px; display:flex; flex-direction:column; gap:40px; align-items:flex-start; }
+  .frame { position:relative; background:var(--paper); overflow:hidden; }
+  .og   { width:1200px; height:630px; }
+  .card { width:640px;  height:480px; }
+  /* safe area guide (hidden unless ?guides=1) */
+  .safe { position:absolute; inset:35px 60px; outline:1px dashed #e33; display:none; pointer-events:none; }
+  body.guides .safe { display:block; }
+  .wordmark { position:absolute; display:flex; align-items:center; font-weight:500; letter-spacing:-0.03em; white-space:nowrap; }
+  .wordmark i { display:block; border-radius:50%; background:var(--yellow); }
+  .og .wordmark { left:80px; top:62px; font-size:28px; gap:16px; } .og .wordmark i { width:14px; height:14px; }
+  .hmark { position:absolute; }
+  .og .hmark { right:90px; top:62px; width:37px; } .card .hmark { left:48px; bottom:48px; width:24px; }
+  .eyebrow { position:absolute; display:flex; align-items:center; font-weight:600; text-transform:uppercase; letter-spacing:0.14em; }
+  .og .eyebrow { left:80px; top:139px; font-size:17px; gap:16px; } .card .eyebrow { left:48px; top:43px; font-size:14px; gap:12px; }
+  .pill { background:var(--yellow); color:var(--ink); border-radius:999px; letter-spacing:0.06em; line-height:1; }
+  .og .pill { padding:8px 14px; } .card .pill { padding:6px 12px; }
+  .title { position:absolute; font-family:Archivo, sans-serif; font-weight:800; font-stretch:62%; font-variation-settings:"wdth" 62;
+           text-transform:uppercase; line-height:0.94; text-wrap:balance; overflow-wrap:normal; word-break:keep-all; hyphens:none; }
+  .title .keep { text-transform:none; }
+  .og .title { left:78px; top:186px; width:690px; height:280px; } .og.nobyline .title { height:350px; }
+  .card .title { left:47px; top:90px; width:544px; height:185px; }
+  .byline { position:absolute; left:80px; top:494px; }
+  .byline b { display:block; font-weight:600; font-size:22px; } .byline span { display:block; font-size:19px; color:var(--slate); margin-top:8px; }
+  .motif { position:absolute; object-fit:contain; mix-blend-mode:multiply; }
+  .og .motif { left:820px; top:170px; width:290px; height:390px; } .card .motif { left:300px; top:292px; width:292px; height:140px; object-position:right bottom; }
+</style>
+</head>
+<body>
+<template id="hmark-svg">
+  <!-- official H with underline: letter 65x73, stems 20, crossbar 17 at 27, underline 78x4, gap 27 -->
+  <svg viewBox="0 0 78 104" xmlns="http://www.w3.org/2000/svg" fill="#151515" aria-hidden="true">
+    <rect x="6.5" y="0" width="20" height="73"/><rect x="51.5" y="0" width="20" height="73"/>
+    <rect x="6.5" y="27" width="65" height="17"/><rect x="0" y="100" width="78" height="4"/>
+  </svg>
+</template>
+
+<div class="frame og" id="og" data-layer="og">
+  <div class="safe"></div>
+  <div class="wordmark" data-layer="wordmark"><i></i>Human Made Logic</div>
+  <div class="hmark" data-layer="h-mark"></div>
+  <div class="eyebrow" data-layer="eyebrow">Guide <span class="pill" data-layer="category"></span></div>
+  <h1 class="title" data-layer="title"></h1>
+  <div class="byline" data-layer="byline"><b>By Rowan Blake</b><span>Reviewed by Kuntal Khanapurkar, Founder</span></div>
+  <img class="motif" data-layer="motif" alt="">
+</div>
+
+<div class="frame card" id="card" data-layer="card">
+  <div class="eyebrow" data-layer="eyebrow">Guide <span class="pill" data-layer="category"></span></div>
+  <h2 class="title" data-layer="title"></h2>
+  <div class="hmark" data-layer="h-mark"></div>
+  <img class="motif" data-layer="motif" alt="">
+</div>
+
+<script>
+const CATS = { "seo-aeo-geo":["SEO/AEO/GEO","motifs/seo-aeo-geo.png"], "branding":["Branding","motifs/branding.png"],
+               "performance":["Performance","motifs/performance.png"], "social":["Social","motifs/social.png"] };
+const q = new URLSearchParams(location.search);
+const title = q.get("title") || "SEO vs AEO vs GEO";
+const cat = CATS[q.get("category")] ? q.get("category") : "seo-aeo-geo";
+const frame = q.get("frame") || "both";
+if (q.get("guides") === "1") document.body.classList.add("guides");
+if (q.get("byline") === "0") { document.querySelector("#og .byline").remove(); document.getElementById("og").classList.add("nobyline"); }
+if (frame === "og") document.getElementById("card").remove();
+if (frame === "card") document.getElementById("og").remove();
+// file names such as llms.txt keep their real case inside the caps headline
+const esc = s => s.replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+// small words (for, and, vs...) are glued to the next word so no line ends on one
+const WEAK = new Set(["a","an","the","and","or","of","to","in","on","for","with","vs","your","at","by","is"]);
+const words = title.split(/\s+/);
+const html = words.map((w, i) => (/[a-z0-9]\.[a-z]{2,4}\b/.test(w) ? `<span class="keep">${esc(w)}</span>` : esc(w))
+  + (i < words.length - 1 ? (WEAK.has(w.toLowerCase()) ? "&nbsp;" : " ") : "")).join("");
+document.querySelectorAll(".title").forEach(t => t.innerHTML = html);
+document.querySelectorAll(".pill").forEach(p => p.textContent = CATS[cat][0]);
+document.querySelectorAll(".motif").forEach(m => m.src = CATS[cat][1]);
+document.querySelectorAll(".hmark").forEach(h => h.innerHTML = document.getElementById("hmark-svg").innerHTML);
+// auto-fit: largest size that fits the box in at most 3 lines
+function fit(el, max, min) {
+  const W = el.clientWidth, Hmax = el.clientHeight;      // the box from CSS
+  el.style.height = "auto"; let px = max;
+  for (; px >= min; px--) {
+    el.style.fontSize = px + "px";
+    const lines = Math.round(el.offsetHeight / (px * 0.94));
+    if (el.scrollWidth <= W + 1 && el.offsetHeight <= Hmax + 1 && lines <= 3) break;
+  }
+  el.dataset.fitPx = px; el.dataset.lines = Math.round(el.offsetHeight / (px * 0.94));
+}
+document.fonts.ready.then(() => {
+  const og = document.querySelector("#og .title"); if (og) fit(og, 112, 44);
+  const cd = document.querySelector("#card .title"); if (cd) fit(cd, 92, 34);
+  document.body.dataset.ready = "1";
+});
+</script>
+</body>
+</html>
