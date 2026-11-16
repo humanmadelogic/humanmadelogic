@@ -5,10 +5,8 @@ export const ORG_ID = `${siteConfig.url}/#organization`;
 export const WEBSITE_ID = `${siteConfig.url}/#website`;
 export const LOGO_ID = `${siteConfig.url}/#logo`;
 export const FOUNDER_ID = `${siteConfig.url}/#founder`;
-export const AUTHOR_ROWAN_ID = `${siteConfig.url}/#author-rowan-blake`;
 
 const FOUNDER_NAME = 'Kuntal Khanapurkar';
-const AUTHOR_ROWAN_NAME = 'Rowan Blake';
 
 export function canonicalUrl(path: string): string {
   if (path === '/' || path === '') return siteConfig.url;
@@ -57,13 +55,9 @@ export function founderPersonNode() {
   };
 }
 
-/** Pen-name author for guides (no url or sameAs). */
-export function authorRowanBlakeNode() {
-  return {
-    '@type': 'Person',
-    '@id': AUTHOR_ROWAN_ID,
-    name: AUTHOR_ROWAN_NAME,
-  };
+/** Article JSON-LD author (visible byline stays Rowan Blake in page copy). */
+export function guideArticleAuthorRef() {
+  return { '@id': ORG_ID };
 }
 
 type KitOfferSource = {
@@ -527,10 +521,10 @@ export function guideArticleGraph({
   headline,
   description,
   imageUrl,
-  datePublished,
-  dateModified,
   webPageTitle,
   breadcrumbTitle,
+  datePublished,
+  dateModified,
   lastReviewed,
   about,
 }: {
@@ -538,48 +532,53 @@ export function guideArticleGraph({
   headline: string;
   description: string;
   imageUrl: string;
-  datePublished: string;
-  dateModified: string;
   webPageTitle: string;
   breadcrumbTitle: string;
-  lastReviewed: string;
+  /** ISO 8601; omit from JSON-LD until publish. */
+  datePublished?: string;
+  dateModified?: string;
+  /** ISO 8601; omit from WebPage JSON-LD until publish. */
+  lastReviewed?: string;
   about?: { name: string }[];
 }) {
   const path = `/guides/${slug}`;
   const url = canonicalUrl(path);
 
+  const article: Record<string, unknown> = {
+    '@type': 'Article',
+    '@id': `${url}#article`,
+    headline,
+    description,
+    image: [imageUrl],
+    author: guideArticleAuthorRef(),
+    publisher: { '@id': ORG_ID },
+    mainEntityOfPage: { '@id': pageId(path, 'webpage') },
+    isPartOf: { '@id': WEBSITE_ID },
+    ...(about?.length
+      ? { about: about.map((item) => ({ '@type': 'Thing' as const, name: item.name })) }
+      : {}),
+    inLanguage: siteConfig.locale,
+  };
+  if (datePublished) article.datePublished = datePublished;
+  if (dateModified) article.dateModified = dateModified;
+
+  const webPage: Record<string, unknown> = {
+    '@type': 'WebPage',
+    '@id': pageId(path, 'webpage'),
+    url,
+    name: webPageTitle,
+    isPartOf: { '@id': WEBSITE_ID },
+    reviewedBy: { '@id': FOUNDER_ID },
+    breadcrumb: { '@id': pageId(path, 'breadcrumb') },
+    inLanguage: siteConfig.locale,
+  };
+  if (lastReviewed) webPage.lastReviewed = lastReviewed;
+
   return {
     '@context': 'https://schema.org',
     '@graph': [
-      authorRowanBlakeNode(),
-      {
-        '@type': 'Article',
-        '@id': `${url}#article`,
-        headline,
-        description,
-        image: [imageUrl],
-        datePublished,
-        dateModified,
-        author: { '@id': AUTHOR_ROWAN_ID },
-        publisher: { '@id': ORG_ID },
-        mainEntityOfPage: { '@id': pageId(path, 'webpage') },
-        isPartOf: { '@id': WEBSITE_ID },
-        ...(about?.length
-          ? { about: about.map((item) => ({ '@type': 'Thing' as const, name: item.name })) }
-          : {}),
-        inLanguage: siteConfig.locale,
-      },
-      {
-        '@type': 'WebPage',
-        '@id': pageId(path, 'webpage'),
-        url,
-        name: webPageTitle,
-        isPartOf: { '@id': WEBSITE_ID },
-        reviewedBy: { '@id': FOUNDER_ID },
-        lastReviewed,
-        breadcrumb: { '@id': pageId(path, 'breadcrumb') },
-        inLanguage: siteConfig.locale,
-      },
+      article,
+      webPage,
       breadcrumbNode(path, [
         { name: 'Home', path: '/' },
         { name: 'Guides', path: '/guides' },

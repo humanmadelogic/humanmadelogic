@@ -26,7 +26,23 @@ const ROUTES = [
   { route: '/services/seo-aeo-geo', file: path.join('services', 'seo-aeo-geo.html'), expect: ['Organization', 'WebSite', 'Service', 'WebPage', 'BreadcrumbList', 'FAQPage'] },
   { route: '/services/performance-marketing', file: path.join('services', 'performance-marketing.html'), expect: ['Organization', 'WebSite', 'Service', 'WebPage', 'BreadcrumbList', 'FAQPage'] },
   { route: '/services/social-media', file: path.join('services', 'social-media.html'), expect: ['Organization', 'WebSite', 'Service', 'WebPage', 'BreadcrumbList', 'FAQPage'] },
+  {
+    route: '/guides',
+    file: path.join('guides.html'),
+    expect: ['Organization', 'WebSite', 'CollectionPage', 'BreadcrumbList', 'ItemList'],
+    optional: true,
+  },
+  {
+    route: '/guides/seo-vs-aeo-vs-geo',
+    file: path.join('guides', 'seo-vs-aeo-vs-geo.html'),
+    expect: ['Organization', 'WebSite', 'Article', 'WebPage', 'BreadcrumbList', 'Person'],
+    optional: true,
+    guideArticle: true,
+  },
 ];
+
+const ORG_ID = 'https://humanmadelogic.com/#organization';
+const FOUNDER_ID = 'https://humanmadelogic.com/#founder';
 
 function extractJsonLd(html) {
   const re = /<script type="application\/ld\+json">([\s\S]*?)<\/script>/g;
@@ -66,9 +82,13 @@ function main() {
   let failed = 0;
   const report = [];
 
-  for (const { route, file, expect } of ROUTES) {
+  for (const { route, file, expect, optional, guideArticle } of ROUTES) {
     const htmlPath = path.join(BUILD_PAGES, file);
     if (!fs.existsSync(htmlPath)) {
+      if (optional) {
+        console.log(`SKIP ${route} (not built yet)`);
+        continue;
+      }
       console.error(`MISSING build artifact ${htmlPath} (run npm run build first)`);
       failed += 1;
       continue;
@@ -92,6 +112,26 @@ function main() {
     if (raw.includes('ProfessionalService') || raw.includes('LocalBusiness')) {
       console.error(`FAIL ${route}: forbidden LocalBusiness types`);
       failed += 1;
+    }
+    if (raw.includes('#author-rowan-blake')) {
+      console.error(`FAIL ${route}: Rowan Blake must not appear in JSON-LD`);
+      failed += 1;
+    }
+    if (guideArticle) {
+      const articleAuthor = blocks
+        .flatMap((b) => (b['@graph'] ? b['@graph'] : [b]))
+        .find((n) => n['@type'] === 'Article');
+      if (!articleAuthor || articleAuthor.author?.['@id'] !== ORG_ID) {
+        console.error(`FAIL ${route}: Article.author must reference ${ORG_ID}`);
+        failed += 1;
+      }
+      const pageNode = blocks
+        .flatMap((b) => (b['@graph'] ? b['@graph'] : [b]))
+        .find((n) => n['@type'] === 'WebPage' && String(n['@id'] || '').includes('/guides/'));
+      if (!pageNode || pageNode.reviewedBy?.['@id'] !== FOUNDER_ID) {
+        console.error(`FAIL ${route}: WebPage.reviewedBy must reference ${FOUNDER_ID}`);
+        failed += 1;
+      }
     }
 
     const types = new Set();
