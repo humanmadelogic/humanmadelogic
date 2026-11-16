@@ -58,8 +58,8 @@ const ROUTES = [
     guideArticle: true,
   },
   {
-    route: '/guides/cited-by-chatgpt',
-    file: path.join('guides', 'cited-by-chatgpt.html'),
+    route: '/guides/how-to-get-your-brand-cited-by-chatgpt',
+    file: path.join('guides', 'how-to-get-your-brand-cited-by-chatgpt.html'),
     expect: ['Organization', 'WebSite', 'Article', 'WebPage', 'BreadcrumbList', 'FAQPage'],
     guideArticle: true,
   },

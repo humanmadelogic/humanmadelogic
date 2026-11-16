@@ -15,7 +15,7 @@ import { SeoAeoGeoHeadline } from './SeoAeoGeoHeadline';
 
 const SUPPLEMENT: Record<string, Record<string, string>> = {
   'seo-vs-aeo-vs-geo': g1SupplementaryCopy,
-  'cited-by-chatgpt': g2SupplementaryCopy,
+  'how-to-get-your-brand-cited-by-chatgpt': g2SupplementaryCopy,
 };
 
 function resolveBody(copy: Record<string, string>, bodyKey: string, slug: string) {

@@ -8,7 +8,7 @@ const SEGMENT_HREFS: Record<string, string> = {
   'Authority Kit': '/kits/authority-kit',
   'Local Domination Kit': '/kits/local-domination-kit',
   'SEO vs AEO vs GEO': '/guides/seo-vs-aeo-vs-geo',
-  'Get cited by ChatGPT': '/guides/cited-by-chatgpt',
+  'Get cited by ChatGPT': '/guides/how-to-get-your-brand-cited-by-chatgpt',
   'Beauty and skincare': '/industries/beauty-skincare',
 };
 
