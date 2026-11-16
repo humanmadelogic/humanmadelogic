@@ -27,6 +27,7 @@ export const agency = {
   nav: [
     { label: 'Services', href: '/services' },
     { label: 'Kits', href: '/kits' },
+    { label: 'Guides', href: '/guides' },
     { label: 'About', href: '/about' },
     { label: 'Contact', href: '/contact' },
   ] as NavLink[],

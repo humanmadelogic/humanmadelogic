@@ -319,6 +319,88 @@
         "WebPage",
         "WebSite"
       ]
+    },
+    {
+      "route": "/guides",
+      "canonical": "https://humanmadelogic.com/guides",
+      "types": [
+        "BreadcrumbList",
+        "CollectionPage",
+        "ContactPoint",
+        "Country",
+        "ImageObject",
+        "ItemList",
+        "ListItem",
+        "Offer",
+        "Organization",
+        "Person",
+        "Service",
+        "WebSite"
+      ]
+    },
+    {
+      "route": "/guides/seo-vs-aeo-vs-geo",
+      "canonical": "https://humanmadelogic.com/guides/seo-vs-aeo-vs-geo",
+      "types": [
+        "Answer",
+        "Article",
+        "BreadcrumbList",
+        "ContactPoint",
+        "Country",
+        "FAQPage",
+        "ImageObject",
+        "ListItem",
+        "Offer",
+        "Organization",
+        "Person",
+        "Question",
+        "Service",
+        "Thing",
+        "WebPage",
+        "WebSite"
+      ]
+    },
+    {
+      "route": "/guides/cited-by-chatgpt",
+      "canonical": "https://humanmadelogic.com/guides/cited-by-chatgpt",
+      "types": [
+        "Answer",
+        "Article",
+        "BreadcrumbList",
+        "ContactPoint",
+        "Country",
+        "FAQPage",
+        "ImageObject",
+        "ListItem",
+        "Offer",
+        "Organization",
+        "Person",
+        "Question",
+        "Service",
+        "WebPage",
+        "WebSite"
+      ]
+    },
+    {
+      "route": "/industries/beauty-skincare",
+      "canonical": "https://humanmadelogic.com/industries/beauty-skincare",
+      "types": [
+        "Answer",
+        "BreadcrumbList",
+        "BusinessAudience",
+        "ContactPoint",
+        "Country",
+        "FAQPage",
+        "ImageObject",
+        "ListItem",
+        "Offer",
+        "Organization",
+        "Person",
+        "Question",
+        "Service",
+        "WebPage",
+        "WebSite"
+      ]
     }
   ]
 }

@@ -1,5 +1,6 @@
 import type { MetadataRoute } from 'next';
 import { kitSlugs } from '@/config/kits';
+import { indexableGuides } from '@/config/guides';
 import { serviceSlugs } from '@/config/services';
 import { siteConfig } from '@/config/site';
 
@@ -7,6 +8,8 @@ const staticRoutes = [
   { path: '/', priority: 1, changeFrequency: 'weekly' as const },
   { path: '/services', priority: 0.9, changeFrequency: 'weekly' as const },
   { path: '/kits', priority: 0.88, changeFrequency: 'monthly' as const },
+  { path: '/guides', priority: 0.87, changeFrequency: 'weekly' as const },
+  { path: '/industries/beauty-skincare', priority: 0.84, changeFrequency: 'monthly' as const },
   { path: '/about', priority: 0.85, changeFrequency: 'monthly' as const },
   { path: '/contact', priority: 0.8, changeFrequency: 'monthly' as const },
   { path: '/privacy', priority: 0.4, changeFrequency: 'yearly' as const },
@@ -22,6 +25,11 @@ const staticRoutes = [
   ...kitSlugs.map((slug) => ({
     path: `/kits/${slug}`,
     priority: 0.86,
+    changeFrequency: 'monthly' as const,
+  })),
+  ...indexableGuides().map((guide) => ({
+    path: `/guides/${guide.slug}`,
+    priority: 0.83,
     changeFrequency: 'monthly' as const,
   })),
 ];

@@ -80,6 +80,7 @@ export const siteConfig: SiteConfig = {
   nav: [
     { label: 'Services', href: '/services' },
     { label: 'Kits', href: '/kits' },
+    { label: 'Guides', href: '/guides' },
     { label: 'Contact', href: '/contact' },
   ],
   primaryCta: { label: 'Start a project', href: '/contact' },

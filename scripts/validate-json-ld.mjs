@@ -50,14 +50,23 @@ const ROUTES = [
     route: '/guides',
     file: path.join('guides.html'),
     expect: ['Organization', 'WebSite', 'CollectionPage', 'BreadcrumbList', 'ItemList'],
-    optional: true,
   },
   {
     route: '/guides/seo-vs-aeo-vs-geo',
     file: path.join('guides', 'seo-vs-aeo-vs-geo.html'),
-    expect: ['Organization', 'WebSite', 'Article', 'WebPage', 'BreadcrumbList', 'Person'],
-    optional: true,
+    expect: ['Organization', 'WebSite', 'Article', 'WebPage', 'BreadcrumbList', 'FAQPage'],
     guideArticle: true,
+  },
+  {
+    route: '/guides/cited-by-chatgpt',
+    file: path.join('guides', 'cited-by-chatgpt.html'),
+    expect: ['Organization', 'WebSite', 'Article', 'WebPage', 'BreadcrumbList', 'FAQPage'],
+    guideArticle: true,
+  },
+  {
+    route: '/industries/beauty-skincare',
+    file: path.join('industries', 'beauty-skincare.html'),
+    expect: ['Organization', 'WebSite', 'WebPage', 'BreadcrumbList', 'FAQPage'],
   },
 ];
 
