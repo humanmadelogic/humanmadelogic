@@ -1,3 +1,5 @@
+import blogHub from '@/config/copy/blog-hub.json';
+import blogIndex from '@/config/copy/blog-index.json';
 import authorityKit from '@/config/copy/authority-kit.json';
 import guideCitedByChatgpt from '@/config/copy/guide-cited-by-chatgpt.json';
 import guideSeoVsAeoVsGeo from '@/config/copy/guide-seo-vs-aeo-vs-geo.json';
@@ -10,6 +12,8 @@ import localDominationKit from '@/config/copy/local-domination-kit.json';
 export type SeoCopyMap = Record<string, string>;
 
 const COPY_BY_FILENAME: Record<string, SeoCopyMap> = {
+  'blog-hub.json': blogHub,
+  'blog-index.json': blogIndex,
   'authority-kit.json': authorityKit,
   'guide-cited-by-chatgpt.json': guideCitedByChatgpt,
   'guide-seo-vs-aeo-vs-geo.json': guideSeoVsAeoVsGeo,

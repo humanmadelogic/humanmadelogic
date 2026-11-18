@@ -22,6 +22,7 @@ const routes = [
   ...kitSlugs.map((slug) => `/kits/${slug}`),
   '/guides',
   ...guideSlugs.map((slug) => `/guides/${slug}`),
+  '/blog',
   '/industries/beauty-skincare',
 ];
 
@@ -182,6 +183,7 @@ const hierarchyRoutes = new Set([
   ...kitSlugs.map((slug) => `/kits/${slug}`),
   '/guides',
   ...guideSlugs.map((slug) => `/guides/${slug}`),
+  '/blog',
   '/industries/beauty-skincare',
 ]);
 
@@ -190,16 +192,53 @@ const page = await browser.newPage();
 let totalFailures = 0;
 let hierarchyFailures = 0;
 
+const runtimeErrors = [];
+page.on('pageerror', (err) => runtimeErrors.push(err.message));
+
+async function assertProductionReady(probeRoute) {
+  runtimeErrors.length = 0;
+  const url = `${base}${probeRoute}`;
+  const res = await page
+    .goto(url, { waitUntil: 'networkidle', timeout: 90000 })
+    .catch(() => null);
+  if (!res || res.status() >= 400) {
+    console.error(`FAIL runtime ${probeRoute}: HTTP ${res?.status() ?? 'error'} at ${url}`);
+    console.error('Start a single fresh server after `npm run build` (e.g. `npm run start`) and retry.');
+    await browser.close();
+    process.exit(1);
+  }
+  const badShell = await page.evaluate(() => {
+    const text = document.body?.innerText ?? '';
+    if (text.includes('Application error: a client-side exception has occurred')) return 'next-error-overlay';
+    const h1 = [...document.querySelectorAll('h1')].filter((h) => !h.closest('.sr-only'));
+    if (h1.length === 0) return 'missing-h1';
+    return null;
+  });
+  if (badShell || runtimeErrors.some((m) => m.includes('ChunkLoadError') || m.includes('Loading chunk'))) {
+    console.error(`FAIL runtime ${probeRoute}: ${badShell ?? 'chunk-load-error'}`);
+    for (const m of runtimeErrors.slice(0, 3)) {
+      console.error(`  ${m.split('\n')[0]}`);
+    }
+    console.error(
+      'This is usually a stale or duplicate `next start` on the port. Stop other servers, rebuild, and start one server.',
+    );
+    await browser.close();
+    process.exit(1);
+  }
+}
+
+await assertProductionReady('/kits');
+
 for (const route of routes) {
   for (const width of widths) {
     await page.setViewportSize({ width, height: 900 });
     const url = `${base}${route}`;
-    const res = await page.goto(url, { waitUntil: 'domcontentloaded', timeout: 60000 }).catch(() => null);
+    const res = await page.goto(url, { waitUntil: 'networkidle', timeout: 90000 }).catch(() => null);
     if (!res || res.status() >= 400) {
       console.log(`skip ${route} @${width} (status ${res?.status() ?? 'error'})`);
       continue;
     }
-    await page.waitForTimeout(300);
+    await page.waitForTimeout(150);
 
     if (hierarchyRoutes.has(route) && width === widths[0]) {
       const hierarchyFails = await page.evaluate(evaluateHeadingHierarchy);
