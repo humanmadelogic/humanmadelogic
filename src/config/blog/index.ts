@@ -2,7 +2,7 @@ import manifest from './manifest.json';
 import { blogHubSlugOrder } from './hubOrder';
 import type { BlogPostRecord } from './types';
 
-export type { BlogPostRecord, BlogRelatedLink } from './types';
+export type { BlogFaqItem, BlogPostRecord, BlogRelatedLink } from './types';
 
 const posts = manifest.posts as BlogPostRecord[];
 

@@ -5,6 +5,11 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import {
+  extractBlogFaqFromStaticHtml,
+  extractFaqPageFromJsonLd,
+  faqListsMatch,
+} from './lib/blog-seo-fidelity.mjs';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.join(__dirname, '..');
@@ -80,11 +85,21 @@ const blogManifestPath = path.join(ROOT, 'src/config/blog/manifest.json');
 if (fs.existsSync(blogManifestPath)) {
   const blogManifest = JSON.parse(fs.readFileSync(blogManifestPath, 'utf8'));
   for (const post of blogManifest.posts.filter((p) => !p.draft)) {
+    const blogFaqs = (post.faqs ?? []).filter((item) => item?.q?.trim() && item?.a?.trim());
     ROUTES.push({
       route: `/blog/${post.slug}`,
       file: path.join('blog', `${post.slug}.html`),
-      expect: ['Organization', 'WebSite', 'BlogPosting', 'WebPage', 'BreadcrumbList'],
+      expect: [
+        'Organization',
+        'WebSite',
+        'BlogPosting',
+        'WebPage',
+        'BreadcrumbList',
+        ...(blogFaqs.length ? ['FAQPage'] : []),
+      ],
       blogArticle: true,
+      blogSlug: post.slug,
+      blogFaqs,
     });
   }
 }
@@ -131,7 +146,16 @@ function main() {
   let failed = 0;
   const report = [];
 
-  for (const { route, file, expect, optional, guideArticle, blogArticle, blogHub } of ROUTES) {
+  for (const {
+    route,
+    file,
+    expect,
+    optional,
+    guideArticle,
+    blogArticle,
+    blogHub,
+    blogFaqs,
+  } of ROUTES) {
     const htmlPath = path.join(BUILD_PAGES, file);
     if (!fs.existsSync(htmlPath)) {
       if (optional) {
@@ -231,6 +255,39 @@ function main() {
       if (!pageNode?.lastReviewed) {
         console.error(`FAIL ${route}: WebPage.lastReviewed is required on blog posts`);
         failed += 1;
+      }
+
+      const expectFaq = Array.isArray(blogFaqs) && blogFaqs.length > 0;
+      const hasFaqType = types.has('FAQPage');
+      if (expectFaq && !hasFaqType) {
+        console.error(`FAIL ${route}: manifest has faqs but JSON-LD is missing FAQPage`);
+        failed += 1;
+      }
+      if (!expectFaq && hasFaqType) {
+        console.error(`FAIL ${route}: blog post must not emit FAQPage when faqs frontmatter is empty`);
+        failed += 1;
+      }
+      if (expectFaq) {
+        const visibleFaqs = extractBlogFaqFromStaticHtml(html);
+        const schemaFaqs = extractFaqPageFromJsonLd(blocks);
+        if (visibleFaqs.length !== blogFaqs.length) {
+          console.error(
+            `FAIL ${route}: expected ${blogFaqs.length} visible FAQ(s), found ${visibleFaqs.length}`,
+          );
+          failed += 1;
+        }
+        const manifestPairs = blogFaqs.map((item) => ({
+          q: item.q.trim(),
+          a: item.a.trim(),
+        }));
+        if (!faqListsMatch(visibleFaqs, manifestPairs)) {
+          console.error(`FAIL ${route}: visible FAQ text does not match manifest faqs`);
+          failed += 1;
+        }
+        if (!faqListsMatch(visibleFaqs, schemaFaqs)) {
+          console.error(`FAIL ${route}: visible FAQ text does not match FAQPage JSON-LD`);
+          failed += 1;
+        }
       }
     }
 

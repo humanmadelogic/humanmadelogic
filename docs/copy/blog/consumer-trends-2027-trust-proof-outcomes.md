@@ -13,12 +13,15 @@ cardImage2x: /blog/cards/consumer-trends-2027-trust-proof-outcomes@2x.webp
 ogImage: /og/blog/consumer-trends-2027-trust-proof-outcomes.png
 readingMinutes: 0
 draft: false
+keyPoints: ["Kearney says consumers are \"2x more likely to use beauty for wellness than for self-expression\" ([Kearney](https://www.prnewswire.com/news-releases/kearney-releases-2027-beauty-outlook-report-302928612.html)).","Euromonitor's beauty survey says premium buyers choose \"premium ingredients over a premium brand by 43% to 18%\". The page doesn't say which countries were surveyed ([Euromonitor](https://www.euromonitor.com/voice-of-the-consumer-beauty-survey-2026-key-insights/report)).","Generative AI sways 8% of colour cosmetics purchasers, but only 19% see it as a highly trustworthy source of shopping information ([Euromonitor beauty survey](https://www.euromonitor.com/voice-of-the-consumer-beauty-survey-2026-key-insights/report), [Euromonitor trends](https://www.euromonitor.com/newsroom/press-releases/november-2026/global-consumer-trends-2027))."]
+keyPointsAfter: 2
+faqs: [{"q":"What are the main consumer trends for 2027?","a":"The 2027 reports we read point the same way: beauty is merging with wellness, shoppers want proof over a famous name, AI is starting to shape the shortlist and trust still comes from people."},{"q":"How much does AI influence beauty purchases?","a":"Euromonitor's beauty survey says generative AI already sways 8% of colour cosmetics purchasers and 15% of Beauty Innovators. Its global trends research says only 19% see GenAI as a highly trustworthy source of shopping information."},{"q":"Do beauty shoppers still buy in store?","a":"McKinsey's Alexis Wolfer says more than two-thirds of beauty sales globally, and about 50 percent in the US, still happen in store."},{"q":"What do AI tools look for in beauty products?","a":"McKinsey partner Sara Hudson says LLMs pick up on functional words: how something is used, what ingredients are in it and what ingredients are not."}]
 ---
 **The short answer.** The consumer trends 2027 reports published since October agree on more than you'd expect. Beauty is merging with wellness, shoppers want proof over a famous name and AI is starting to shape the shortlist, while trust still comes from people. For a small UK beauty brand, we think that means clear claims, named ingredients and a brand worth recommending.
 
 The reports are from [Kearney](https://www.prnewswire.com/news-releases/kearney-releases-2027-beauty-outlook-report-302928612.html), [Euromonitor](https://www.euromonitor.com/newsroom/press-releases/november-2026/global-consumer-trends-2027), [Mintel](https://www.mintel.com/press-centre/mintel-predicts-2027-brand-growth-will-shift-from-selling-products-to-delivering-outcomes/) and [McKinsey](https://www.mckinsey.com/industries/consumer-packaged-goods/our-insights/beauty-redefined). We've read the public summaries, not the full paid reports, and we say whose figure is whose and where it comes from.
 
-## Beauty is turning into a wellness habit
+## Is beauty turning into a wellness habit?
 
 Kearney's 2027 beauty outlook, published on 4 November 2026, surveyed 2,500 beauty consumers in France, the UK, China, Japan and the US in June 2026. It says beauty, health and wellness are "consolidating into a blended $937 billion market that's growing at 5 percent+ a year", and that consumers are "2x more likely to use beauty for wellness than for self-expression" ([Kearney](https://www.prnewswire.com/news-releases/kearney-releases-2027-beauty-outlook-report-302928612.html)). That market figure is global, in dollars as Kearney publishes it.
 
@@ -26,19 +29,19 @@ Mintel's 2027 Global Predictions, from 6 November, point the same way. It says b
 
 Diana Kelter, Director of Mintel Trends, puts it simply: "stop thinking first about what product to launch and start asking what outcome your brand can credibly help consumers achieve." ([Mintel](https://www.mintel.com/press-centre/mintel-predicts-2027-brand-growth-will-shift-from-selling-products-to-delivering-outcomes/))
 
-## Proof now beats the name on the bottle
+## Why does proof now beat the name on the bottle?
 
 Kearney says "Skincare is moving fast from mainstream topicals to clinically vetted protocols" and that "Across categories, credible proof is now the price of entry." ([Kearney](https://www.prnewswire.com/news-releases/kearney-releases-2027-beauty-outlook-report-302928612.html))
 
 Euromonitor's Voice of the Consumer: Beauty Survey 2026 Key Insights (October 2026) lands in the same place. Premium buyers choose "premium ingredients over a premium brand by 43% to 18%", and for dermocosmetics, "Credibility has shifted to named actives and visible proof." It also says 19% of respondents cite safety for sensitive and reactive skin as the main requirement of dermocosmetics, and a quarter report sensitive skin concerns ([Euromonitor](https://www.euromonitor.com/voice-of-the-consumer-beauty-survey-2026-key-insights/report)). The page doesn't say which countries were surveyed, so treat these as Euromonitor's figures rather than UK ones.
 
-## Trust still comes from people
+## Where does trust still come from?
 
 Euromonitor's Top Global Consumer Trends 2027 (4 November) is not beauty-only, but it explains why proof matters. In its global research, "More than half only buy from brands they trust completely" and "Nearly three-quarters trust recommendations from friends and family when making purchases." ([Euromonitor](https://www.euromonitor.com/newsroom/press-releases/november-2026/global-consumer-trends-2027))
 
 Ali Angus, Head of Innovation at Euromonitor International, sums it up: "Consumers are no longer simply buying products or services; they're looking for confidence." ([Euromonitor](https://www.euromonitor.com/newsroom/press-releases/november-2026/global-consumer-trends-2027))
 
-## AI is joining the shortlist, but it isn't trusted yet
+## Is AI joining the shortlist, and do shoppers trust it?
 
 Euromonitor's beauty survey says "Generative AI already sways 8% of colour cosmetics purchasers and 15% of Beauty Innovators." ([Euromonitor](https://www.euromonitor.com/voice-of-the-consumer-beauty-survey-2026-key-insights/report)) Its global trends research adds a caveat: "While 81% use GenAI to assist with daily activities, only 19% see it as a highly trustworthy source of shopping information." ([Euromonitor](https://www.euromonitor.com/newsroom/press-releases/november-2026/global-consumer-trends-2027))
 
@@ -50,11 +53,11 @@ Kearney partner Tatiana Perim adds a warning: "If everyone is optimizing for the
 
 To our eye, that's the tension for 2027. AI rewards plain facts. People still buy from brands they remember and trust. You need both.
 
-## The shop counter hasn't gone away
+## Do beauty shoppers still buy in store?
 
 McKinsey's Alexis Wolfer says "more than two-thirds of beauty sales globally, and about 50 percent in the US, still happen in store" ([McKinsey](https://www.mckinsey.com/industries/consumer-packaged-goods/our-insights/beauty-redefined)). We think that means your brand has to look and sound the same on a screen and on a shelf.
 
-## What this means for your brand
+## What does this mean for your brand?
 
 We think these are the practical moves for UK DTC beauty founders, and for AU, CA and SG brands too, although Kearney's survey covered the UK but not those three markets:
 
@@ -65,6 +68,8 @@ We think these are the practical moves for UK DTC beauty founders, and for AU, C
 5. **Stay distinct.** If AI tools help you write, check the result still sounds like you and not like every other brand.
 
 More from us: [beauty and skincare brands](/industries/beauty-skincare), [Branding](/services/branding), the [Authority Kit](/kits/authority-kit) and [how to get your brand cited by ChatGPT](/guides/how-to-get-your-brand-cited-by-chatgpt).
+
+Human Made Logic is a branding, search and performance marketing agency working with SMB founders and marketing teams across the UK, Australia, Canada and Singapore.
 
 Building a beauty brand for 2027? [Talk to us](/contact) for a short, no-pressure fit call.
 

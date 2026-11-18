@@ -11,6 +11,7 @@ import {
   wordCount,
 } from './lib/extract-full-article.mjs';
 import { extractBlogPostBody, parseBlogDeckMeta } from './lib/extract-blog-post-body.mjs';
+import { faqListsMatch } from './lib/blog-seo-fidelity.mjs';
 import { beautySkincareCopyOrder } from './lib/beauty-page-copy-order.mjs';
 import { blogHubCardTeaserIds, blogHubCopyOrder } from './lib/blog-hub-copy-order.mjs';
 
@@ -50,6 +51,88 @@ async function mainText(page) {
     const root = document.querySelector('article') ?? document.querySelector('main') ?? document.body;
     return (root?.innerText ?? document.body.innerText).replace(/\s+/g, ' ').trim();
   });
+}
+
+async function readBlogVisibleFaqs(page) {
+  return page.evaluate(() => {
+    const heading = document.getElementById('blog-faq-heading');
+    if (!heading?.parentElement) return [];
+    const section = heading.parentElement;
+    return [...section.querySelectorAll('h3')].map((h3) => ({
+      q: (h3.textContent ?? '').trim(),
+      a: (h3.nextElementSibling?.textContent ?? '').trim(),
+    }));
+  });
+}
+
+function checkBlogSeoManifestFields(route, post, renderedNorm, visibleFaqs) {
+  let pass = true;
+  const stripMdLinks = (text) =>
+    String(text)
+      .replace(/\[([^\]]+)\]\([^)]+\)/g, '$1')
+      .replace(/\*\*([^*]+)\*\*/g, '$1');
+  const keyPoints = (post.keyPoints ?? []).map((p) => String(p).trim()).filter(Boolean);
+  for (const point of keyPoints) {
+    const norm = normalizeForFidelity(stripMdLinks(point));
+    if (!renderedNorm.includes(norm)) {
+      console.error(`FAIL ${route} — key point not on page: ${point.slice(0, 80)}`);
+      pass = false;
+    }
+  }
+  if (keyPoints.length > 0) {
+    const kpHeading = normalizeForFidelity('Key points');
+    if (!renderedNorm.includes(kpHeading)) {
+      console.error(`FAIL ${route} — Key points heading missing`);
+      pass = false;
+    }
+  }
+
+  const faqs = (post.faqs ?? []).filter((item) => item.q?.trim() && item.a?.trim());
+  if (faqs.length > 0) {
+    const questionsHeading = normalizeForFidelity('Questions people ask');
+    if (!renderedNorm.includes(questionsHeading)) {
+      console.error(`FAIL ${route} — Questions people ask heading missing`);
+      pass = false;
+    }
+    const manifestFaqs = faqs.map((item) => ({ q: item.q.trim(), a: item.a.trim() }));
+    if (!faqListsMatch(visibleFaqs, manifestFaqs)) {
+      console.error(`FAIL ${route} — visible FAQs do not match manifest faqs`);
+      pass = false;
+    }
+  } else if (visibleFaqs.length > 0) {
+    console.error(`FAIL ${route} — page shows FAQs but manifest faqs is empty`);
+    pass = false;
+  }
+
+  const oneLiner = String(post.hmlOneLiner ?? '').trim();
+  if (oneLiner) {
+    const norm = normalizeForFidelity(oneLiner);
+    if (!renderedNorm.includes(norm)) {
+      console.error(`FAIL ${route} — hmlOneLiner not on page`);
+      pass = false;
+    }
+  }
+
+  const links = (post.relatedLinks ?? []).filter((l) => l.href?.trim() && l.label?.trim());
+  for (const link of links) {
+    const norm = normalizeForFidelity(link.label);
+    if (!renderedNorm.includes(norm)) {
+      console.error(`FAIL ${route} — related link label not on page: ${link.label}`);
+      pass = false;
+    }
+  }
+  if (links.length > 0) {
+    const relatedHeading = normalizeForFidelity('Related');
+    if (!renderedNorm.includes(relatedHeading)) {
+      console.error(`FAIL ${route} — Related heading missing`);
+      pass = false;
+    }
+  }
+
+  if (pass && (keyPoints.length || faqs.length || oneLiner || links.length)) {
+    console.log(`OK ${route} — blog SEO manifest fields present on page.`);
+  }
+  return pass;
 }
 
 async function renderedText(page, route) {
@@ -188,21 +271,46 @@ for (const name of sourceFiles) {
   }
 }
 
+const PUBLISHED_BLOG_DIR = path.join(ROOT, 'docs/copy/blog');
+
+function publishedBlogMarkdown(slug) {
+  const filePath = path.join(PUBLISHED_BLOG_DIR, `${slug}.md`);
+  if (!fs.existsSync(filePath)) return null;
+  const raw = fs.readFileSync(filePath, 'utf8');
+  if (!raw.startsWith('---\n')) return null;
+  const end = raw.indexOf('\n---\n', 4);
+  if (end < 0) return null;
+  return raw.slice(end + 5);
+}
+
 const manifest = JSON.parse(fs.readFileSync(BLOG_MANIFEST, 'utf8'));
 for (const post of manifest.posts.filter((p) => !p.draft)) {
   const route = `/blog/${post.slug}`;
-  const sourceRaw = sourceBySlug.get(post.slug);
-  if (!sourceRaw) {
-    console.error(`FAIL ${route} — no Pamala source in docs/copy/blog/source/`);
+  const publishedMd = publishedBlogMarkdown(post.slug);
+  const deckRaw = sourceBySlug.get(post.slug);
+  let fidelityBody;
+  if (publishedMd) {
+    let body = publishedMd.trim();
+    body = body.replace(/\]\(\/ai-visibility-check\)/g, `](${AI_CHECK_HREF})`);
+    body = body.replace(/\[([^\]]+)\]\(\/guides\/how-to-rank-in-google-ai-overviews\)/g, '$1');
+    fidelityBody = body;
+  } else if (deckRaw) {
+    fidelityBody = sourceBodyForFidelity(deckRaw);
+  } else {
+    console.error(`FAIL ${route} — no published markdown in docs/copy/blog/`);
     ok = false;
     continue;
   }
-  const sourceParagraphs = paragraphsFromArticleMarkdown(sourceBodyForFidelity(sourceRaw));
+  const sourceParagraphs = paragraphsFromArticleMarkdown(fidelityBody).filter(
+    (p) => !p.plain.startsWith('## '),
+  );
   const renderedNorm = await renderedText(page, route);
+  const visibleFaqs = await readBlogVisibleFaqs(page);
   ok = checkParagraphs(route, sourceParagraphs, renderedNorm) && ok;
+  ok = checkBlogSeoManifestFields(route, post, renderedNorm, visibleFaqs) && ok;
   report.push({
     slug: route,
-    wordCountSource: wordCount(sourceBodyForFidelity(sourceRaw)),
+    wordCountSource: wordCount(fidelityBody),
     wordCountRendered: wordCount(renderedNorm),
   });
 }
