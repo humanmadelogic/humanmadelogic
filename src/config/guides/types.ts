@@ -1,10 +1,3 @@
-import type { SeoCopyMap } from '@/lib/hml/seoCopyTable';
-
-export type GuideSection =
-  | { kind: 'pair'; headingKey: string; bodyKey: string }
-  | { kind: 'body'; bodyKey: string }
-  | { kind: 'prose'; html: string };
-
 export type GuideDefinition = {
   slug: string;
   copyFile: string;
@@ -17,6 +10,5 @@ export type GuideDefinition = {
   publishedAt?: string;
   draft?: boolean;
   about?: { name: string }[];
-  sections: GuideSection[];
   readingMinutes?: number;
 };

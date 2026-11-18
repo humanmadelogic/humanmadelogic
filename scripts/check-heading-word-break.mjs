@@ -1,9 +1,10 @@
 import { chromium } from 'playwright';
-import path from 'node:path';
 
 const base = process.env.BASE_URL ?? 'http://127.0.0.1:3000';
 const widths = [360, 768, 1024, 1280, 1440];
 const serviceSlugs = ['branding', 'seo-aeo-geo', 'performance-marketing', 'social-media'];
+const kitSlugs = ['launch-kit', 'authority-kit', 'local-domination-kit'];
+const guideSlugs = ['seo-vs-aeo-vs-geo', 'how-to-get-your-brand-cited-by-chatgpt'];
 
 const routes = [
   '/',
@@ -14,9 +15,14 @@ const routes = [
   '/legal',
   '/pricing',
   '/privacy',
-  '/services',
   '/terms',
+  '/services',
   ...serviceSlugs.map((slug) => `/services/${slug}`),
+  '/kits',
+  ...kitSlugs.map((slug) => `/kits/${slug}`),
+  '/guides',
+  ...guideSlugs.map((slug) => `/guides/${slug}`),
+  '/industries/beauty-skincare',
 ];
 
 /** Returns failures: { route, width, tag, word, snippet } */
@@ -57,6 +63,8 @@ const evaluateHeadings = () => {
   }
 
   function failuresForHeading(heading) {
+    if (heading.closest('.guide-article-prose')) return [];
+
     const style = window.getComputedStyle(heading);
     if (style.display === 'none' || style.visibility === 'hidden') return [];
     const rect = heading.getBoundingClientRect();
@@ -132,9 +140,54 @@ const evaluateHeadings = () => {
   return all;
 };
 
+const evaluateHeadingHierarchy = () => {
+  const headings = [...document.querySelectorAll('h1, h2, h3, h4, h5, h6')].filter(
+    (h) => !h.closest('.sr-only'),
+  );
+  const visible = headings.filter((h) => {
+    const style = window.getComputedStyle(h);
+    if (style.display === 'none' || style.visibility === 'hidden') return false;
+    const rect = h.getBoundingClientRect();
+    return rect.width > 0 || rect.height > 0;
+  });
+
+  const fails = [];
+  const h1s = visible.filter((h) => h.tagName === 'H1');
+  if (h1s.length !== 1) {
+    fails.push({ kind: 'h1-count', detail: `expected 1 visible h1, found ${h1s.length}` });
+  }
+
+  let prev = 0;
+  for (const h of visible) {
+    const level = Number.parseInt(h.tagName.slice(1), 10);
+    const label = (h.textContent || '').replace(/\s+/g, ' ').trim().slice(0, 72);
+    if (prev === 0) {
+      if (level !== 1) {
+        fails.push({ kind: 'first-heading', detail: `first visible heading is ${h.tagName}, expected H1 — "${label}"` });
+      }
+    } else if (level > prev + 1) {
+      fails.push({
+        kind: 'level-skip',
+        detail: `skipped from H${prev} to ${h.tagName} — "${label}"`,
+      });
+    }
+    prev = level;
+  }
+  return fails;
+};
+
+const hierarchyRoutes = new Set([
+  '/kits',
+  ...kitSlugs.map((slug) => `/kits/${slug}`),
+  '/guides',
+  ...guideSlugs.map((slug) => `/guides/${slug}`),
+  '/industries/beauty-skincare',
+]);
+
 const browser = await chromium.launch();
 const page = await browser.newPage();
 let totalFailures = 0;
+let hierarchyFailures = 0;
 
 for (const route of routes) {
   for (const width of widths) {
@@ -146,10 +199,22 @@ for (const route of routes) {
       continue;
     }
     await page.waitForTimeout(300);
+
+    if (hierarchyRoutes.has(route) && width === widths[0]) {
+      const hierarchyFails = await page.evaluate(evaluateHeadingHierarchy);
+      if (hierarchyFails.length > 0) {
+        hierarchyFailures += hierarchyFails.length;
+        console.log(`FAIL hierarchy ${route}`);
+        for (const f of hierarchyFails) {
+          console.log(`  ${f.kind}: ${f.detail}`);
+        }
+      }
+    }
+
     const fails = await page.evaluate(evaluateHeadings);
     if (fails.length > 0) {
       totalFailures += fails.length;
-      console.log(`FAIL ${route} @${width}px`);
+      console.log(`FAIL word-break ${route} @${width}px`);
       for (const f of fails) {
         console.log(`  ${f.tag}: "${f.word}" in "${f.snippet}"`);
       }
@@ -159,9 +224,16 @@ for (const route of routes) {
 
 await browser.close();
 
+if (hierarchyFailures > 0) {
+  console.error(`\n${hierarchyFailures} heading hierarchy issue(s) on kits/guides/industries routes.`);
+  process.exit(1);
+}
+
 if (totalFailures > 0) {
   console.error(`\n${totalFailures} mid-word heading break(s) found.`);
   process.exit(1);
 }
 
-console.log(`OK — no mid-word breaks in h1/h2/h3 on ${routes.length} routes × ${widths.length} widths.`);
+console.log(
+  `OK — heading hierarchy on ${hierarchyRoutes.size} routes; no mid-word breaks on ${routes.length} routes × ${widths.length} widths.`,
+);

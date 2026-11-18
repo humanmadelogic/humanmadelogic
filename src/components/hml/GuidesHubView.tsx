@@ -36,7 +36,7 @@ export function GuidesHubView() {
           <ul className="grid gap-8 md:grid-cols-2">
             {(['SEARCH', 'BRAND', 'ADS', 'LOCAL'] as const).map((key) => (
               <li key={key} className="rounded-[14px] border border-obsidian/10 p-6">
-                <h3 className="text-[18px] font-medium tracking-[-0.02em]">{copy[`GUIDES-PILLAR-${key}-NAME`]}</h3>
+                <h2 className="text-[18px] font-medium tracking-[-0.02em]">{copy[`GUIDES-PILLAR-${key}-NAME`]}</h2>
                 <p className="mt-2 text-[15px] leading-[1.6] text-slate">{copy[`GUIDES-PILLAR-${key}-INTRO`]}</p>
               </li>
             ))}
