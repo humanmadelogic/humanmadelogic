@@ -11,7 +11,16 @@ const staticRoutes = [
   { path: '/services', priority: 0.9, changeFrequency: 'weekly' as const },
   { path: '/kits', priority: 0.88, changeFrequency: 'monthly' as const },
   { path: '/guides', priority: 0.87, changeFrequency: 'weekly' as const },
-  { path: '/blog', priority: 0.82, changeFrequency: 'weekly' as const },
+  {
+    path: '/blog',
+    priority: 0.82,
+    changeFrequency: 'weekly' as const,
+    lastModified: (() => {
+      const posts = publishedBlogPosts();
+      if (!posts.length) return undefined;
+      return posts.reduce((latest, p) => (p.updated > latest ? p.updated : latest), posts[0].updated);
+    })(),
+  },
   { path: '/industries/beauty-skincare', priority: 0.84, changeFrequency: 'monthly' as const },
   { path: '/about', priority: 0.85, changeFrequency: 'monthly' as const },
   { path: '/contact', priority: 0.8, changeFrequency: 'monthly' as const },

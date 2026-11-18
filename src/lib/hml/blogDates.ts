@@ -47,9 +47,18 @@ export function blogInstantFromDate(isoDate: string): Date {
   return new Date(blogIsoDateTime(isoDate));
 }
 
-/** RFC 822 pubDate for RSS. */
+const RFC_WEEKDAY = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'] as const;
+
+/** RFC 822 pubDate at the fixed blog publish clock (15:00 +0530), not locale-dependent. */
 export function blogRssPubDate(isoDate: string): string {
-  return blogInstantFromDate(isoDate).toUTCString();
+  const [y, m, d] = isoDate.split('-').map((part) => Number.parseInt(part, 10));
+  if (!y || !m || !d || m < 1 || m > 12) {
+    return blogInstantFromDate(isoDate).toUTCString();
+  }
+  const instant = blogInstantFromDate(isoDate);
+  const wd = RFC_WEEKDAY[instant.getUTCDay()];
+  const mon = MONTH_SHORT[m - 1];
+  return `${wd}, ${d} ${mon} ${y} ${BLOG_PUBLISH_TIME} +0530`;
 }
 
 /** @deprecated Prefer blogPublishedLine / blogUpdatedLine */

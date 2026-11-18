@@ -20,12 +20,11 @@ export function BlogHubView() {
           <h1 className="text-[10vw] leading-[0.95] tracking-[-0.05em] sm:text-[8vw] lg:text-[56px]">
             {copy['BLOG-H1']}
           </h1>
-          <p className="mt-8 max-w-[62ch] text-[17px] leading-[1.65] text-slate">
-            <CopyRichText
-              text={copy['BLOG-INTRO']}
-              phraseLinks={[{ phrase: 'Guides', href: '/guides' }]}
-            />
-          </p>
+          <CopyRichText
+            className="mt-8 max-w-[62ch] text-[17px] leading-[1.65] text-slate"
+            text={copy['BLOG-INTRO']}
+            phraseLinks={[{ phrase: 'Guides', href: '/guides' }]}
+          />
         </div>
       </section>
 
