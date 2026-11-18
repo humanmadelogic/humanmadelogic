@@ -26,6 +26,8 @@ export const agency = {
     'Working with SMB founders and marketing teams across the UK, Australia, Canada and Singapore.',
   nav: [
     { label: 'Services', href: '/services' },
+    { label: 'Guides', href: '/guides' },
+    { label: 'Kits', href: '/kits' },
     { label: 'About', href: '/about' },
     { label: 'Contact', href: '/contact' },
   ] as NavLink[],
@@ -212,6 +214,10 @@ export const contact = {
     'SEO/AEO/GEO',
     'Performance marketing',
     'Social media',
+    'Launch Kit',
+    'Authority Kit',
+    'Local Domination Kit',
+    'Free AI visibility check',
     'Something else',
   ],
   details: [
