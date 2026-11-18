@@ -14,7 +14,7 @@ Writer: Lila. For: Pamala (QA). Drafted Wed 18 Nov 2026. Page: /blog (newest fir
 | BLOG-INDEX-CARD-1-TEASER | Card 1 > Teaser | NEW | Google's November core update landed two days before Gemini 4 Hydrogen. How to read the overlap in your data without panicking. | 127 / 140 | |
 | BLOG-INDEX-CARD-1-DATE | Card 1 > Date | NEW | [TBC] | n/a | |
 | BLOG-INDEX-CARD-2-TITLE | Card 2 > Title (links to /blog/chatgpt-businesses-business-hub) | NEW | You can now claim a ChatGPT business profile: what it means for small brands | 76 | From post-02 file |
-| BLOG-INDEX-CARD-2-TEASER | Card 2 > Teaser | NEW | OpenAI now lets eligible businesses claim a ChatGPT profile and see mentions and clicks. What's live, what's US only and what to do first. | 138 / 140 | |
+| BLOG-INDEX-CARD-2-TEASER | Card 2 > Teaser | NEW | Eligible businesses can now claim a ChatGPT profile and see mentions and clicks. What's live outside the US and what to do first. | 129 / 140 | Pamala QA: the teaser set in post 2's QA |
 | BLOG-INDEX-CARD-2-DATE | Card 2 > Date | NEW | [TBC] | n/a | |
 | BLOG-INDEX-CARD-3-TITLE | Card 3 > Title (links to /blog/google-ai-mode-ads-australia-canada-singapore-uk) | NEW | Google AI Mode ads are scaling in Australia, Canada and Singapore, with the UK planned | 86 | From post-03 file |
 | BLOG-INDEX-CARD-3-TEASER | Card 3 > Teaser | NEW | Google is scaling ads in AI Mode in Australia, Canada and Singapore, with the UK planned for Q4 2026. What to check before you spend. | 133 / 140 | UK is planned, never live |

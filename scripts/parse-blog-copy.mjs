@@ -83,7 +83,13 @@ function estimateReadingMinutes(markdown) {
 
 function isPostFile(name) {
   if (!name.endsWith('.md')) return false;
-  if (name === 'blog-hub.md' || name === 'README.md' || name === 'BLOG-TOPICS.md' || name === 'ALT-TEXT.md')
+  if (
+    name === 'blog-hub.md' ||
+    name === 'blog-index.md' ||
+    name === 'README.md' ||
+    name === 'BLOG-TOPICS.md' ||
+    name === 'ALT-TEXT.md'
+  )
     return false;
   return true;
 }
@@ -116,6 +122,13 @@ function main() {
     const hubMap = parseCopyTable(fs.readFileSync(hubPath, 'utf8'));
     fs.writeFileSync(path.join(OUT_COPY, 'blog-hub.json'), `${JSON.stringify(hubMap, null, 2)}\n`);
     console.log(`[parse:blog] blog-hub.json — ${Object.keys(hubMap).length} ids`);
+  }
+
+  const indexPath = path.join(BLOG_DIR, 'blog-index.md');
+  if (fs.existsSync(indexPath)) {
+    const indexMap = parseCopyTable(fs.readFileSync(indexPath, 'utf8'));
+    fs.writeFileSync(path.join(OUT_COPY, 'blog-index.json'), `${JSON.stringify(indexMap, null, 2)}\n`);
+    console.log(`[parse:blog] blog-index.json — ${Object.keys(indexMap).length} ids`);
   }
 
   const posts = [];

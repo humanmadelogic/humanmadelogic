@@ -12,7 +12,7 @@ import {
 } from './lib/extract-full-article.mjs';
 import { extractBlogPostBody, parseBlogDeckMeta } from './lib/extract-blog-post-body.mjs';
 import { beautySkincareCopyOrder } from './lib/beauty-page-copy-order.mjs';
-import { blogHubCopyOrder } from './lib/blog-hub-copy-order.mjs';
+import { blogHubCardTeaserIds, blogHubCopyOrder } from './lib/blog-hub-copy-order.mjs';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.join(__dirname, '..');
@@ -152,14 +152,22 @@ function checkHubRows(label, copy, renderedNorm, ids) {
 }
 
 const blogHubCopy = JSON.parse(fs.readFileSync(path.join(COPY_DIR, 'blog-hub.json'), 'utf8'));
+const blogIndexPath = path.join(COPY_DIR, 'blog-index.json');
+const blogIndexCopy = fs.existsSync(blogIndexPath)
+  ? JSON.parse(fs.readFileSync(blogIndexPath, 'utf8'))
+  : {};
 const blogHubRendered = await renderedText(page, BLOG_PATH);
 const manifestPreview = JSON.parse(fs.readFileSync(BLOG_MANIFEST, 'utf8'));
 const hubRowIds =
   manifestPreview.publishedCount > 0
-    ? blogHubCopyOrder.filter((id) => !id.startsWith('BLOG-EMPTY'))
+    ? [
+        ...blogHubCopyOrder.filter((id) => !id.startsWith('BLOG-EMPTY')),
+        ...blogHubCardTeaserIds,
+      ]
     : blogHubCopyOrder;
-const blogHubSourceWords = wordCount(hubRowIds.map((id) => blogHubCopy[id] ?? '').join(' '));
-ok = checkHubRows(BLOG_PATH, blogHubCopy, blogHubRendered, hubRowIds) && ok;
+const hubCopyForCheck = { ...blogHubCopy, ...blogIndexCopy };
+const blogHubSourceWords = wordCount(hubRowIds.map((id) => hubCopyForCheck[id] ?? '').join(' '));
+ok = checkHubRows(BLOG_PATH, hubCopyForCheck, blogHubRendered, hubRowIds) && ok;
 report.push({
   slug: BLOG_PATH,
   wordCountSource: blogHubSourceWords,

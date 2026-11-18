@@ -2,6 +2,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { publishedBlogPosts } from '@/config/blog';
 import { blogPublishedLine } from '@/lib/hml/blogDates';
+import { blogHubCardTeaser } from '@/lib/hml/blogHubTeasers';
 import { CopyRichText } from '@/lib/hml/copyRichText';
 import { loadCopyMap } from '@/lib/hml/seoCopyTable';
 import { Breadcrumb } from './Breadcrumb';
@@ -59,12 +60,12 @@ export function BlogHubView() {
                     </Link>
                   ) : null}
                   <div className="flex flex-col gap-2">
-                    <h3 className="text-[22px] tracking-[-0.03em]">
+                    <h2 className="text-[22px] tracking-[-0.03em]">
                       <Link href={`/blog/${post.slug}`} className="hover:underline">
                         {post.title}
                       </Link>
-                    </h3>
-                    <p className="text-[15px] leading-[1.6] text-slate">{post.excerpt}</p>
+                    </h2>
+                    <p className="text-[15px] leading-[1.6] text-slate">{blogHubCardTeaser(post.slug)}</p>
                     <p className="text-[13px] text-slate">
                       {copy['BLOG-BYLINE']} · {blogPublishedLine(post.date)} · {post.readingMinutes} min read
                     </p>
