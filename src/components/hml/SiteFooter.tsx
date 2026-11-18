@@ -1,5 +1,6 @@
 import Image from 'next/image';
 import { agency } from '@/config/agency';
+import { HmlBrandLogo } from './HmlBrandLogo';
 
 const FOOTER_LINK =
   'inline-flex min-h-[44px] items-center text-[16px] text-paper/85 transition-colors hover:text-paper';
@@ -24,6 +25,13 @@ export function SiteFooter() {
       <div className="mx-auto max-w-editorial px-5 sm:px-8 lg:px-12">
         <div className="grid gap-12 border-t border-paper/12 pt-14 lg:grid-cols-12 lg:gap-8">
           <div className="lg:col-span-6">
+            <a
+              href="/"
+              aria-label="Human Made Logic"
+              className="mb-8 inline-flex min-h-[44px] items-center rounded-sm py-[11px] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-paper"
+            >
+              <HmlBrandLogo variant="mark" tone="reversed" height={32} alt="" />
+            </a>
             <p className="font-grotesk text-[9vw] leading-[0.94] tracking-[-0.05em] sm:text-[6vw] lg:text-[4vw] xl:text-[58px]">
               {agency.name}
             </p>
