@@ -20,7 +20,7 @@ function BrandGrid() {
 
   const onMove = useCallback(
     (event: React.PointerEvent) => {
-      if (!fine || reduced) return;
+      if (!fine || reduced || event.pointerType !== 'mouse') return;
       const rect = wrap.current?.getBoundingClientRect();
       if (!rect) return;
       pointer.current = {
@@ -70,8 +70,10 @@ function BrandGrid() {
   return (
     <div
       ref={wrap}
-      className="relative aspect-square w-full max-w-[min(92vw,520px)] touch-none select-none"
-      onPointerMove={onMove}
+      className={`relative aspect-square w-full max-w-[min(92vw,520px)] select-none ${
+        fine && !reduced ? 'touch-none' : 'touch-pan-y'
+      }`}
+      onPointerMove={fine && !reduced ? onMove : undefined}
       aria-hidden
     >
       <div
