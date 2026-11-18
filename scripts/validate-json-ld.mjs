@@ -79,6 +79,11 @@ const ROUTES = [
     file: path.join('industries', 'beauty-skincare.html'),
     expect: ['Organization', 'WebSite', 'WebPage', 'BreadcrumbList', 'FAQPage'],
   },
+  {
+    route: '/ai-visibility-check',
+    file: path.join('ai-visibility-check.html'),
+    expect: ['Organization', 'WebSite', 'Service', 'Offer', 'WebPage', 'BreadcrumbList', 'FAQPage'],
+  },
 ];
 
 const blogManifestPath = path.join(ROOT, 'src/config/blog/manifest.json');

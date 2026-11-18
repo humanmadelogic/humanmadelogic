@@ -10,6 +10,7 @@ const SEGMENT_HREFS: Record<string, string> = {
   'SEO vs AEO vs GEO': '/guides/seo-vs-aeo-vs-geo',
   'Get cited by ChatGPT': '/guides/how-to-get-your-brand-cited-by-chatgpt',
   'Beauty and skincare': '/industries/beauty-skincare',
+  'Free AI visibility check': '/ai-visibility-check',
 };
 
 export function breadcrumbItemsFromCopy(trail: string): BreadcrumbItem[] {

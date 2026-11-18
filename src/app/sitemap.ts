@@ -24,6 +24,7 @@ const staticRoutes = [
   { path: '/industries/beauty-skincare', priority: 0.84, changeFrequency: 'monthly' as const },
   { path: '/about', priority: 0.85, changeFrequency: 'monthly' as const },
   { path: '/contact', priority: 0.8, changeFrequency: 'monthly' as const },
+  { path: '/ai-visibility-check', priority: 0.83, changeFrequency: 'monthly' as const },
   { path: '/privacy', priority: 0.4, changeFrequency: 'yearly' as const },
   { path: '/cookies', priority: 0.4, changeFrequency: 'yearly' as const },
   { path: '/terms', priority: 0.4, changeFrequency: 'yearly' as const },

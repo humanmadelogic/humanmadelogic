@@ -1,5 +1,7 @@
 import { mkdir, readFile, writeFile } from 'node:fs/promises';
 import path from 'node:path';
+import type { AiVisibilityCheckFields } from './aiVisibilityCheck';
+import { buildAvcMessage } from './aiVisibilityCheck';
 import type { ContactFields } from './contact';
 
 export type Inquiry = ContactFields & {
@@ -7,7 +9,8 @@ export type Inquiry = ContactFields & {
   createdAt: string;
   emailed: boolean;
   read: boolean;
-  source: 'contact' | 'mcp';
+  source: 'contact' | 'mcp' | 'ai-visibility-check';
+  servicesFollowUpOptIn?: boolean;
 };
 
 /**
@@ -62,9 +65,29 @@ export function listInquiries(): Promise<Inquiry[]> {
   });
 }
 
+export function saveAiVisibilityCheckInquiry(
+  fields: AiVisibilityCheckFields,
+  extras: Pick<Inquiry, 'emailed'>,
+): Promise<Inquiry> {
+  return saveInquiry(
+    {
+      name: fields.name,
+      email: fields.email,
+      company: fields.brand,
+      topic: fields.topic,
+      message: buildAvcMessage(fields),
+    },
+    {
+      emailed: extras.emailed,
+      source: 'ai-visibility-check',
+      servicesFollowUpOptIn: fields.servicesFollowUpOptIn,
+    },
+  );
+}
+
 export function saveInquiry(
   fields: ContactFields,
-  extras: Pick<Inquiry, 'emailed' | 'source'>,
+  extras: Pick<Inquiry, 'emailed' | 'source'> & { servicesFollowUpOptIn?: boolean },
 ): Promise<Inquiry> {
   return serial(async () => {
     const items = await readAll();
@@ -79,6 +102,9 @@ export function saveInquiry(
       emailed: extras.emailed,
       read: false,
       source: extras.source,
+      ...(extras.servicesFollowUpOptIn !== undefined
+        ? { servicesFollowUpOptIn: extras.servicesFollowUpOptIn }
+        : {}),
     };
     items.push(inquiry);
     await writeAll(items);

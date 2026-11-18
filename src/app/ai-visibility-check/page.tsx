@@ -1,34 +1,42 @@
 import type { Metadata } from 'next';
 import { HmlPageShell } from '@/components/hml/HmlPageShell';
-import { homePage } from '@/config/agency';
+import { AiVisibilityCheckView } from '@/components/hml/AiVisibilityCheckView';
+import { ServiceFaqStructuredData } from '@/components/hml/ServiceFaqStructuredData';
+import { JsonLd } from '@/components/hml/JsonLd';
+import { siteConfig } from '@/config/site';
+import { avcFormEnabled } from '@/lib/aiVisibilityCheck';
+import { faqItemsFromCopy, pageTitleFromCopy } from '@/lib/hml/seoCopyMeta';
+import { loadCopyMap } from '@/lib/hml/seoCopyTable';
+import { aiVisibilityCheckPageGraph } from '@/lib/schema';
 import { buildMetadata } from '@/lib/seo';
 
+const copy = loadCopyMap('ai-visibility-check.json');
+const pagePath = '/ai-visibility-check';
+const ogImage = '/og/og-ai-visibility-check.png';
+const ogImageUrl = new URL(ogImage, siteConfig.url).toString();
+
 export const metadata: Metadata = buildMetadata({
-  title: 'AI visibility check',
-  description: 'Placeholder preview page for the free AI visibility check offer.',
-  path: '/ai-visibility-check',
-  noindex: true,
-  ogImage: homePage.meta.ogImage,
+  title: pageTitleFromCopy(copy['AVC-META-TITLE']),
+  description: copy['AVC-META-DESC'],
+  path: pagePath,
+  ogImage,
 });
 
-export default function AiVisibilityCheckPlaceholderPage() {
+export default function AiVisibilityCheckPage() {
+  const faqItems = faqItemsFromCopy(copy, { prefix: 'AVC', max: 10 });
+
   return (
     <HmlPageShell>
-      <main id="main" className="mx-auto max-w-editorial px-5 py-28 sm:px-8 sm:py-32 lg:px-12">
-        <p
-          className="mb-8 border border-obsidian/20 bg-signalYellow/15 px-4 py-3 text-[14px] font-medium text-obsidian"
-          role="status"
-        >
-          [PLACEHOLDER: copy and intake form coming, pending approval]
-        </p>
-        <h1 className="text-[clamp(2rem,6vw,3.5rem)] leading-[0.95] tracking-[-0.04em] text-obsidian">
-          AI visibility check
-        </h1>
-        <p className="mt-6 max-w-[52ch] text-[17px] leading-[1.65] text-slate">
-          This route is reserved for the free AI visibility check. Until copy and the intake form are approved,
-          use the contact form with the Free AI visibility check topic selected.
-        </p>
-      </main>
+      <JsonLd
+        data={aiVisibilityCheckPageGraph({
+          name: copy['AVC-META-TITLE'],
+          description: copy['AVC-WHAT-A'],
+          webDescription: copy['AVC-META-DESC'],
+          imageUrl: ogImageUrl,
+        })}
+      />
+      {faqItems.length > 0 ? <ServiceFaqStructuredData items={faqItems} path={pagePath} /> : null}
+      <AiVisibilityCheckView formEnabled={avcFormEnabled()} />
     </HmlPageShell>
   );
 }

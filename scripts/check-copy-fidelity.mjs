@@ -12,6 +12,7 @@ import {
 } from './lib/extract-full-article.mjs';
 import { extractBlogPostBody, parseBlogDeckMeta } from './lib/extract-blog-post-body.mjs';
 import { faqListsMatch } from './lib/blog-seo-fidelity.mjs';
+import { aiVisibilityCheckCopyOrder } from './lib/ai-visibility-page-copy-order.mjs';
 import { beautySkincareCopyOrder } from './lib/beauty-page-copy-order.mjs';
 import { blogHubCardTeaserIds, blogHubCopyOrder } from './lib/blog-hub-copy-order.mjs';
 
@@ -31,6 +32,7 @@ const GUIDE_PAGES = [
 ];
 
 const BEAUTY_PATH = '/industries/beauty-skincare';
+const AVC_PATH = '/ai-visibility-check';
 const BLOG_PATH = '/blog';
 const BLOG_MANIFEST = path.join(ROOT, 'src/config/blog/manifest.json');
 const BLOG_SOURCE_DIR = path.join(ROOT, 'docs/copy/blog/source');
@@ -212,6 +214,16 @@ report.push({
   slug: BEAUTY_PATH,
   wordCountSource: beautySourceWords,
   wordCountRendered: wordCount(beautyRendered),
+});
+
+const avcCopy = JSON.parse(fs.readFileSync(path.join(COPY_DIR, 'ai-visibility-check.json'), 'utf8'));
+const avcRendered = await renderedText(page, AVC_PATH);
+const avcSourceWords = wordCount(aiVisibilityCheckCopyOrder.map((id) => avcCopy[id] ?? '').join(' '));
+ok = checkHubRows(AVC_PATH, avcCopy, avcRendered, aiVisibilityCheckCopyOrder) && ok;
+report.push({
+  slug: AVC_PATH,
+  wordCountSource: avcSourceWords,
+  wordCountRendered: wordCount(avcRendered),
 });
 
 function checkHubRows(label, copy, renderedNorm, ids) {

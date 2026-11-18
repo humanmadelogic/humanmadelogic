@@ -87,6 +87,10 @@ function buildBody(inquiry: InquiryPayload) {
     ['Source', inquiry.source],
   ];
 
+  if (inquiry.servicesFollowUpOptIn !== undefined) {
+    rows.push(['Services follow-up opt-in', inquiry.servicesFollowUpOptIn ? 'Yes' : 'No']);
+  }
+
   const text = [...rows.map(([label, value]) => `${label}: ${value}`), '', inquiry.message].join(
     '\n',
   );

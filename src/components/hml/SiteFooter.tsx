@@ -68,6 +68,11 @@ export function SiteFooter() {
                   Social media
                 </a>
               </li>
+              <li>
+                <a href="/ai-visibility-check" className={FOOTER_LINK}>
+                  Free AI visibility check
+                </a>
+              </li>
             </ul>
           </nav>
 
