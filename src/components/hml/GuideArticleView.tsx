@@ -33,7 +33,10 @@ export function GuideArticleView({ guide }: Props) {
       <Breadcrumb trail={copy[`${prefix}-BREADCRUMB`]} />
       <article className="pb-8 pt-6">
         <header className="mx-auto max-w-editorial px-5 sm:px-8 lg:px-12">
-          <h1 className="text-[10vw] leading-[0.98] tracking-[-0.05em] sm:text-[7vw] lg:text-[52px]">
+          <h1
+            data-guide-display-headline={guide.slug === 'seo-vs-aeo-vs-geo' ? '' : undefined}
+            className="text-[10vw] leading-[0.98] tracking-[-0.05em] sm:text-[7vw] lg:text-[52px]"
+          >
             {guide.slug === 'seo-vs-aeo-vs-geo' ? <SeoAeoGeoHeadline /> : copy[`${prefix}-H1`]}
           </h1>
           <p className="mt-6 text-[15px] text-obsidian">

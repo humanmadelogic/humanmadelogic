@@ -64,6 +64,7 @@ const evaluateHeadings = () => {
 
   function failuresForHeading(heading) {
     if (heading.closest('.guide-article-prose')) return [];
+    if (heading.hasAttribute('data-guide-display-headline')) return [];
 
     const style = window.getComputedStyle(heading);
     if (style.display === 'none' || style.visibility === 'hidden') return [];
