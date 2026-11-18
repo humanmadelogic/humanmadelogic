@@ -34,7 +34,7 @@ export function BlogPostStructuredData({ post }: { post: BlogPostRecord }) {
         breadcrumbTitle: post.title,
         datePublished: blogIsoDateTime(post.date),
         dateModified: blogIsoDateTime(post.updated),
-        lastReviewed: post.updated,
+        lastReviewed: blogIsoDateTime(post.updated),
       })}
     />
   );

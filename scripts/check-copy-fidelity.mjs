@@ -33,7 +33,7 @@ const BEAUTY_PATH = '/industries/beauty-skincare';
 const BLOG_PATH = '/blog';
 const BLOG_MANIFEST = path.join(ROOT, 'src/config/blog/manifest.json');
 const BLOG_SOURCE_DIR = path.join(ROOT, 'docs/copy/blog/source');
-const AI_CHECK_HREF = `/contact?topic=${encodeURIComponent('Free AI visibility check')}`;
+const AI_CHECK_HREF = '/contact?topic=Free%20AI%20visibility%20check';
 
 function sourceBodyForFidelity(raw) {
   let body = extractBlogPostBody(raw);

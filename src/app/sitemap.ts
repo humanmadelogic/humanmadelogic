@@ -1,5 +1,6 @@
 import type { MetadataRoute } from 'next';
 import { publishedBlogPosts } from '@/config/blog';
+import { blogInstantFromDate } from '@/lib/hml/blogDates';
 import { kitSlugs } from '@/config/kits';
 import { indexableGuides } from '@/config/guides';
 import { serviceSlugs } from '@/config/services';
@@ -48,8 +49,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
   return staticRoutes.map((route) => ({
     url: new URL(route.path, siteConfig.url).toString(),
     lastModified:
-      'lastModified' in route && route.lastModified
-        ? new Date(`${route.lastModified}T12:00:00Z`)
+      'lastModified' in route && typeof route.lastModified === 'string'
+        ? blogInstantFromDate(route.lastModified)
         : now,
     changeFrequency: route.changeFrequency,
     priority: route.priority,

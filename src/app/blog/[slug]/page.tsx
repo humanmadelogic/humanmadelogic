@@ -4,6 +4,7 @@ import { BlogPostStructuredData } from '@/components/hml/BlogStructuredData';
 import { BlogPostView } from '@/components/hml/BlogPostView';
 import { HmlPageShell } from '@/components/hml/HmlPageShell';
 import { blogPostBySlug, publishedBlogPosts } from '@/config/blog';
+import { blogPostMetadata } from '@/lib/hml/blogPostMetadata';
 import { buildMetadata } from '@/lib/seo';
 
 type PageProps = { params: { slug: string } };
@@ -17,15 +18,7 @@ export function generateMetadata({ params }: PageProps): Metadata {
   if (!post) {
     return buildMetadata({ title: 'Post not found', description: '', path: `/blog/${params.slug}`, noindex: true });
   }
-  return buildMetadata({
-    title: post.metaTitle || post.title,
-    description: post.metaDescription,
-    path: `/blog/${post.slug}`,
-    type: 'article',
-    publishedTime: post.date,
-    modifiedTime: post.updated,
-    ogImage: post.ogImage || `/og/blog/${post.slug}.png`,
-  });
+  return blogPostMetadata(post);
 }
 
 export default function BlogPostPage({ params }: PageProps) {

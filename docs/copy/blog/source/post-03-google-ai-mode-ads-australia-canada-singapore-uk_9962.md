@@ -62,7 +62,7 @@ To our eye, that is the real story. The sponsored card and the organic link now 
 
 ## A note on timing
 
-This is landing in a busy month. Search Engine Journal reports that "Google started rolling out the November 2026 core update on Nov. 10" and, quoting Google's Search Status Dashboard, that it "may take up to 2 weeks to complete" ([Search Engine Journal, 14 Nov 2026](https://www.searchenginejournal.com/seo-pulse-core-update-chatgpt-business-hub-ai-modes-new-model/597135/)). If your search traffic moves this month, don't pin it on AI Mode ads alone.
+This is landing in a busy month. Google's November 2026 core update started rolling out on 10 November, and Google's Search Status Dashboard says it "may take up to 2 weeks to complete" ([Google Search Status Dashboard](https://status.search.google.com/incidents/WLxcJyC6jMWMfryxsKMc)). If your search traffic moves this month, don't pin it on AI Mode ads alone.
 
 For UK context, search is already where most digital ad money goes. IAB UK's September 2026 study says: "Search remains the UK's largest digital advertising channel by some distance, reaching £9.1bn and accounting for 43% of the market." Those are first half 2026 figures for all search, not AI Mode ([IAB UK, 29 Sep 2026](https://www.iabuk.com/news-article/six-months-uk-digital-adspend-now-exceeds-whole-2020)). For the global picture, WARC's latest forecast says: "Global ad spend is forecast to grow 11.9% to $1.34trn in 2026". That is a global forecast, not a UK or AI Mode figure ([WARC, 7 Oct 2026](https://www.warc.com/en/article/global-ad-spend-outlook-q-3-2026-eb1a9505c8d34d1fb3833cf61f675165)).
 
@@ -84,7 +84,7 @@ Want to know what AI says about your brand? [Get a free AI visibility check](/ai
 
 - Google (The Keyword), Shashi Thakur, "Ads in AI Mode expand to new markets", 28 Oct 2026: https://blog.google/products/ads-commerce/ads-in-ai-mode-global/
 - Google (The Keyword), Hema Budaraju, "More ways to connect with the web from Search", 15 Oct 2026: https://blog.google/products-and-platforms/products/search/updates-ai-mode-overviews-explore-web/
-- Search Engine Journal, Matt G. Southern, "Core Update, ChatGPT Business Hub & AI Mode's New Model: SEO Pulse", 14 Nov 2026: https://www.searchenginejournal.com/seo-pulse-core-update-chatgpt-business-hub-ai-modes-new-model/597135/
+- Google Search Status Dashboard, "November 2026 core update", started 10 Nov 2026, opened 18 Nov 2026: https://status.search.google.com/incidents/WLxcJyC6jMWMfryxsKMc
 - Google Ads Help, "About ads in AI-powered experiences in Google Search", undated, opened 18 Nov 2026: https://support.google.com/google-ads/answer/18826097
 - WARC, "Global Ad Spend Forecast: Q3 2026" (free summary only), 7 Oct 2026: https://www.warc.com/en/article/global-ad-spend-outlook-q-3-2026-eb1a9505c8d34d1fb3833cf61f675165
 - IAB UK, "Six Months of UK Digital Adspend Now Exceeds the Whole of 2020", 29 Sep 2026: https://www.iabuk.com/news-article/six-months-uk-digital-adspend-now-exceeds-whole-2020
@@ -120,3 +120,5 @@ All seven cited pages opened with WebFetch on 18 Nov 2026 (about 3:00 to 3:15 PM
 | Q-11 | Status "DRAFT for Pamala QA"; "Flags for Pamala" | Status READY FOR PAWAN; flags resolved into Notes for Jeff | Brief |
 | Q-12 | n/a | Checked, no change: byline, Reviewed by, Published TBC, bio, CTA button and line, one H1, no em or en dashes, no Oxford commas outside quotes, no filler, British spelling outside quotes, US figures labelled US, IAB UK figures context only and dated, no budget or ROAS figures, no HML clients or results, image brief (alt 114/125, OG 1200x630) | Passes |
 | Q-13 | Brand point 5 date unlinked | Linked to Google Search Status Dashboard | Match post 1 primary source (Pamala) |
+
+| P-SEO-2 | Core update timing cited via Search Engine Journal | Cites Google's Search Status Dashboard directly; SEJ removed from Sources | SS SEO pass P1, primary source, approved by Pamala 18 Nov |

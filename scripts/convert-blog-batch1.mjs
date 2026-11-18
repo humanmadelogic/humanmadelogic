@@ -12,7 +12,7 @@ const ROOT = path.join(__dirname, '..');
 const SOURCE_DIR = path.join(ROOT, 'docs/copy/blog/source');
 const BLOG_DIR = path.join(ROOT, 'docs/copy/blog');
 
-const AI_CHECK_HREF = `/contact?topic=${encodeURIComponent('Free AI visibility check')}`;
+const AI_CHECK_HREF = '/contact?topic=Free%20AI%20visibility%20check';
 
 const POST_ALTS = {
   'google-november-core-update-gemini-4-hydrogen':
@@ -25,14 +25,6 @@ const POST_ALTS = {
     'A five-star review card with one star peeling off, beside a price tag with a hidden fee folded underneath',
   'consumer-trends-2027-trust-proof-outcomes':
     'Unbranded skincare dropper, jar, pouch and a candle in a bright flat-lay, with a small bowl and a closed report with a yellow tab',
-};
-
-const RELATED = {
-  'google-ai-mode-ads-australia-canada-singapore-uk': [
-    { href: '/services/performance-marketing', label: 'Performance marketing' },
-    { href: '/services/seo-aeo-geo', label: 'SEO, AEO and GEO' },
-    { href: '/kits/local-domination-kit', label: 'Local Domination Kit' },
-  ],
 };
 
 function swapCta(markdown) {
@@ -83,10 +75,7 @@ function convertFile(name) {
     raw.match(/\| BLOG-\d+-HERO-ALT \|[^\n]+\| NEW \| ([^|]+) \|/)?.[1]?.trim() ||
     meta.title;
 
-  const out = buildFrontmatter(meta, {
-    heroImageAlt,
-    relatedLinks: RELATED[meta.slug],
-  }) + body + '\n';
+  const out = buildFrontmatter(meta, { heroImageAlt }) + body + '\n';
 
   const outPath = path.join(BLOG_DIR, `${meta.slug}.md`);
   fs.writeFileSync(outPath, out);

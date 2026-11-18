@@ -1,10 +1,7 @@
 import { publishedBlogPosts } from '@/config/blog';
 import { siteConfig } from '@/config/site';
+import { blogRssPubDate } from '@/lib/hml/blogDates';
 import { loadCopyMap } from '@/lib/hml/seoCopyTable';
-
-function rssPubDate(isoDate: string): string {
-  return new Date(`${isoDate}T12:00:00Z`).toUTCString();
-}
 
 /** RSS 2.0 channel document (empty `<channel>` items while there are no published posts). */
 export function buildBlogRssXml(): string {
@@ -18,7 +15,7 @@ export function buildBlogRssXml(): string {
       <link>${url}</link>
       <guid isPermaLink="true">${url}</guid>
       <description><![CDATA[${post.excerpt}]]></description>
-      <pubDate>${rssPubDate(post.date)}</pubDate>
+      <pubDate>${blogRssPubDate(post.date)}</pubDate>
     </item>`;
     })
     .join('\n');

@@ -4,7 +4,6 @@ import type { BlogPostRecord } from '@/config/blog';
 import { loadBlogArticle } from '@/lib/hml/blogFullArticle';
 import { blogPublishedLine, blogUpdatedLine } from '@/lib/hml/blogDates';
 import { BlogAuthorNote } from './BlogAuthorNote';
-import { BlogRelatedLinks } from './BlogRelatedLinks';
 import { loadCopyMap } from '@/lib/hml/seoCopyTable';
 import { Breadcrumb } from './Breadcrumb';
 import { GuideArticleProse } from './GuideArticleProse';
@@ -56,7 +55,6 @@ export function BlogPostView({ post }: Props) {
 
         <div className="mx-auto mt-12 min-w-0 max-w-full px-5 sm:max-w-editorial sm:px-8 lg:px-12">
           <GuideArticleProse html={article.html} />
-          <BlogRelatedLinks links={post.relatedLinks ?? []} />
         </div>
 
         <footer className="mx-auto mt-14 max-w-editorial border-t border-obsidian/10 px-5 pt-10 text-[15px] leading-[1.65] text-slate sm:px-8 lg:px-12">

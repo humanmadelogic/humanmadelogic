@@ -9,6 +9,6 @@
 | BLOG-BREADCRUMB | Breadcrumb | NEW | Home > Blog | 11 | |
 | BLOG-BYLINE | Post template > Byline | NEW | Rowan Blake | 11 | |
 | BLOG-REVIEWED | Post template > Reviewed line | NEW | Reviewed by Kuntal Khanapurkar, Founder | 39 | |
-| BLOG-AUTHOR-NOTE | Post template > Author note | NEW | About the author. Rowan Blake writes for Human Made Logic on brand, search, performance and AI. Rowan Blake is the pen name of our guides and blog team. | 149 | First name links to /guides#rowan-blake |
+| BLOG-AUTHOR-NOTE | Post template > Author note | NEW | About the author. Rowan Blake writes plain-English guides for founders at Human Made Logic, on being remembered, found and named. Rowan Blake is the pen name of our guides team. | 159 | Shared `rowanBlakeBio.ts`; first name links to /guides#rowan-blake |
 | BLOG-EMPTY-H2 | Empty state > Heading | NEW | Posts are on their way | 21 | When manifest has zero published posts |
 | BLOG-EMPTY-BODY | Empty state > Body | NEW | We are not publishing placeholder articles. When the first posts are approved, they will appear here. | 101 | |

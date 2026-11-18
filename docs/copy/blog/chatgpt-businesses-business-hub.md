@@ -14,6 +14,8 @@ ogImage: /og/blog/chatgpt-businesses-business-hub.png
 readingMinutes: 0
 draft: false
 ---
+**The short answer.** Since 10 Nov 2026, eligible businesses can claim a ChatGPT business profile through OpenAI's Business Hub, now in beta. Once verified, you can update your details and see mentions and website clicks. Any eligible business where ChatGPT is available can claim, but Business Agents and shopping are US only, and claiming doesn't guarantee visibility.
+
 ## What happened
 
 On 10 Nov 2026, OpenAI [opened Business Hub in beta](https://openai.com/index/introducing-businesses-chatgpt/). Eligible businesses can now claim a ChatGPT business profile, keep their details accurate and see how often ChatGPT mentions them and sends clicks to their site. To our eye, that's the closest thing yet to seeing your AI visibility from ChatGPT's own side.

@@ -32,7 +32,7 @@
       "cardImage2x": "/blog/cards/chatgpt-businesses-business-hub@2x.webp",
       "ogImage": "/og/blog/chatgpt-businesses-business-hub.png",
       "relatedLinks": [],
-      "readingMinutes": 6,
+      "readingMinutes": 7,
       "draft": false,
       "articleFile": "blog-chatgpt-businesses-business-hub.article.json"
     },
@@ -49,20 +49,7 @@
       "cardImage": "/blog/cards/google-ai-mode-ads-australia-canada-singapore-uk.webp",
       "cardImage2x": "/blog/cards/google-ai-mode-ads-australia-canada-singapore-uk@2x.webp",
       "ogImage": "/og/blog/google-ai-mode-ads-australia-canada-singapore-uk.png",
-      "relatedLinks": [
-        {
-          "href": "/services/performance-marketing",
-          "label": "Performance marketing"
-        },
-        {
-          "href": "/services/seo-aeo-geo",
-          "label": "SEO, AEO and GEO"
-        },
-        {
-          "href": "/kits/local-domination-kit",
-          "label": "Local Domination Kit"
-        }
-      ],
+      "relatedLinks": [],
       "readingMinutes": 6,
       "draft": false,
       "articleFile": "blog-google-ai-mode-ads-australia-canada-singapore-uk.article.json"

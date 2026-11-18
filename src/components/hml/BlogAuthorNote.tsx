@@ -1,12 +1,11 @@
 import Link from 'next/link';
-import { loadCopyMap } from '@/lib/hml/seoCopyTable';
+import { ROWAN_BLAKE_AUTHOR_NOTE } from '@/lib/hml/rowanBlakeBio';
 
 const PEN_NAME = 'Rowan Blake';
 
 /** Visible author note with the first pen-name mention linked to the guides bio anchor. */
 export function BlogAuthorNote() {
-  const note = loadCopyMap('blog-hub.json')['BLOG-AUTHOR-NOTE'];
-  if (!note) return null;
+  const note = ROWAN_BLAKE_AUTHOR_NOTE;
 
   const idx = note.indexOf(PEN_NAME);
   if (idx === -1) return <p>{note}</p>;

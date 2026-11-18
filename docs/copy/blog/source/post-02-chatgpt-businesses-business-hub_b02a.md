@@ -30,6 +30,8 @@ Writer: Lila. Drafted Wed 18 Nov 2026 for Pamala (QA). Topic: BACKUP-TOPICS.md s
 Reviewed by Kuntal Khanapurkar, Founder
 Published: [TBC: publish date]
 
+**The short answer.** Since 10 Nov 2026, eligible businesses can claim a ChatGPT business profile through OpenAI's Business Hub, now in beta. Once verified, you can update your details and see mentions and website clicks. Any eligible business where ChatGPT is available can claim, but Business Agents and shopping are US only, and claiming doesn't guarantee visibility.
+
 ## What happened
 
 On 10 Nov 2026, OpenAI [opened Business Hub in beta](https://openai.com/index/introducing-businesses-chatgpt/). Eligible businesses can now claim a ChatGPT business profile, keep their details accurate and see how often ChatGPT mentions them and sends clicks to their site. To our eye, that's the closest thing yet to seeing your AI visibility from ChatGPT's own side.
@@ -128,3 +130,5 @@ All cited URLs opened live on 18 Nov 2026 (OpenAI announcement, OpenAI Help Cent
 3. **HML's own profile:** the post doesn't say whether HML has claimed one. Claiming is an account action and Pawan's call.
 4. **CTA link:** /contact until /ai-visibility-check is live.
 5. **Not used:** SEJ's own mention and click figures; Digiday's unnamed ad exec's "seven or 28 days" detail; US-only Shopify and Etsy shopping detail; the Reuters Institute AI-use figures (optional in SS's notes, not opened for this post).
+
+| P-SEO-1 | No answer-first block | Added 54-word short answer (SS's draft, "free beta" changed to "now in beta": free isn't in OpenAI's wording in the post) | SS SEO pass P1, approved by Pamala 18 Nov |

@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { publishedBlogPosts } from '@/config/blog';
 import { blogPublishedLine } from '@/lib/hml/blogDates';
 import { blogHubCardTeaser } from '@/lib/hml/blogHubTeasers';
+import { ROWAN_BLAKE_BIO } from '@/lib/hml/rowanBlakeBio';
 import { CopyRichText } from '@/lib/hml/copyRichText';
 import { loadCopyMap } from '@/lib/hml/seoCopyTable';
 import { Breadcrumb } from './Breadcrumb';
@@ -42,20 +43,28 @@ export function BlogHubView() {
               Blog posts
             </h2>
             <ul className="mt-4 grid gap-10 lg:grid-cols-2">
-              {posts.map((post) => (
+              {posts.map((post, index) => {
+                const isLcpCard = index === 0;
+                const cardSrc = isLcpCard
+                  ? post.cardImage || post.heroImage
+                  : post.cardImage2x || post.cardImage || post.heroImage;
+                const cardSizes = '(min-width: 1024px) 50vw, 100vw';
+                return (
                 <li key={post.slug} className="flex flex-col gap-5">
-                  {post.cardImage || post.heroImage ? (
+                  {cardSrc ? (
                     <Link
                       href={`/blog/${post.slug}`}
                       className="block aspect-[4/3] overflow-hidden rounded-[14px] border border-obsidian/10"
                     >
                       <Image
-                        src={post.cardImage2x || post.cardImage || post.heroImage}
+                        src={cardSrc}
                         alt={post.title}
                         width={640}
                         height={480}
                         className="h-full w-full object-cover"
-                        sizes="(min-width: 1024px) 28vw, 100vw"
+                        sizes={cardSizes}
+                        priority={isLcpCard}
+                        {...(isLcpCard ? { fetchPriority: 'high' as const } : { loading: 'lazy' as const })}
                       />
                     </Link>
                   ) : null}
@@ -71,7 +80,8 @@ export function BlogHubView() {
                     </p>
                   </div>
                 </li>
-              ))}
+              );
+              })}
             </ul>
           </div>
         </section>
@@ -79,10 +89,7 @@ export function BlogHubView() {
 
       <section id="rowan-blake" className="border-y border-obsidian/10 py-12">
         <div className="mx-auto max-w-editorial px-5 text-[15px] leading-[1.6] text-slate sm:px-8 lg:px-12">
-          <p>
-            <strong className="font-medium text-obsidian">Rowan Blake</strong> writes for the blog at Human Made
-            Logic. Rowan Blake is the pen name of our guides and blog team.
-          </p>
+          <p>{ROWAN_BLAKE_BIO}</p>
         </div>
       </section>
     </>
