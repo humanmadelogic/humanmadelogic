@@ -516,6 +516,45 @@ export function guidesHubGraph({
   };
 }
 
+export function industryBeautyPageGraph({
+  name,
+  description,
+  breadcrumbTitle,
+}: {
+  name: string;
+  description: string;
+  breadcrumbTitle: string;
+}) {
+  const path = '/industries/beauty-skincare';
+  const url = canonicalUrl(path);
+  const aboutIds = serviceSlugs.map((slug) => `${canonicalUrl(`/services/${slug}`)}#service`);
+
+  return {
+    '@context': 'https://schema.org',
+    '@graph': [
+      {
+        '@type': 'WebPage',
+        '@id': pageId(path, 'webpage'),
+        url,
+        name,
+        description,
+        isPartOf: { '@id': WEBSITE_ID },
+        about: aboutIds.map((id) => ({ '@id': id })),
+        audience: {
+          '@type': 'BusinessAudience',
+          audienceType: 'DTC beauty and skincare brands',
+        },
+        breadcrumb: { '@id': pageId(path, 'breadcrumb') },
+        inLanguage: siteConfig.locale,
+      },
+      breadcrumbNode(path, [
+        { name: 'Home', path: '/' },
+        { name: breadcrumbTitle, path },
+      ]),
+    ],
+  };
+}
+
 export function guideArticleGraph({
   slug,
   headline,
