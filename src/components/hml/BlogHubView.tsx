@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import { publishedBlogPosts } from '@/config/blog';
-import { blogDateLine } from '@/lib/hml/blogDates';
+import { blogPublishedLine } from '@/lib/hml/blogDates';
 import { loadCopyMap } from '@/lib/hml/seoCopyTable';
 import { Breadcrumb } from './Breadcrumb';
 
@@ -60,7 +60,7 @@ export function BlogHubView() {
                     </h3>
                     <p className="text-[15px] leading-[1.6] text-slate">{post.excerpt}</p>
                     <p className="text-[13px] text-slate">
-                      {copy['BLOG-BYLINE']} · {blogDateLine(post.updated)} · {post.readingMinutes} min read
+                      {copy['BLOG-BYLINE']} · {blogPublishedLine(post.date)} · {post.readingMinutes} min read
                     </p>
                   </div>
                 </li>

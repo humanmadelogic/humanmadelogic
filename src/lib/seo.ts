@@ -26,6 +26,7 @@ export function buildMetadata({
   path = '/',
   type = 'website',
   publishedTime,
+  modifiedTime,
   noindex = false,
   ogImage,
 }: {
@@ -34,6 +35,7 @@ export function buildMetadata({
   path?: string;
   type?: 'website' | 'article';
   publishedTime?: string;
+  modifiedTime?: string;
   noindex?: boolean;
   ogImage?: string;
 }): Metadata {
@@ -54,6 +56,7 @@ export function buildMetadata({
       locale: 'en_GB',
       type,
       ...(publishedTime ? { publishedTime } : {}),
+      ...(modifiedTime ? { modifiedTime } : {}),
       ...(images ? { images } : {}),
     },
     twitter: {

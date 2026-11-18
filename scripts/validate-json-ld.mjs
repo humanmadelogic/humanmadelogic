@@ -49,7 +49,8 @@ const ROUTES = [
   {
     route: '/blog',
     file: path.join('blog.html'),
-    expect: ['Organization', 'WebSite', 'Blog', 'CollectionPage', 'BreadcrumbList', 'ItemList'],
+    expect: ['Organization', 'WebSite', 'Blog', 'CollectionPage', 'BreadcrumbList'],
+    blogHub: true,
   },
   {
     route: '/guides',
@@ -75,7 +76,21 @@ const ROUTES = [
   },
 ];
 
+const blogManifestPath = path.join(ROOT, 'src/config/blog/manifest.json');
+if (fs.existsSync(blogManifestPath)) {
+  const blogManifest = JSON.parse(fs.readFileSync(blogManifestPath, 'utf8'));
+  for (const post of blogManifest.posts.filter((p) => !p.draft)) {
+    ROUTES.push({
+      route: `/blog/${post.slug}`,
+      file: path.join('blog', `${post.slug}.html`),
+      expect: ['Organization', 'WebSite', 'BlogPosting', 'WebPage', 'BreadcrumbList'],
+      blogArticle: true,
+    });
+  }
+}
+
 const ORG_ID = 'https://humanmadelogic.com/#organization';
+const BLOG_ID = 'https://humanmadelogic.com/blog#blog';
 const FOUNDER_ID = 'https://humanmadelogic.com/#founder';
 
 function extractJsonLd(html) {
@@ -116,7 +131,7 @@ function main() {
   let failed = 0;
   const report = [];
 
-  for (const { route, file, expect, optional, guideArticle } of ROUTES) {
+  for (const { route, file, expect, optional, guideArticle, blogArticle, blogHub } of ROUTES) {
     const htmlPath = path.join(BUILD_PAGES, file);
     if (!fs.existsSync(htmlPath)) {
       if (optional) {
@@ -151,25 +166,73 @@ function main() {
       console.error(`FAIL ${route}: Rowan Blake must not appear in JSON-LD`);
       failed += 1;
     }
+    const types = new Set();
+    blocks.forEach((b) => collectTypes(b).forEach((t) => types.add(t)));
+
+    const graphNodes = blocks.flatMap((b) => (b['@graph'] ? b['@graph'] : [b]));
+    if (graphNodes.some((n) => n['@type'] === 'Person' && n.name === 'Rowan Blake')) {
+      console.error(`FAIL ${route}: Rowan Blake must not appear as a Person in JSON-LD`);
+      failed += 1;
+    }
+
+    if (blogHub) {
+      const collection = graphNodes.find((n) => n['@type'] === 'CollectionPage');
+      const blog = graphNodes.find((n) => n['@type'] === 'Blog');
+      if (!collection || collection.mainEntity?.['@id'] !== BLOG_ID) {
+        console.error(`FAIL ${route}: CollectionPage.mainEntity must reference ${BLOG_ID}`);
+        failed += 1;
+      }
+      if (!blog || blog['@id'] !== BLOG_ID) {
+        console.error(`FAIL ${route}: Blog node must use @id ${BLOG_ID}`);
+        failed += 1;
+      }
+      if (types.has('ItemList')) {
+        console.error(`FAIL ${route}: blog hub must not include ItemList JSON-LD`);
+        failed += 1;
+      }
+    }
+
     if (guideArticle) {
-      const articleAuthor = blocks
-        .flatMap((b) => (b['@graph'] ? b['@graph'] : [b]))
-        .find((n) => n['@type'] === 'Article');
+      const articleAuthor = graphNodes.find((n) => n['@type'] === 'Article');
       if (!articleAuthor || articleAuthor.author?.['@id'] !== ORG_ID) {
         console.error(`FAIL ${route}: Article.author must reference ${ORG_ID}`);
         failed += 1;
       }
-      const pageNode = blocks
-        .flatMap((b) => (b['@graph'] ? b['@graph'] : [b]))
-        .find((n) => n['@type'] === 'WebPage' && String(n['@id'] || '').includes('/guides/'));
+      const pageNode = graphNodes.find(
+        (n) => n['@type'] === 'WebPage' && String(n['@id'] || '').includes('/guides/'),
+      );
       if (!pageNode || pageNode.reviewedBy?.['@id'] !== FOUNDER_ID) {
         console.error(`FAIL ${route}: WebPage.reviewedBy must reference ${FOUNDER_ID}`);
         failed += 1;
       }
     }
 
-    const types = new Set();
-    blocks.forEach((b) => collectTypes(b).forEach((t) => types.add(t)));
+    if (blogArticle) {
+      const posting = graphNodes.find((n) => n['@type'] === 'BlogPosting');
+      if (!posting || posting.author?.['@id'] !== ORG_ID) {
+        console.error(`FAIL ${route}: BlogPosting.author must reference ${ORG_ID}`);
+        failed += 1;
+      }
+      if (!posting || posting.publisher?.['@id'] !== ORG_ID) {
+        console.error(`FAIL ${route}: BlogPosting.publisher must reference ${ORG_ID}`);
+        failed += 1;
+      }
+      if (!posting || posting.isPartOf?.['@id'] !== BLOG_ID) {
+        console.error(`FAIL ${route}: BlogPosting.isPartOf must reference ${BLOG_ID}`);
+        failed += 1;
+      }
+      const pageNode = graphNodes.find(
+        (n) => n['@type'] === 'WebPage' && String(n['@id'] || '').includes('/blog/'),
+      );
+      if (!pageNode || pageNode.reviewedBy?.['@id'] !== FOUNDER_ID) {
+        console.error(`FAIL ${route}: WebPage.reviewedBy must reference ${FOUNDER_ID}`);
+        failed += 1;
+      }
+      if (!pageNode?.lastReviewed) {
+        console.error(`FAIL ${route}: WebPage.lastReviewed is required on blog posts`);
+        failed += 1;
+      }
+    }
 
     const orgCount = blocks.filter((b) => JSON.stringify(b).includes('"@id":"https://humanmadelogic.com/#organization"')).length;
     if (orgCount < 1) {

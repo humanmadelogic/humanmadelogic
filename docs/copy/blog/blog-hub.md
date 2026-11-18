@@ -13,3 +13,4 @@ Hub table for the empty-state index until Pamala's posts land. British spelling;
 | BLOG-EMPTY-BODY | Empty state > Body | NEW | We are not publishing placeholder articles. When the first posts are approved, they will appear here. | 101 | Preview only |
 | BLOG-BYLINE | Post template > Byline | NEW | Rowan Blake | 11 | Pen name; matches guides |
 | BLOG-REVIEWED | Post template > Reviewed line | NEW | Reviewed by Kuntal Khanapurkar, Founder | 39 | Matches guides |
+| BLOG-AUTHOR-NOTE | Post template > Author note | NEW | About the author. Rowan Blake writes for Human Made Logic on brand, search, performance and AI. Rowan Blake is the pen name of our guides and blog team. | 149 | Visible text; name links to /guides#rowan-blake |

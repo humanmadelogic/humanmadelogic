@@ -76,7 +76,7 @@ function estimateReadingMinutes(markdown) {
 
 function isPostFile(name) {
   if (!name.endsWith('.md')) return false;
-  if (name === 'blog-hub.md' || name === 'README.md') return false;
+  if (name === 'blog-hub.md' || name === 'README.md' || name === 'BLOG-TOPICS.md') return false;
   return true;
 }
 

@@ -48,3 +48,12 @@ Markdown after the closing `---`. Rendered like guide full articles (GFM tables,
 - British spelling in filenames and alt text only as needed for accessibility
 
 Run `npm run parse:copy` after adding or editing files.
+
+## Schema, RSS and validation
+
+Build notes and JSON-LD blocks **B1** (hub) and **B2** (posts) live in [`BLOG-TOPICS.md`](./BLOG-TOPICS.md) (SS spec). Author in JSON-LD is **Organization** (`#organization`); Rowan Blake is visible byline only. Post **WebPage** nodes carry `reviewedBy` (`#founder`) and `lastReviewed`.
+
+- **OG defaults:** `public/og/blog/{slug}.png` at 1200×630 when no `heroImage` is set.
+- **RSS:** `/blog/rss.xml` (RSS 2.0); `rel=alternate` from `src/app/blog/layout.tsx`.
+- **Automated checks (after `npm run build`):** `npm run check:json-ld`, `npm run check:blog-rss`.
+- **Manual (before production):** [Google Rich Results Test](https://search.google.com/test/rich-results) and [validator.schema.org](https://validator.schema.org/) on `/blog` and one post; confirm no `Person` for Rowan Blake in JSON-LD.

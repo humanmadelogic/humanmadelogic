@@ -1,6 +1,7 @@
 import type { BlogPostRecord } from '@/config/blog';
 import { publishedBlogPosts } from '@/config/blog';
 import { loadCopyMap } from '@/lib/hml/seoCopyTable';
+import { blogIsoDateTime } from '@/lib/hml/blogDates';
 import { blogHubGraph, blogPostingGraph, canonicalUrl } from '@/lib/schema';
 import { JsonLd } from './JsonLd';
 
@@ -20,7 +21,9 @@ export function BlogHubStructuredData() {
 }
 
 export function BlogPostStructuredData({ post }: { post: BlogPostRecord }) {
-  const imageUrl = post.heroImage ? canonicalUrl(post.heroImage) : undefined;
+  const imageUrl = post.heroImage
+    ? canonicalUrl(post.heroImage)
+    : canonicalUrl(`/og/blog/${post.slug}.png`);
 
   return (
     <JsonLd
@@ -31,8 +34,8 @@ export function BlogPostStructuredData({ post }: { post: BlogPostRecord }) {
         imageUrl,
         webPageTitle: post.title,
         breadcrumbTitle: post.title,
-        datePublished: post.date,
-        dateModified: post.updated,
+        datePublished: blogIsoDateTime(post.date),
+        dateModified: blogIsoDateTime(post.updated),
         lastReviewed: post.updated,
       })}
     />

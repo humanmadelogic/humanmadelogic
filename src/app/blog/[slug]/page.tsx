@@ -23,7 +23,8 @@ export function generateMetadata({ params }: PageProps): Metadata {
     path: `/blog/${post.slug}`,
     type: 'article',
     publishedTime: post.date,
-    ogImage: post.heroImage || undefined,
+    modifiedTime: post.updated,
+    ogImage: post.heroImage || `/og/blog/${post.slug}.png`,
   });
 }
 

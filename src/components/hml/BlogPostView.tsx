@@ -2,7 +2,8 @@ import Image from 'next/image';
 import Link from 'next/link';
 import type { BlogPostRecord } from '@/config/blog';
 import { loadBlogArticle } from '@/lib/hml/blogFullArticle';
-import { blogDateLine } from '@/lib/hml/blogDates';
+import { blogPublishedLine, blogUpdatedLine } from '@/lib/hml/blogDates';
+import { BlogAuthorNote } from './BlogAuthorNote';
 import { loadCopyMap } from '@/lib/hml/seoCopyTable';
 import { Breadcrumb } from './Breadcrumb';
 import { GuideArticleProse } from './GuideArticleProse';
@@ -46,13 +47,20 @@ export function BlogPostView({ post }: Props) {
             </Link>
           </p>
           <p className="mt-1 text-[14px] text-slate">{copy['BLOG-REVIEWED']}</p>
-          <p className="mt-1 text-[14px] text-slate">{blogDateLine(post.updated)}</p>
+          <p className="mt-1 text-[14px] text-slate">{blogPublishedLine(post.date)}</p>
+          {post.updated !== post.date ? (
+            <p className="mt-1 text-[14px] text-slate">{blogUpdatedLine(post.updated)}</p>
+          ) : null}
           <p className="mt-1 text-[14px] text-slate">{reading}</p>
         </header>
 
         <div className="mx-auto mt-12 min-w-0 max-w-full px-5 sm:max-w-editorial sm:px-8 lg:px-12">
           <GuideArticleProse html={article.html} />
         </div>
+
+        <footer className="mx-auto mt-14 max-w-editorial border-t border-obsidian/10 px-5 pt-10 text-[15px] leading-[1.65] text-slate sm:px-8 lg:px-12">
+          <BlogAuthorNote />
+        </footer>
       </article>
     </>
   );

@@ -321,6 +321,24 @@
       ]
     },
     {
+      "route": "/blog",
+      "canonical": "https://humanmadelogic.com/blog",
+      "types": [
+        "Blog",
+        "BreadcrumbList",
+        "CollectionPage",
+        "ContactPoint",
+        "Country",
+        "ImageObject",
+        "ListItem",
+        "Offer",
+        "Organization",
+        "Person",
+        "Service",
+        "WebSite"
+      ]
+    },
+    {
       "route": "/guides",
       "canonical": "https://humanmadelogic.com/guides",
       "types": [

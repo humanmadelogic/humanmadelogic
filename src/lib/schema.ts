@@ -632,42 +632,51 @@ export type BlogListItem = {
   title: string;
 };
 
+const BLOG_ID = `${canonicalUrl('/blog')}#blog`;
+
 export function blogHubGraph({
   name,
   description,
   posts,
+  blogName = 'Human Made Logic Blog',
 }: {
   name: string;
   description?: string;
   posts: BlogListItem[];
+  blogName?: string;
 }) {
   const path = '/blog';
-  const itemListId = `${canonicalUrl(path)}#itemlist`;
+  const url = canonicalUrl(path);
   return {
     '@context': 'https://schema.org',
     '@graph': [
       {
-        '@type': ['Blog', 'CollectionPage'],
+        '@type': 'CollectionPage',
         '@id': pageId(path, 'webpage'),
-        url: canonicalUrl(path),
+        url,
         name,
         ...(description ? { description } : {}),
         isPartOf: { '@id': WEBSITE_ID },
         publisher: { '@id': ORG_ID },
-        mainEntity: { '@id': itemListId },
+        about: { '@id': ORG_ID },
+        mainEntity: { '@id': BLOG_ID },
         breadcrumb: { '@id': pageId(path, 'breadcrumb') },
         inLanguage: siteConfig.locale,
       },
       {
-        '@type': 'ItemList',
-        '@id': itemListId,
-        numberOfItems: posts.length,
-        itemListElement: posts.map((post, index) => ({
-          '@type': 'ListItem',
-          position: index + 1,
-          name: post.title,
-          url: canonicalUrl(`/blog/${post.slug}`),
-        })),
+        '@type': 'Blog',
+        '@id': BLOG_ID,
+        name: blogName,
+        url,
+        publisher: { '@id': ORG_ID },
+        inLanguage: siteConfig.locale,
+        ...(posts.length
+          ? {
+              blogPost: posts.map((post) => ({
+                '@id': `${canonicalUrl(`/blog/${post.slug}`)}#article`,
+              })),
+            }
+          : {}),
       },
       breadcrumbNode(path, [
         { name: 'Home', path: '/' },
@@ -687,6 +696,9 @@ export function blogPostingGraph({
   datePublished,
   dateModified,
   lastReviewed,
+  articleSection,
+  keywords,
+  about,
 }: {
   slug: string;
   headline: string;
@@ -697,6 +709,9 @@ export function blogPostingGraph({
   datePublished?: string;
   dateModified?: string;
   lastReviewed?: string;
+  articleSection?: string;
+  keywords?: string[];
+  about?: { name: string }[];
 }) {
   const path = `/blog/${slug}`;
   const url = canonicalUrl(path);
@@ -709,12 +724,17 @@ export function blogPostingGraph({
     author: guideArticleAuthorRef(),
     publisher: { '@id': ORG_ID },
     mainEntityOfPage: { '@id': pageId(path, 'webpage') },
-    isPartOf: { '@id': WEBSITE_ID },
+    isPartOf: { '@id': BLOG_ID },
     inLanguage: siteConfig.locale,
   };
   if (imageUrl) posting.image = [imageUrl];
   if (datePublished) posting.datePublished = datePublished;
   if (dateModified) posting.dateModified = dateModified;
+  if (articleSection) posting.articleSection = articleSection;
+  if (keywords?.length) posting.keywords = keywords.join(', ');
+  if (about?.length) {
+    posting.about = about.map((item) => ({ '@type': 'Thing' as const, name: item.name }));
+  }
 
   const webPage: Record<string, unknown> = {
     '@type': 'WebPage',
@@ -727,6 +747,9 @@ export function blogPostingGraph({
     inLanguage: siteConfig.locale,
   };
   if (lastReviewed) webPage.lastReviewed = lastReviewed;
+  if (imageUrl) {
+    webPage.primaryImageOfPage = { '@type': 'ImageObject', url: imageUrl };
+  }
 
   return {
     '@context': 'https://schema.org',

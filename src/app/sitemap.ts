@@ -1,5 +1,5 @@
 import type { MetadataRoute } from 'next';
-import { blogHasPublishedPosts, publishedBlogPosts } from '@/config/blog';
+import { publishedBlogPosts } from '@/config/blog';
 import { kitSlugs } from '@/config/kits';
 import { indexableGuides } from '@/config/guides';
 import { serviceSlugs } from '@/config/services';
@@ -10,6 +10,7 @@ const staticRoutes = [
   { path: '/services', priority: 0.9, changeFrequency: 'weekly' as const },
   { path: '/kits', priority: 0.88, changeFrequency: 'monthly' as const },
   { path: '/guides', priority: 0.87, changeFrequency: 'weekly' as const },
+  { path: '/blog', priority: 0.82, changeFrequency: 'weekly' as const },
   { path: '/industries/beauty-skincare', priority: 0.84, changeFrequency: 'monthly' as const },
   { path: '/about', priority: 0.85, changeFrequency: 'monthly' as const },
   { path: '/contact', priority: 0.8, changeFrequency: 'monthly' as const },
@@ -33,16 +34,12 @@ const staticRoutes = [
     priority: 0.83,
     changeFrequency: 'monthly' as const,
   })),
-  ...(blogHasPublishedPosts()
-    ? [
-        { path: '/blog', priority: 0.82, changeFrequency: 'weekly' as const },
-        ...publishedBlogPosts().map((post) => ({
-          path: `/blog/${post.slug}`,
-          priority: 0.81,
-          changeFrequency: 'monthly' as const,
-        })),
-      ]
-    : []),
+  ...publishedBlogPosts().map((post) => ({
+    path: `/blog/${post.slug}`,
+    priority: 0.81,
+    changeFrequency: 'monthly' as const,
+    lastModified: post.updated,
+  })),
 ];
 
 export default function sitemap(): MetadataRoute.Sitemap {
@@ -50,7 +47,10 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   return staticRoutes.map((route) => ({
     url: new URL(route.path, siteConfig.url).toString(),
-    lastModified: now,
+    lastModified:
+      'lastModified' in route && route.lastModified
+        ? new Date(`${route.lastModified}T12:00:00Z`)
+        : now,
     changeFrequency: route.changeFrequency,
     priority: route.priority,
   }));
