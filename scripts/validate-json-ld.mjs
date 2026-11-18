@@ -47,6 +47,11 @@ const ROUTES = [
     expect: ['Organization', 'WebSite', 'Service', 'WebPage', 'BreadcrumbList', 'FAQPage'],
   },
   {
+    route: '/blog',
+    file: path.join('blog.html'),
+    expect: ['Organization', 'WebSite', 'Blog', 'CollectionPage', 'BreadcrumbList', 'ItemList'],
+  },
+  {
     route: '/guides',
     file: path.join('guides.html'),
     expect: ['Organization', 'WebSite', 'CollectionPage', 'BreadcrumbList', 'ItemList'],

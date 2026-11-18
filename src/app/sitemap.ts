@@ -1,4 +1,5 @@
 import type { MetadataRoute } from 'next';
+import { blogHasPublishedPosts, publishedBlogPosts } from '@/config/blog';
 import { kitSlugs } from '@/config/kits';
 import { indexableGuides } from '@/config/guides';
 import { serviceSlugs } from '@/config/services';
@@ -32,6 +33,16 @@ const staticRoutes = [
     priority: 0.83,
     changeFrequency: 'monthly' as const,
   })),
+  ...(blogHasPublishedPosts()
+    ? [
+        { path: '/blog', priority: 0.82, changeFrequency: 'weekly' as const },
+        ...publishedBlogPosts().map((post) => ({
+          path: `/blog/${post.slug}`,
+          priority: 0.81,
+          changeFrequency: 'monthly' as const,
+        })),
+      ]
+    : []),
 ];
 
 export default function sitemap(): MetadataRoute.Sitemap {

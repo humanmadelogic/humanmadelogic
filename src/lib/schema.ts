@@ -626,3 +626,118 @@ export function guideArticleGraph({
     ],
   };
 }
+
+export type BlogListItem = {
+  slug: string;
+  title: string;
+};
+
+export function blogHubGraph({
+  name,
+  description,
+  posts,
+}: {
+  name: string;
+  description?: string;
+  posts: BlogListItem[];
+}) {
+  const path = '/blog';
+  const itemListId = `${canonicalUrl(path)}#itemlist`;
+  return {
+    '@context': 'https://schema.org',
+    '@graph': [
+      {
+        '@type': ['Blog', 'CollectionPage'],
+        '@id': pageId(path, 'webpage'),
+        url: canonicalUrl(path),
+        name,
+        ...(description ? { description } : {}),
+        isPartOf: { '@id': WEBSITE_ID },
+        publisher: { '@id': ORG_ID },
+        mainEntity: { '@id': itemListId },
+        breadcrumb: { '@id': pageId(path, 'breadcrumb') },
+        inLanguage: siteConfig.locale,
+      },
+      {
+        '@type': 'ItemList',
+        '@id': itemListId,
+        numberOfItems: posts.length,
+        itemListElement: posts.map((post, index) => ({
+          '@type': 'ListItem',
+          position: index + 1,
+          name: post.title,
+          url: canonicalUrl(`/blog/${post.slug}`),
+        })),
+      },
+      breadcrumbNode(path, [
+        { name: 'Home', path: '/' },
+        { name: 'Blog', path },
+      ]),
+    ],
+  };
+}
+
+export function blogPostingGraph({
+  slug,
+  headline,
+  description,
+  imageUrl,
+  webPageTitle,
+  breadcrumbTitle,
+  datePublished,
+  dateModified,
+  lastReviewed,
+}: {
+  slug: string;
+  headline: string;
+  description: string;
+  imageUrl?: string;
+  webPageTitle: string;
+  breadcrumbTitle: string;
+  datePublished?: string;
+  dateModified?: string;
+  lastReviewed?: string;
+}) {
+  const path = `/blog/${slug}`;
+  const url = canonicalUrl(path);
+
+  const posting: Record<string, unknown> = {
+    '@type': 'BlogPosting',
+    '@id': `${url}#article`,
+    headline,
+    description,
+    author: guideArticleAuthorRef(),
+    publisher: { '@id': ORG_ID },
+    mainEntityOfPage: { '@id': pageId(path, 'webpage') },
+    isPartOf: { '@id': WEBSITE_ID },
+    inLanguage: siteConfig.locale,
+  };
+  if (imageUrl) posting.image = [imageUrl];
+  if (datePublished) posting.datePublished = datePublished;
+  if (dateModified) posting.dateModified = dateModified;
+
+  const webPage: Record<string, unknown> = {
+    '@type': 'WebPage',
+    '@id': pageId(path, 'webpage'),
+    url,
+    name: webPageTitle,
+    isPartOf: { '@id': WEBSITE_ID },
+    reviewedBy: { '@id': FOUNDER_ID },
+    breadcrumb: { '@id': pageId(path, 'breadcrumb') },
+    inLanguage: siteConfig.locale,
+  };
+  if (lastReviewed) webPage.lastReviewed = lastReviewed;
+
+  return {
+    '@context': 'https://schema.org',
+    '@graph': [
+      posting,
+      webPage,
+      breadcrumbNode(path, [
+        { name: 'Home', path: '/' },
+        { name: 'Blog', path: '/blog' },
+        { name: breadcrumbTitle, path },
+      ]),
+    ],
+  };
+}

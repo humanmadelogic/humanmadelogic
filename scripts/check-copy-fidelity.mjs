@@ -7,6 +7,7 @@ import { fileURLToPath } from 'node:url';
 import { chromium } from 'playwright';
 import { normalizeForFidelity, wordCount } from './lib/extract-full-article.mjs';
 import { beautySkincareCopyOrder } from './lib/beauty-page-copy-order.mjs';
+import { blogHubCopyOrder } from './lib/blog-hub-copy-order.mjs';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.join(__dirname, '..');
@@ -24,6 +25,8 @@ const GUIDE_PAGES = [
 ];
 
 const BEAUTY_PATH = '/industries/beauty-skincare';
+const BLOG_PATH = '/blog';
+const BLOG_MANIFEST = path.join(ROOT, 'src/config/blog/manifest.json');
 
 async function mainText(page) {
   return page.evaluate(() => {
@@ -113,6 +116,56 @@ report.push({
   wordCountSource: beautySourceWords,
   wordCountRendered: wordCount(beautyRendered),
 });
+
+function checkHubRows(label, copy, renderedNorm, ids) {
+  const missing = [];
+  for (const id of ids) {
+    const text = copy[id];
+    if (!text?.trim()) {
+      missing.push({ id, reason: 'missing in JSON' });
+      continue;
+    }
+    const norm = normalizeForFidelity(text);
+    if (!renderedNorm.includes(norm)) missing.push({ id, reason: 'not found on page' });
+  }
+  if (missing.length) {
+    console.error(`\nFAIL ${label} — ${missing.length} copy row(s) missing`);
+    for (const m of missing) console.error(`  • ${m.id}: ${m.reason}`);
+    return false;
+  }
+  console.log(`OK ${label} — all ${ids.length} copy rows present on page.`);
+  return true;
+}
+
+const blogHubCopy = JSON.parse(fs.readFileSync(path.join(COPY_DIR, 'blog-hub.json'), 'utf8'));
+const blogHubRendered = await renderedText(page, BLOG_PATH);
+const blogHubSourceWords = wordCount(blogHubCopyOrder.map((id) => blogHubCopy[id] ?? '').join(' '));
+ok = checkHubRows(BLOG_PATH, blogHubCopy, blogHubRendered, blogHubCopyOrder) && ok;
+report.push({
+  slug: BLOG_PATH,
+  wordCountSource: blogHubSourceWords,
+  wordCountRendered: wordCount(blogHubRendered),
+});
+
+const manifest = JSON.parse(fs.readFileSync(BLOG_MANIFEST, 'utf8'));
+for (const post of manifest.posts.filter((p) => !p.draft)) {
+  const route = `/blog/${post.slug}`;
+  const articlePath = path.join(ARTICLE_DIR, post.articleFile);
+  if (!fs.existsSync(articlePath)) {
+    console.error(`FAIL ${route} — missing ${post.articleFile}`);
+    ok = false;
+    continue;
+  }
+  const article = JSON.parse(fs.readFileSync(articlePath, 'utf8'));
+  const renderedNorm = await renderedText(page, route);
+  ok = checkParagraphs(route, article.paragraphs, renderedNorm) && ok;
+  report.push({
+    slug: route,
+    wordCountSource: article.wordCountSource,
+    wordCountRendered: wordCount(renderedNorm),
+    wordCountArtifact: article.wordCountRendered,
+  });
+}
 
 await browser.close();
 

@@ -22,6 +22,7 @@ const routes = [
   ...kitSlugs.map((slug) => `/kits/${slug}`),
   '/guides',
   ...guideSlugs.map((slug) => `/guides/${slug}`),
+  '/blog',
   '/industries/beauty-skincare',
 ];
 
@@ -182,6 +183,7 @@ const hierarchyRoutes = new Set([
   ...kitSlugs.map((slug) => `/kits/${slug}`),
   '/guides',
   ...guideSlugs.map((slug) => `/guides/${slug}`),
+  '/blog',
   '/industries/beauty-skincare',
 ]);
 
