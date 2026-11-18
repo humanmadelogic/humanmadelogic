@@ -8,6 +8,7 @@ import industriesBeautySkincare from '@/config/copy/industries-beauty-skincare.j
 import kitsHub from '@/config/copy/kits-hub.json';
 import launchKit from '@/config/copy/launch-kit.json';
 import localDominationKit from '@/config/copy/local-domination-kit.json';
+import aiVisibilityCheck from '@/config/copy/ai-visibility-check.json';
 
 export type SeoCopyMap = Record<string, string>;
 
@@ -22,6 +23,7 @@ const COPY_BY_FILENAME: Record<string, SeoCopyMap> = {
   'kits-hub.json': kitsHub,
   'launch-kit.json': launchKit,
   'local-domination-kit.json': localDominationKit,
+  'ai-visibility-check.json': aiVisibilityCheck,
 };
 
 /** Load a parsed SEO copy map by JSON filename (e.g. `kits-hub.json`). */

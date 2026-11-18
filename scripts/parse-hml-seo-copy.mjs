@@ -16,6 +16,7 @@ const ROOT = path.join(__dirname, '..');
 
 const KITS_DIR = path.join(ROOT, 'docs/copy/kits');
 const GUIDES_DIR = path.join(ROOT, 'docs/copy/guides');
+const SOURCE_DIR = path.join(ROOT, 'docs/copy/source');
 const OUT_DIR = path.join(ROOT, 'src/config/copy');
 const ARTICLE_DIR = path.join(OUT_DIR, 'articles');
 
@@ -59,7 +60,8 @@ function parseCopyTable(markdown) {
     const status = cells[3];
     const finalText = cells[4];
 
-    if (!id || id === 'ID' || status !== 'NEW') continue;
+    const copyOk = status === 'NEW' || String(status).startsWith('APPROVED');
+    if (!id || id === 'ID' || !copyOk) continue;
     if (!finalText) continue;
 
     map[id] = unescapeCellText(finalText);
@@ -87,7 +89,21 @@ function collectMarkdownFiles() {
     if (!name.endsWith('.md') || shouldSkipGuidesFile(name)) continue;
     files.push({ input: path.join(GUIDES_DIR, name), basename: name.replace(/\.md$/, '') });
   }
+  if (fs.existsSync(SOURCE_DIR)) {
+    for (const name of fs.readdirSync(SOURCE_DIR)) {
+      if (!name.endsWith('.md')) continue;
+      files.push({ input: path.join(SOURCE_DIR, name), basename: name.replace(/\.md$/, '') });
+    }
+  }
   return files.sort((a, b) => a.basename.localeCompare(b.basename));
+}
+
+function normalizeParsedMap(map) {
+  const mkt = map['AVC-CONSENT-MKT'];
+  if (typeof mkt === 'string') {
+    map['AVC-CONSENT-MKT'] = mkt.replace(/^\[ \]\s*/, '').trim();
+  }
+  return map;
 }
 
 function writeFullArticleArtifact(basename, markdown) {
@@ -122,7 +138,7 @@ function main() {
 
   for (const { input, basename } of files) {
     const markdown = fs.readFileSync(input, 'utf8');
-    const map = parseCopyTable(markdown);
+    const map = normalizeParsedMap(parseCopyTable(markdown));
     const outPath = path.join(OUT_DIR, `${basename}.json`);
     fs.writeFileSync(outPath, `${JSON.stringify(map, null, 2)}\n`, 'utf8');
     const count = Object.keys(map).length;

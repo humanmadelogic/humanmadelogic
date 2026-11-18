@@ -284,6 +284,9 @@ export function AdminDashboard({
                   <p className="mt-2 text-[15px] text-slate">
                     {item.email}
                     {item.company ? ` · ${item.company}` : ''} · {item.topic}
+                    {item.servicesFollowUpOptIn !== undefined
+                      ? ` · Services follow-up: ${item.servicesFollowUpOptIn ? 'Yes' : 'No'}`
+                      : ''}
                   </p>
                   <p className="mt-4 max-w-[62ch] text-[16px] leading-[1.6]">{item.message}</p>
                   <button

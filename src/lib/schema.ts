@@ -516,6 +516,59 @@ export function guidesHubGraph({
   };
 }
 
+export function aiVisibilityCheckPageGraph({
+  name,
+  description,
+  webDescription,
+}: {
+  name: string;
+  description: string;
+  webDescription: string;
+}) {
+  const path = '/ai-visibility-check';
+  const url = canonicalUrl(path);
+  const serviceId = `${url}#service`;
+  const offerId = `${url}#offer`;
+
+  return {
+    '@context': 'https://schema.org',
+    '@graph': [
+      {
+        '@type': 'Service',
+        '@id': serviceId,
+        name: 'Free AI visibility check',
+        description,
+        url,
+        provider: { '@id': ORG_ID },
+        areaServed: AREA_SERVED_COUNTRIES,
+      },
+      {
+        '@type': 'Offer',
+        '@id': offerId,
+        price: '0',
+        priceCurrency: 'GBP',
+        eligibleRegion: AREA_SERVED_ISO.map((code) => ({ '@type': 'Country', name: code })),
+        itemOffered: { '@id': serviceId },
+      },
+      {
+        '@type': 'WebPage',
+        '@id': pageId(path, 'webpage'),
+        url,
+        name,
+        description: webDescription,
+        isPartOf: { '@id': WEBSITE_ID },
+        about: { '@id': serviceId },
+        breadcrumb: { '@id': pageId(path, 'breadcrumb') },
+        inLanguage: siteConfig.locale,
+      },
+      breadcrumbNode(path, [
+        { name: 'Home', path: '/' },
+        { name: 'Free AI visibility check', path },
+      ]),
+    ],
+  };
+}
+
 export function industryBeautyPageGraph({
   name,
   description,

@@ -25,6 +25,13 @@ export function BlogHubView() {
             text={copy['BLOG-INTRO']}
             phraseLinks={[{ phrase: 'Guides', href: '/guides' }]}
           />
+          <p className="mt-6 max-w-[62ch] text-[16px] leading-[1.65] text-slate">
+            <Link href="/ai-visibility-check" className="underline decoration-obsidian/30 underline-offset-2">
+              Get a free AI visibility check
+            </Link>
+            {' '}
+            if you want an observed snapshot across ChatGPT, Perplexity, Google AI Overviews and Gemini.
+          </p>
         </div>
       </section>
 
