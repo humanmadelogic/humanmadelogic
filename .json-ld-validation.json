@@ -419,6 +419,96 @@
         "WebPage",
         "WebSite"
       ]
+    },
+    {
+      "route": "/blog/google-november-core-update-gemini-4-hydrogen",
+      "canonical": "https://humanmadelogic.com/blog/google-november-core-update-gemini-4-hydrogen",
+      "types": [
+        "BlogPosting",
+        "BreadcrumbList",
+        "ContactPoint",
+        "Country",
+        "ImageObject",
+        "ListItem",
+        "Offer",
+        "Organization",
+        "Person",
+        "Service",
+        "WebPage",
+        "WebSite"
+      ]
+    },
+    {
+      "route": "/blog/chatgpt-businesses-business-hub",
+      "canonical": "https://humanmadelogic.com/blog/chatgpt-businesses-business-hub",
+      "types": [
+        "BlogPosting",
+        "BreadcrumbList",
+        "ContactPoint",
+        "Country",
+        "ImageObject",
+        "ListItem",
+        "Offer",
+        "Organization",
+        "Person",
+        "Service",
+        "WebPage",
+        "WebSite"
+      ]
+    },
+    {
+      "route": "/blog/google-ai-mode-ads-australia-canada-singapore-uk",
+      "canonical": "https://humanmadelogic.com/blog/google-ai-mode-ads-australia-canada-singapore-uk",
+      "types": [
+        "BlogPosting",
+        "BreadcrumbList",
+        "ContactPoint",
+        "Country",
+        "ImageObject",
+        "ListItem",
+        "Offer",
+        "Organization",
+        "Person",
+        "Service",
+        "WebPage",
+        "WebSite"
+      ]
+    },
+    {
+      "route": "/blog/uk-rules-check-cma-asa",
+      "canonical": "https://humanmadelogic.com/blog/uk-rules-check-cma-asa",
+      "types": [
+        "BlogPosting",
+        "BreadcrumbList",
+        "ContactPoint",
+        "Country",
+        "ImageObject",
+        "ListItem",
+        "Offer",
+        "Organization",
+        "Person",
+        "Service",
+        "WebPage",
+        "WebSite"
+      ]
+    },
+    {
+      "route": "/blog/consumer-trends-2027-trust-proof-outcomes",
+      "canonical": "https://humanmadelogic.com/blog/consumer-trends-2027-trust-proof-outcomes",
+      "types": [
+        "BlogPosting",
+        "BreadcrumbList",
+        "ContactPoint",
+        "Country",
+        "ImageObject",
+        "ListItem",
+        "Offer",
+        "Organization",
+        "Person",
+        "Service",
+        "WebPage",
+        "WebSite"
+      ]
     }
   ]
 }

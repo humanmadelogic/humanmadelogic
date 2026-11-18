@@ -65,6 +65,13 @@ function parseFrontmatter(source) {
     if (value === 'true') value = true;
     else if (value === 'false') value = false;
     else if (/^\d+$/.test(value)) value = Number(value);
+    else if (value.startsWith('[')) {
+      try {
+        value = JSON.parse(value);
+      } catch {
+        /* keep string */
+      }
+    }
     data[m[1]] = value;
   }
   return { data, body };
@@ -76,7 +83,8 @@ function estimateReadingMinutes(markdown) {
 
 function isPostFile(name) {
   if (!name.endsWith('.md')) return false;
-  if (name === 'blog-hub.md' || name === 'README.md' || name === 'BLOG-TOPICS.md') return false;
+  if (name === 'blog-hub.md' || name === 'README.md' || name === 'BLOG-TOPICS.md' || name === 'ALT-TEXT.md')
+    return false;
   return true;
 }
 
@@ -125,7 +133,10 @@ function main() {
 
     const slug = String(data.slug).trim();
     const draft = data.draft !== false;
-    const readingMinutes = data.readingMinutes ?? estimateReadingMinutes(body);
+    const readingMinutes =
+      typeof data.readingMinutes === 'number' && data.readingMinutes > 0
+        ? data.readingMinutes
+        : estimateReadingMinutes(body);
     const updated = data.updated || data.date;
 
     const paragraphs = paragraphsFromArticleMarkdown(body);
@@ -146,12 +157,17 @@ function main() {
     posts.push({
       slug,
       title: data.title,
+      metaTitle: data.metaTitle || data.title,
       metaDescription: data.metaDescription,
       date: data.date,
       updated,
       excerpt: data.excerpt,
       heroImage: data.heroImage || '',
       heroImageAlt: data.heroImageAlt || '',
+      cardImage: data.cardImage || '',
+      cardImage2x: data.cardImage2x || '',
+      ogImage: data.ogImage || `/og/blog/${slug}.png`,
+      relatedLinks: Array.isArray(data.relatedLinks) ? data.relatedLinks : [],
       readingMinutes,
       draft,
       articleFile: `${articleBase}.article.json`,
@@ -159,7 +175,20 @@ function main() {
     console.log(`[parse:blog] post ${slug} — draft=${draft}, ${readingMinutes} min read`);
   }
 
-  const published = posts.filter((p) => !p.draft);
+  const HUB_ORDER = [
+    'google-november-core-update-gemini-4-hydrogen',
+    'chatgpt-businesses-business-hub',
+    'google-ai-mode-ads-australia-canada-singapore-uk',
+    'uk-rules-check-cma-asa',
+    'consumer-trends-2027-trust-proof-outcomes',
+  ];
+  const rank = (slug) => {
+    const i = HUB_ORDER.indexOf(slug);
+    return i === -1 ? 999 : i;
+  };
+  const sortPosts = (a, b) => b.date.localeCompare(a.date) || rank(a.slug) - rank(b.slug);
+  const published = posts.filter((p) => !p.draft).sort(sortPosts);
+  posts.sort(sortPosts);
   fs.writeFileSync(
     path.join(BLOG_CONFIG, 'manifest.json'),
     `${JSON.stringify({ posts, publishedCount: published.length }, null, 2)}\n`,

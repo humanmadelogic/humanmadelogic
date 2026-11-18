@@ -21,9 +21,7 @@ export function BlogHubStructuredData() {
 }
 
 export function BlogPostStructuredData({ post }: { post: BlogPostRecord }) {
-  const imageUrl = post.heroImage
-    ? canonicalUrl(post.heroImage)
-    : canonicalUrl(`/og/blog/${post.slug}.png`);
+  const imageUrl = canonicalUrl(post.ogImage || `/og/blog/${post.slug}.png`);
 
   return (
     <JsonLd

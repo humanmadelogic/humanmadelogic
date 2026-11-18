@@ -12,6 +12,7 @@
     "check:contrast": "node scripts/axe-contrast-routes.mjs",
     "check:json-ld": "node scripts/validate-json-ld.mjs",
     "check:blog-rss": "node scripts/validate-blog-rss.mjs",
+    "check:internal-links": "node scripts/check-internal-links.mjs",
     "parse:copy": "node scripts/parse-hml-seo-copy.mjs && node scripts/parse-blog-copy.mjs",
     "mcp": "tsx src/mcp/stdio.ts"
   },

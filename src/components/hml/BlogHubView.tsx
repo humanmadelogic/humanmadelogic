@@ -2,6 +2,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { publishedBlogPosts } from '@/config/blog';
 import { blogPublishedLine } from '@/lib/hml/blogDates';
+import { CopyRichText } from '@/lib/hml/copyRichText';
 import { loadCopyMap } from '@/lib/hml/seoCopyTable';
 import { Breadcrumb } from './Breadcrumb';
 
@@ -17,7 +18,12 @@ export function BlogHubView() {
           <h1 className="text-[10vw] leading-[0.95] tracking-[-0.05em] sm:text-[8vw] lg:text-[56px]">
             {copy['BLOG-H1']}
           </h1>
-          <p className="mt-8 max-w-[62ch] text-[17px] leading-[1.65] text-slate">{copy['BLOG-INTRO']}</p>
+          <p className="mt-8 max-w-[62ch] text-[17px] leading-[1.65] text-slate">
+            <CopyRichText
+              text={copy['BLOG-INTRO']}
+              phraseLinks={[{ phrase: 'Guides', href: '/guides' }]}
+            />
+          </p>
         </div>
       </section>
 
@@ -37,17 +43,17 @@ export function BlogHubView() {
             <ul className="mt-4 grid gap-10 lg:grid-cols-2">
               {posts.map((post) => (
                 <li key={post.slug} className="flex flex-col gap-5">
-                  {post.heroImage ? (
+                  {post.cardImage || post.heroImage ? (
                     <Link
                       href={`/blog/${post.slug}`}
-                      className="block overflow-hidden rounded-[14px] border border-obsidian/10"
+                      className="block aspect-[4/3] overflow-hidden rounded-[14px] border border-obsidian/10"
                     >
                       <Image
-                        src={post.heroImage}
-                        alt={post.heroImageAlt}
+                        src={post.cardImage2x || post.cardImage || post.heroImage}
+                        alt={post.title}
                         width={640}
-                        height={360}
-                        className="h-auto w-full"
+                        height={480}
+                        className="h-full w-full object-cover"
                         sizes="(min-width: 1024px) 28vw, 100vw"
                       />
                     </Link>

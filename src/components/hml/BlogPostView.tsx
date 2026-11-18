@@ -4,6 +4,7 @@ import type { BlogPostRecord } from '@/config/blog';
 import { loadBlogArticle } from '@/lib/hml/blogFullArticle';
 import { blogPublishedLine, blogUpdatedLine } from '@/lib/hml/blogDates';
 import { BlogAuthorNote } from './BlogAuthorNote';
+import { BlogRelatedLinks } from './BlogRelatedLinks';
 import { loadCopyMap } from '@/lib/hml/seoCopyTable';
 import { Breadcrumb } from './Breadcrumb';
 import { GuideArticleProse } from './GuideArticleProse';
@@ -22,13 +23,12 @@ export function BlogPostView({ post }: Props) {
       <article className="pb-8 pt-6">
         <header className="mx-auto max-w-editorial px-5 sm:px-8 lg:px-12">
           {post.heroImage ? (
-            <div className="mb-10 overflow-hidden rounded-[14px] border border-obsidian/10">
+            <div className="relative mb-10 aspect-[1200/630] w-full overflow-hidden rounded-[14px] border border-obsidian/10">
               <Image
                 src={post.heroImage}
                 alt={post.heroImageAlt}
-                width={1200}
-                height={630}
-                className="h-auto w-full"
+                fill
+                className="object-cover"
                 priority
                 sizes="(min-width: 1024px) 720px, 100vw"
               />
@@ -56,6 +56,7 @@ export function BlogPostView({ post }: Props) {
 
         <div className="mx-auto mt-12 min-w-0 max-w-full px-5 sm:max-w-editorial sm:px-8 lg:px-12">
           <GuideArticleProse html={article.html} />
+          <BlogRelatedLinks links={post.relatedLinks ?? []} />
         </div>
 
         <footer className="mx-auto mt-14 max-w-editorial border-t border-obsidian/10 px-5 pt-10 text-[15px] leading-[1.65] text-slate sm:px-8 lg:px-12">

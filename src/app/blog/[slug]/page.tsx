@@ -18,13 +18,13 @@ export function generateMetadata({ params }: PageProps): Metadata {
     return buildMetadata({ title: 'Post not found', description: '', path: `/blog/${params.slug}`, noindex: true });
   }
   return buildMetadata({
-    title: post.title,
+    title: post.metaTitle || post.title,
     description: post.metaDescription,
     path: `/blog/${post.slug}`,
     type: 'article',
     publishedTime: post.date,
     modifiedTime: post.updated,
-    ogImage: post.heroImage || `/og/blog/${post.slug}.png`,
+    ogImage: post.ogImage || `/og/blog/${post.slug}.png`,
   });
 }
 

@@ -39,6 +39,13 @@ const walk = (dir) => {
 };
 
 walk(path.join(root, 'src'));
+const blogManifest = path.join(root, 'src/config/blog/manifest.json');
+if (statSync(blogManifest).isFile()) {
+  const { posts = [] } = JSON.parse(readFileSync(blogManifest, 'utf8'));
+  for (const post of posts) {
+    if (post.ogImage?.startsWith('/')) ogPaths.add(post.ogImage);
+  }
+}
 ogPaths.add('/og/og-default.png');
 
 const missing = [...ogPaths].filter((p) => !files.has(p));

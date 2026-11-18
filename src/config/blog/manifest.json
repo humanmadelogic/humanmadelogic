@@ -1,4 +1,108 @@
 {
-  "posts": [],
-  "publishedCount": 0
+  "posts": [
+    {
+      "slug": "google-november-core-update-gemini-4-hydrogen",
+      "title": "Google's November 2026 core update and Gemini 4 Hydrogen: what founders should do",
+      "metaTitle": "Google's November 2026 core update and Gemini 4 Hydrogen",
+      "metaDescription": "Google's November 2026 core update and Gemini 4 Hydrogen landed two days apart. What changed, why your data is harder to read and what to do now.",
+      "date": "2026-11-18",
+      "updated": "2026-11-18",
+      "excerpt": "Google started its November 2026 core update on 10 November and made Gemini 4 Hydrogen live in Search on 12 November. Here's how to read the overlap without panicking.",
+      "heroImage": "/blog/google-november-core-update-gemini-4-hydrogen-hero.webp",
+      "heroImageAlt": "Two calendar pages for 10 and 12 November pinned to a corkboard, joined by yellow string to a search bar with a question mark",
+      "cardImage": "/blog/cards/google-november-core-update-gemini-4-hydrogen.webp",
+      "cardImage2x": "/blog/cards/google-november-core-update-gemini-4-hydrogen@2x.webp",
+      "ogImage": "/og/blog/google-november-core-update-gemini-4-hydrogen.png",
+      "relatedLinks": [],
+      "readingMinutes": 6,
+      "draft": false,
+      "articleFile": "blog-google-november-core-update-gemini-4-hydrogen.article.json"
+    },
+    {
+      "slug": "chatgpt-businesses-business-hub",
+      "title": "You can now claim a ChatGPT business profile: what it means for small brands",
+      "metaTitle": "ChatGPT business profile: what Business Hub means",
+      "metaDescription": "OpenAI now lets you claim a ChatGPT business profile and see how often you're mentioned. What's live, what's US only and what small brands can do.",
+      "date": "2026-11-18",
+      "updated": "2026-11-18",
+      "excerpt": "OpenAI's new Business Hub lets eligible businesses claim a ChatGPT business profile and see mentions and clicks. Here's what's live outside the US, what isn't and what to do first.",
+      "heroImage": "/blog/chatgpt-businesses-business-hub-hero.webp",
+      "heroImageAlt": "A hand stamping a tick on one yellow business card in a grid of grey cards",
+      "cardImage": "/blog/cards/chatgpt-businesses-business-hub.webp",
+      "cardImage2x": "/blog/cards/chatgpt-businesses-business-hub@2x.webp",
+      "ogImage": "/og/blog/chatgpt-businesses-business-hub.png",
+      "relatedLinks": [],
+      "readingMinutes": 6,
+      "draft": false,
+      "articleFile": "blog-chatgpt-businesses-business-hub.article.json"
+    },
+    {
+      "slug": "google-ai-mode-ads-australia-canada-singapore-uk",
+      "title": "Google AI Mode ads are scaling in Australia, Canada and Singapore, with the UK planned",
+      "metaTitle": "Google AI Mode ads: Australia, Canada, Singapore, UK planned",
+      "metaDescription": "AI Mode ads are scaling in Australia, Canada and Singapore, and Google plans to add the UK in Q4 2026. What changed and what small brands should check now.",
+      "date": "2026-11-18",
+      "updated": "2026-11-18",
+      "excerpt": "Google is scaling ads in AI Mode in Australia, Canada and Singapore, and plans to add the UK in Q4 2026. Here's what changed and what to check before you spend.",
+      "heroImage": "/blog/google-ai-mode-ads-australia-canada-singapore-uk-hero.webp",
+      "heroImageAlt": "Ad tags hanging on a line, three filled and one dotted outline still to come",
+      "cardImage": "/blog/cards/google-ai-mode-ads-australia-canada-singapore-uk.webp",
+      "cardImage2x": "/blog/cards/google-ai-mode-ads-australia-canada-singapore-uk@2x.webp",
+      "ogImage": "/og/blog/google-ai-mode-ads-australia-canada-singapore-uk.png",
+      "relatedLinks": [
+        {
+          "href": "/services/performance-marketing",
+          "label": "Performance marketing"
+        },
+        {
+          "href": "/services/seo-aeo-geo",
+          "label": "SEO, AEO and GEO"
+        },
+        {
+          "href": "/kits/local-domination-kit",
+          "label": "Local Domination Kit"
+        }
+      ],
+      "readingMinutes": 6,
+      "draft": false,
+      "articleFile": "blog-google-ai-mode-ads-australia-canada-singapore-uk.article.json"
+    },
+    {
+      "slug": "uk-rules-check-cma-asa",
+      "title": "UK rules check: what the CMA and ASA are cracking down on right now",
+      "metaTitle": "UK rules check: CMA and ASA on reviews, prices and claims",
+      "metaDescription": "The CMA can now fine firms directly and the ASA uses AI to find misleading ads. What UK small brands need to check on reviews, pricing and green claims.",
+      "date": "2026-11-18",
+      "updated": "2026-11-18",
+      "excerpt": "The UK's consumer and advertising regulators have been clear about what they're watching: prices, discounts, reviews, subscriptions and green claims. Here's what they've said, in plain English, and what it means for a small brand.",
+      "heroImage": "/blog/uk-rules-check-cma-asa-hero.webp",
+      "heroImageAlt": "A five-star review card with one star peeling off, beside a price tag with a hidden fee folded underneath",
+      "cardImage": "/blog/cards/uk-rules-check-cma-asa.webp",
+      "cardImage2x": "/blog/cards/uk-rules-check-cma-asa@2x.webp",
+      "ogImage": "/og/blog/uk-rules-check-cma-asa.png",
+      "relatedLinks": [],
+      "readingMinutes": 5,
+      "draft": false,
+      "articleFile": "blog-uk-rules-check-cma-asa.article.json"
+    },
+    {
+      "slug": "consumer-trends-2027-trust-proof-outcomes",
+      "title": "Consumer trends 2027: what new research means for beauty brands",
+      "metaTitle": "Consumer trends 2027: trust, proof and outcomes for brands",
+      "metaDescription": "New 2027 research from Kearney, Euromonitor, Mintel and McKinsey points to trust, proof and outcomes. What it means for small brands, especially beauty.",
+      "date": "2026-11-18",
+      "updated": "2026-11-18",
+      "excerpt": "The 2027 consumer trends reports agree on more than you'd expect: beauty is merging with wellness, shoppers want proof over brand names and AI is starting to shape the shortlist. Here's what that means for a small beauty brand.",
+      "heroImage": "/blog/consumer-trends-2027-trust-proof-outcomes-hero.webp",
+      "heroImageAlt": "Unbranded skincare dropper, jar, pouch and a candle in a bright flat-lay, with a small bowl and a closed report with a yellow tab",
+      "cardImage": "/blog/cards/consumer-trends-2027-trust-proof-outcomes.webp",
+      "cardImage2x": "/blog/cards/consumer-trends-2027-trust-proof-outcomes@2x.webp",
+      "ogImage": "/og/blog/consumer-trends-2027-trust-proof-outcomes.png",
+      "relatedLinks": [],
+      "readingMinutes": 6,
+      "draft": false,
+      "articleFile": "blog-consumer-trends-2027-trust-proof-outcomes.article.json"
+    }
+  ],
+  "publishedCount": 5
 }
