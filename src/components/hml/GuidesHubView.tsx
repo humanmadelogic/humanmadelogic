@@ -3,6 +3,8 @@ import Link from 'next/link';
 import { indexableGuides } from '@/config/guides';
 import { kitsAiVisibilityCta } from '@/config/kits-cta';
 import { guideUpdatedLine } from '@/lib/hml/guideDates';
+import { guideReadingMinutesLabel } from '@/lib/hml/guideReadingTime';
+import type { GuideDefinition } from '@/config/guides/types';
 import { loadCopyMap } from '@/lib/hml/seoCopyTable';
 import { Breadcrumb } from './Breadcrumb';
 import { HmlCtaBand } from './HmlCtaBand';
@@ -66,12 +68,12 @@ export function GuidesHubView() {
                     />
                   </Link>
                   <GuideCardMeta
+                    guide={guide}
                     tag={copy[`GUIDES-CARD-${cardKey}-TAG`]}
                     title={copy[`GUIDES-CARD-${cardKey}-TITLE`]}
                     line={copy[`GUIDES-CARD-${cardKey}-LINE`]}
                     author={copy[`GUIDES-CARD-${cardKey}-AUTHOR`]}
                     updated={updated}
-                    slug={guide.slug}
                   />
                 </li>
               );
@@ -108,32 +110,33 @@ export function GuidesHubView() {
 }
 
 function GuideCardMeta({
+  guide,
   tag,
   title,
   line,
   author,
   updated,
-  slug,
 }: {
+  guide: GuideDefinition;
   tag: string;
   title: string;
   line: string;
   author: string;
   updated: string;
-  slug: string;
 }) {
+  const reading = guideReadingMinutesLabel(guide);
+  const metaLine = [author, updated, reading].filter(Boolean).join(' · ');
+
   return (
     <div>
       <p className="text-[12px] uppercase tracking-[0.16em] text-slate">{tag}</p>
       <h3 className="mt-2 text-[22px] tracking-[-0.03em]">
-        <Link href={`/guides/${slug}`} className="hover:underline">
+        <Link href={`/guides/${guide.slug}`} className="hover:underline">
           {title}
         </Link>
       </h3>
       <p className="mt-2 text-[15px] leading-[1.6] text-slate">{line}</p>
-      <p className="mt-4 text-[13px] text-slate">
-        {author} · {updated}
-      </p>
+      <p className="mt-4 text-[13px] text-slate">{metaLine}</p>
     </div>
   );
 }

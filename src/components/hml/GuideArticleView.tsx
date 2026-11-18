@@ -4,6 +4,7 @@ import { kitsAiVisibilityCta } from '@/config/kits-cta';
 import { contactHref } from '@/lib/hml/contactTopics';
 import { guideUpdatedLine } from '@/lib/hml/guideDates';
 import { guideFullArticle } from '@/lib/hml/guideFullArticle';
+import { guideReadingMinutesLabel } from '@/lib/hml/guideReadingTime';
 import { pageTitleFromCopy } from '@/lib/hml/seoCopyMeta';
 import { loadCopyMap } from '@/lib/hml/seoCopyTable';
 import { Breadcrumb } from './Breadcrumb';
@@ -18,11 +19,7 @@ export function GuideArticleView({ guide }: Props) {
   const { prefix } = guide;
   const updated = guideUpdatedLine(guide.publishedAt, copy[`${prefix}-UPDATED`]);
   const article = guideFullArticle(guide.slug);
-  const reading =
-    guide.readingMinutes && !copy[`GUIDES-CARD-G1-TIME`]?.includes('Jeff')
-      ? `${guide.readingMinutes} min read`
-      : copy[`GUIDES-CARD-${guide.hubCardKey}-TIME`]?.replace(/\[Reading time:\s*/i, '').replace(/\]$/, '') ??
-        undefined;
+  const reading = guideReadingMinutesLabel(guide);
 
   if (!article) {
     throw new Error(`Missing full article artifact for guide slug "${guide.slug}". Run npm run parse:copy.`);
@@ -51,12 +48,10 @@ export function GuideArticleView({ guide }: Props) {
           </p>
           <p className="mt-1 text-[14px] text-slate">{copy[`${prefix}-REVIEWED`]}</p>
           <p className="mt-1 text-[14px] text-slate">{updated}</p>
-          {reading && !reading.includes('Jeff') ? (
-            <p className="mt-1 text-[14px] text-slate">{reading}</p>
-          ) : null}
+          {reading ? <p className="mt-1 text-[14px] text-slate">{reading}</p> : null}
         </header>
 
-        <div className="mx-auto mt-12 max-w-editorial px-5 sm:px-8 lg:px-12">
+        <div className="mx-auto mt-12 min-w-0 max-w-full px-5 sm:max-w-editorial sm:px-8 lg:px-12">
           <GuideArticleProse html={article.html} />
         </div>
       </article>

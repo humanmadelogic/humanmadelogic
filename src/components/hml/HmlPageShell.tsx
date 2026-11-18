@@ -31,7 +31,7 @@ export function HmlPageShell({ children }: { children: React.ReactNode }) {
       </a>
       <SiteHeader />
       <div aria-hidden="true" className="fixed inset-0 z-0 bg-paper" />
-      <main id="main" className="hml relative z-10">
+      <main id="main" className="hml relative z-10 min-w-0 max-w-[100vw] overflow-x-clip">
         {children}
       </main>
       <div className="relative z-10">
