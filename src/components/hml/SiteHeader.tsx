@@ -81,12 +81,11 @@ export function SiteHeader() {
       <div
         aria-hidden={!showFull}
         {...(!showFull ? { inert: true } : {})}
-        hidden={!showFull}
-        className={`mx-auto flex max-w-editorial items-center justify-between gap-6 bg-paper px-5 py-5 sm:px-8 lg:px-12 ${
-          showFull ? 'pointer-events-auto' : 'hidden'
+        className={`hml-header-bar mx-auto flex max-w-editorial items-center justify-between gap-6 bg-paper px-5 py-5 sm:px-8 lg:px-12 ${
+          showFull ? 'pointer-events-auto opacity-100' : 'hidden pointer-events-none opacity-0'
         }`}
       >
-        <HeaderHomeLink href={wordmarkHref} priority homeAnchor={home} />
+        <HeaderHomeLink href={wordmarkHref} preset="full" priority />
 
         <nav aria-label="Primary" className="hidden items-center gap-8 lg:flex">
           {agency.nav.map((item) => (
@@ -126,19 +125,18 @@ export function SiteHeader() {
       <div
         aria-hidden={!showCondensed}
         {...(!showCondensed ? { inert: true } : {})}
-        hidden={!showCondensed}
-        className={`absolute right-5 top-4 flex max-w-[calc(100%-2.5rem)] items-center gap-1 rounded-full border border-obsidian/10 bg-paper p-1.5 text-obsidian shadow-[0_10px_40px_-18px_rgba(21,21,21,0.5)] sm:right-8 sm:max-w-none lg:right-12 ${
-          showCondensed ? 'pointer-events-auto' : 'hidden'
+        className={`hml-header-bar hml-condensed-pill absolute right-5 top-4 flex max-w-[calc(100%-2.5rem)] items-center gap-1 rounded-full p-1.5 text-obsidian sm:right-8 sm:max-w-none lg:right-12 ${
+          showCondensed ? 'pointer-events-auto opacity-100' : 'pointer-events-none opacity-0'
         }`}
       >
-        <HeaderHomeLink href={wordmarkHref} compact priority homeAnchor={home} />
+        <HeaderHomeLink href={wordmarkHref} preset="condensed" priority />
 
         <nav aria-label="Primary, condensed" className="hidden items-center gap-1 lg:flex">
           {agency.nav.map((item) => (
             <a
               key={item.label}
               href={item.href}
-              className="inline-flex min-h-[44px] items-center rounded-full px-3 py-2 text-[13px] text-obsidian/75 transition-colors hover:bg-obsidian/[0.06] hover:text-obsidian"
+              className="inline-flex min-h-[44px] items-center rounded-full px-3 py-2 text-[13px] font-medium text-obsidian transition-colors hover:bg-obsidian/[0.08] hover:text-obsidian"
             >
               {item.label}
             </a>
@@ -147,7 +145,7 @@ export function SiteHeader() {
 
         <a
           href={agency.cta.href}
-            className="hidden min-h-[44px] items-center rounded-full bg-obsidian px-4 text-[13px] font-medium text-paper transition-colors hover:bg-obsidian/85 lg:inline-flex"
+          className="hidden min-h-[44px] items-center rounded-full bg-obsidian px-4 text-[13px] font-medium text-paper shadow-sm transition-colors hover:bg-obsidian/90 lg:inline-flex"
         >
           {agency.cta.label}
         </a>
@@ -157,7 +155,7 @@ export function SiteHeader() {
           onClick={openMenu}
           aria-expanded={menuOpen}
           aria-controls="hml-menu"
-          className="inline-flex min-h-[44px] min-w-[44px] items-center justify-center rounded-full border border-obsidian/15 px-4 text-[13px] text-obsidian lg:hidden"
+          className="inline-flex min-h-[44px] min-w-[44px] items-center justify-center rounded-full border border-obsidian/20 bg-white/50 px-4 text-[13px] font-medium text-obsidian lg:hidden"
         >
           Menu
         </button>
