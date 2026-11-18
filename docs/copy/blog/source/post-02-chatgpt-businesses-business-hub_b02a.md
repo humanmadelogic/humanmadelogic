@@ -26,7 +26,7 @@ Writer: Lila. Drafted Wed 18 Nov 2026 for Pamala (QA). Topic: BACKUP-TOPICS.md s
 
 # You can now claim a ChatGPT business profile: what it means for small brands
 
-**By Rowan Blake**
+By Rowan Blake
 Reviewed by Kuntal Khanapurkar, Founder
 Published: [TBC: publish date]
 

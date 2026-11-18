@@ -3,7 +3,11 @@ import Link from 'next/link';
 import type { BlogPostRecord } from '@/config/blog';
 import { loadBlogArticle } from '@/lib/hml/blogFullArticle';
 import { blogPublishedLine, blogUpdatedLine } from '@/lib/hml/blogDates';
+import { splitAfterParagraphs, splitBeforeSources } from '@/lib/hml/splitBlogArticleHtml';
 import { BlogAuthorNote } from './BlogAuthorNote';
+import { BlogFaqSection } from './BlogFaqSection';
+import { BlogKeyPoints } from './BlogKeyPoints';
+import { BlogRelatedLinks } from './BlogRelatedLinks';
 import { loadCopyMap } from '@/lib/hml/seoCopyTable';
 import { Breadcrumb } from './Breadcrumb';
 import { GuideArticleProse } from './GuideArticleProse';
@@ -13,6 +17,9 @@ type Props = { post: BlogPostRecord };
 export function BlogPostView({ post }: Props) {
   const copy = loadCopyMap('blog-hub.json');
   const article = loadBlogArticle(post);
+  const { beforeSources, sources } = splitBeforeSources(article.html);
+  const keyPointsAfter = post.keyPointsAfter > 0 ? post.keyPointsAfter : 1;
+  const { intro, rest } = splitAfterParagraphs(beforeSources, keyPointsAfter);
   const breadcrumb = `Home > Blog > ${post.title}`;
   const reading = `${post.readingMinutes} min read`;
 
@@ -54,7 +61,12 @@ export function BlogPostView({ post }: Props) {
         </header>
 
         <div className="mx-auto mt-12 min-w-0 max-w-full px-5 sm:max-w-editorial sm:px-8 lg:px-12">
-          <GuideArticleProse html={article.html} />
+          {intro ? <GuideArticleProse html={intro} /> : null}
+          <BlogKeyPoints points={post.keyPoints ?? []} />
+          {rest ? <GuideArticleProse html={rest} /> : null}
+          <BlogFaqSection faqs={post.faqs ?? []} />
+          <BlogRelatedLinks links={post.relatedLinks ?? []} />
+          {sources ? <GuideArticleProse html={sources} /> : null}
         </div>
 
         <footer className="mx-auto mt-14 max-w-editorial border-t border-obsidian/10 px-5 pt-10 text-[15px] leading-[1.65] text-slate sm:px-8 lg:px-12">

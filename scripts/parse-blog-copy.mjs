@@ -9,6 +9,10 @@ import {
   renderArticleHtml,
   wordCount,
 } from './lib/extract-full-article.mjs';
+import {
+  blogSeoFieldsFromFrontmatter,
+  parseBlogFrontmatterFromSource,
+} from './lib/parse-blog-frontmatter-fields.mjs';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.join(__dirname, '..');
@@ -52,29 +56,11 @@ function parseCopyTable(markdown) {
 }
 
 function parseFrontmatter(source) {
-  if (!source.startsWith('---\n')) return null;
+  const parsed = parseBlogFrontmatterFromSource(source);
+  if (!parsed) return null;
   const end = source.indexOf('\n---\n', 4);
-  if (end < 0) return null;
-  const yaml = source.slice(4, end);
   const body = source.slice(end + 5).trim();
-  const data = {};
-  for (const line of yaml.split('\n')) {
-    const m = line.match(/^([\w-]+):\s*(.*)$/);
-    if (!m) continue;
-    let value = m[2].trim();
-    if (value === 'true') value = true;
-    else if (value === 'false') value = false;
-    else if (/^\d+$/.test(value)) value = Number(value);
-    else if (value.startsWith('[')) {
-      try {
-        value = JSON.parse(value);
-      } catch {
-        /* keep string */
-      }
-    }
-    data[m[1]] = value;
-  }
-  return { data, body };
+  return { data: parsed, body };
 }
 
 function estimateReadingMinutes(markdown) {
@@ -143,6 +129,7 @@ function main() {
     }
     const { data, body } = parsed;
     validatePost(data, name);
+    const seoFields = blogSeoFieldsFromFrontmatter(data);
 
     const slug = String(data.slug).trim();
     const draft = data.draft !== false;
@@ -180,7 +167,14 @@ function main() {
       cardImage: data.cardImage || '',
       cardImage2x: data.cardImage2x || '',
       ogImage: data.ogImage || `/og/blog/${slug}.png`,
-      relatedLinks: Array.isArray(data.relatedLinks) ? data.relatedLinks : [],
+      keyPoints: seoFields.keyPoints,
+      keyPointsAfter:
+        typeof data.keyPointsAfter === 'number' && data.keyPointsAfter > 0
+          ? data.keyPointsAfter
+          : 1,
+      faqs: seoFields.faqs,
+      relatedLinks: seoFields.relatedLinks,
+      hmlOneLiner: seoFields.hmlOneLiner,
       readingMinutes,
       draft,
       articleFile: `${articleBase}.article.json`,
