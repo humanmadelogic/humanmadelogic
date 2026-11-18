@@ -520,10 +520,12 @@ export function aiVisibilityCheckPageGraph({
   name,
   description,
   webDescription,
+  imageUrl,
 }: {
   name: string;
   description: string;
   webDescription: string;
+  imageUrl?: string;
 }) {
   const path = '/ai-visibility-check';
   const url = canonicalUrl(path);
@@ -560,6 +562,16 @@ export function aiVisibilityCheckPageGraph({
         about: { '@id': serviceId },
         breadcrumb: { '@id': pageId(path, 'breadcrumb') },
         inLanguage: siteConfig.locale,
+        ...(imageUrl
+          ? {
+              primaryImageOfPage: {
+                '@type': 'ImageObject',
+                url: imageUrl,
+                width: 1200,
+                height: 630,
+              },
+            }
+          : {}),
       },
       breadcrumbNode(path, [
         { name: 'Home', path: '/' },

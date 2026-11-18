@@ -1,4 +1,6 @@
+import Image from 'next/image';
 import Link from 'next/link';
+import { AvcSectionImage } from '@/components/hml/AvcSectionImage';
 import { CopyRichText } from '@/lib/hml/copyRichText';
 import { faqItemsFromCopy } from '@/lib/hml/seoCopyMeta';
 import { loadCopyMap } from '@/lib/hml/seoCopyTable';
@@ -19,6 +21,12 @@ const chatgptPhraseLinks = [
 ];
 
 const contactFallbackHref = contactHref('Free AI visibility check');
+
+const AVC_HERO_ALT =
+  'Four plain observation cards for ChatGPT, Perplexity, Google AI Overviews and Gemini, with a pencil and no scores';
+const AVC_WHAT_ALT =
+  'A sample report card with an empty scorecard, a top five fixes list and an evidence log';
+const AVC_HOW_ALT = 'A timeline strip from complete intake to 3 working days to your report';
 
 export function AiVisibilityCheckView({ formEnabled }: { formEnabled: boolean }) {
   const copy = loadCopyMap('ai-visibility-check.json');
@@ -42,10 +50,34 @@ export function AiVisibilityCheckView({ formEnabled }: { formEnabled: boolean })
             </Link>
           </div>
           <p className="mt-4 max-w-[52ch] text-[14px] leading-[1.55] text-slate">{copy['AVC-HERO-MICRO']}</p>
+          <div className="mt-10 w-full max-w-full overflow-hidden rounded-[14px] border border-obsidian/10">
+            <Image
+              src="/images/ai-visibility-check/avc-hero.webp"
+              alt={AVC_HERO_ALT}
+              width={1600}
+              height={900}
+              priority
+              fetchPriority="high"
+              sizes="(max-width: 768px) 100vw, min(1120px, 100%)"
+              className="h-auto w-full max-w-full"
+            />
+          </div>
         </div>
       </section>
 
-      <Answer heading={copy['AVC-WHAT-H2']} lead={copy['AVC-WHAT-A']} body={copy['AVC-WHAT-BODY']} />
+      <section className="py-14">
+        <div className="mx-auto max-w-editorial px-5 sm:px-8 lg:px-12">
+          <h2 className="text-[30px] tracking-[-0.03em]">{copy['AVC-WHAT-H2']}</h2>
+          <p className="mt-6 max-w-[62ch] text-[17px] leading-[1.65] text-slate">{copy['AVC-WHAT-A']}</p>
+          <p className="mt-4 max-w-[62ch] text-[16px] leading-[1.65] text-slate">{copy['AVC-WHAT-BODY']}</p>
+          <AvcSectionImage
+            basename="avc-what-you-get"
+            width={1200}
+            height={900}
+            alt={AVC_WHAT_ALT}
+          />
+        </div>
+      </section>
 
       <Answer heading={copy['AVC-CHATGPT-H2']} lead={copy['AVC-CHATGPT-A']}>
         <CopyRichText
@@ -68,7 +100,19 @@ export function AiVisibilityCheckView({ formEnabled }: { formEnabled: boolean })
         </div>
       </section>
 
-      <Answer heading={copy['AVC-HOW-H2']} lead={copy['AVC-HOW-A']} body={copy['AVC-HOW-STEPS']} />
+      <section className="py-14">
+        <div className="mx-auto max-w-editorial px-5 sm:px-8 lg:px-12">
+          <h2 className="text-[30px] tracking-[-0.03em]">{copy['AVC-HOW-H2']}</h2>
+          <p className="mt-6 max-w-[62ch] text-[17px] leading-[1.65] text-slate">{copy['AVC-HOW-A']}</p>
+          <p className="mt-4 max-w-[62ch] text-[16px] leading-[1.65] text-slate">{copy['AVC-HOW-STEPS']}</p>
+          <AvcSectionImage
+            basename="avc-how-it-works"
+            width={1200}
+            height={450}
+            alt={AVC_HOW_ALT}
+          />
+        </div>
+      </section>
 
       <section className="py-14">
         <div className="mx-auto max-w-editorial px-5 sm:px-8 lg:px-12">
