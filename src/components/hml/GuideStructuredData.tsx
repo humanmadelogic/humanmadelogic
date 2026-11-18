@@ -11,7 +11,7 @@ import { ServiceFaqStructuredData } from './ServiceFaqStructuredData';
 
 export function GuideStructuredData({ guide }: { guide: GuideDefinition }) {
   const copy = loadCopyMap(guide.copyFile);
-  const dates = guideIsoDates(guide.publishedAt);
+  const dates = guideIsoDates(guide.publishedAt, guide.updatedAt);
   const path = `/guides/${guide.slug}`;
   const imageUrl = new URL(guide.ogImage, siteConfig.url).toString();
   const faqItems = faqItemsFromCopy(copy, { prefix: guide.prefix, max: 8 });

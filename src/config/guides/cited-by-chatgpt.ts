@@ -9,5 +9,7 @@ export const citedByChatgptGuide: GuideDefinition = {
   hubCardKey: 'G2',
   pillar: 'GUIDES-PILLAR-SEARCH-NAME',
   ogImage: '/og/guides/og-how-to-get-your-brand-cited-by-chatgpt.png',
+  publishedAt: '2026-11-18',
+  updatedAt: '2026-11-18',
   readingMinutes: 12,
 };

@@ -9,6 +9,8 @@ export const seoVsAeoVsGeoGuide: GuideDefinition = {
   hubCardKey: 'G1',
   pillar: 'GUIDES-PILLAR-SEARCH-NAME',
   ogImage: '/og/guides/og-guide-seo-vs-aeo-vs-geo.png',
+  publishedAt: '2026-11-18',
+  updatedAt: '2026-11-18',
   readingMinutes: 9,
   about: [
     { name: 'Search engine optimisation' },

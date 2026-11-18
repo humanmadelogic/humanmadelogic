@@ -15,15 +15,17 @@ export function guideUpdatedLine(publishedAt: string | undefined, copyLine: stri
   return copyLine;
 }
 
-export function guideIsoDates(publishedAt?: string): {
+export function guideIsoDates(publishedAt?: string, updatedAt?: string): {
   datePublished?: string;
   dateModified?: string;
   lastReviewed?: string;
 } {
-  if (!publishedAt) return {};
+  if (!publishedAt && !updatedAt) return {};
+  const modified = updatedAt ?? publishedAt;
+  const published = publishedAt ?? updatedAt;
   return {
-    datePublished: publishedAt,
-    dateModified: publishedAt,
-    lastReviewed: publishedAt,
+    datePublished: published,
+    dateModified: modified,
+    lastReviewed: modified,
   };
 }
